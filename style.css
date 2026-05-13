@@ -8,8 +8,14 @@
 }
 
 body {
-    background-color: #0d1a14; /* Dark green background */
-    font-family: 'Rubik', sans-serif; /* Applies Rubik font site-wide */
+    /* Background Image Setup */
+    background-image: linear-gradient(rgba(13, 26, 20, 0.6), rgba(13, 26, 20, 0.6)), url('background.jpg');
+    background-size: cover;                  /* Fills the whole screen */
+    background-position: center;             /* Centers the image */
+    background-repeat: no-repeat;            /* Stops tiling */
+    background-attachment: fixed;            /* Keeps background steady while scrolling */
+    
+    font-family: 'Rubik', sans-serif;        /* Applies Rubik font site-wide */
     color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -24,12 +30,13 @@ body {
 .navbar {
     width: 100%;
     max-width: 1100px;
-    background-color: #799a82; /* Light sage green header */
+    background-color: rgba(121, 154, 130, 0.9); /* Slightly transparent sage green */
+    backdrop-filter: blur(5px);                  /* Smooth glass effect over background */
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 12px 30px;
-    border-radius: 100px; /* Capsule shape */
+    border-radius: 100px;                        /* Capsule shape */
     margin-bottom: 40px;
 }
 
@@ -81,11 +88,12 @@ body {
 .profile-card {
     width: 100%;
     max-width: 1100px;
-    background-color: #2b5740; /* Main forest green card */
+    background-color: rgba(43, 87, 64, 0.95); /* Main forest green card with slight transparency */
+    backdrop-filter: blur(10px);
     border-radius: 32px;
     padding: 40px;
     display: grid;
-    grid-template-columns: 280px 1fr; /* Sidebar on left, contents on right */
+    grid-template-columns: 280px 1fr;         /* Sidebar on left, contents on right */
     gap: 40px;
 }
 
@@ -99,8 +107,8 @@ body {
 .main-avatar img {
     width: 100%;
     aspect-ratio: 1 / 1;
-    object-fit: cover; /* Prevents GIF stretching */
-    background-color: #a4f4b5; /* Light mint background behind avatar */
+    object-fit: cover;                       /* Prevents GIF stretching */
+    background-color: #a4f4b5;               /* Light mint background behind avatar */
     border-radius: 24px;
 }
 
@@ -122,7 +130,7 @@ body {
 .bio-content {
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Pushes the community box to the absolute bottom */
+    justify-content: space-between;          /* Pushes the community box to the bottom */
 }
 
 .bio-content h1 {
@@ -137,7 +145,7 @@ body {
     font-size: 1.35rem;
     line-height: 1.4;
     font-weight: 500;
-    text-align: center; /* Centers text like mockup */
+    text-align: center;                      /* Centers text like mockup */
     max-width: 720px;
     margin: 0 auto 40px auto;
 }
@@ -151,14 +159,14 @@ body {
    4. COMMUNITY BANNER BUTTON
    ========================================== */
 .community-banner {
-    background-color: #18191a; /* Dark gray/black background */
+    background-color: #18191a;               /* Dark gray/black background */
     border-radius: 24px;
     padding: 25px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    text-decoration: none; /* Removes automatic link underline */
+    text-decoration: none;                   /* Removes automatic link underline */
     color: #ffffff;
     cursor: pointer;
     transition: transform 0.2s ease, background-color 0.2s ease;
@@ -187,13 +195,13 @@ body {
     justify-content: center;
     border-radius: 50%;
     line-height: 0;
-    padding-bottom: 10px; /* Visually aligns the wavy icon centering */
+    padding-bottom: 10px;                    /* Visually aligns the wavy icon centering */
 }
 
 /* Responsive adjustments for smaller screens/tablets */
 @media (max-width: 850px) {
     .profile-card {
-        grid-template-columns: 1fr; /* Stacks layout vertically if screen is narrow */
+        grid-template-columns: 1fr;          /* Stacks layout vertically if screen is narrow */
     }
     .bio-content h1 {
         font-size: 3.5rem;
