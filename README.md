@@ -1,4 +1,4 @@
-## this is the website for [MintoFox](https://github.com/MintoFox) made by [Riley {Silly}](https://github.com/Riley-VM)
+## this is the website for @MintoFox made by @Ri
 
 
 *purrrr... purrrrr... purrr.... purr... purrrrrrrr..*
