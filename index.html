@@ -934,31 +934,29 @@ window.deleteAccount=async()=>{
   const pw=document.getElementById('delete-password').value;
   if(confirmText!=='DELETE')return showErr('delete-err','type DELETE exactly');
   if(!pw)return showErr('delete-err','enter your password');
-  // re-auth first to verify password
-  const{error:authErr}=await sb.auth.signInWithPassword({email:currentUser.email,password:pw});
+  // sign in to verify password — use the token directly from this response
+  const{data:authData,error:authErr}=await sb.auth.signInWithPassword({email:currentUser.email,password:pw});
   if(authErr)return showErr('delete-err','wrong password');
-  // get fresh session token AFTER re-auth
-  const{data:{session}}=await sb.auth.getSession();
-  if(!session)return showErr('delete-err','session expired, please log out and back in');
-  console.log('got session token, calling edge function...');
-  // delete data first
+  const token=authData?.session?.access_token;
+  if(!token)return showErr('delete-err','could not get session token');
+  console.log('got token, role should be authenticated. calling edge function...');
+  // delete data
   await sb.from('replies').delete().eq('author_id',currentUser.id);
   await sb.from('posts').delete().eq('author_id',currentUser.id);
   await sb.from('profiles').delete().eq('id',currentUser.id);
-  // call edge function to delete auth user
-  console.log('calling:', 'https://lmupyrjmsupdvxcewbhy.supabase.co/functions/v1/delete-user');
+  // call edge function with token straight from signInWithPassword
   const res=await fetch('https://lmupyrjmsupdvxcewbhy.supabase.co/functions/v1/delete-user',{
     method:'POST',
     headers:{
-      'Authorization':'Bearer '+session.access_token,
+      'Authorization':'Bearer '+token,
       'Content-Type':'application/json',
     }
   });
-  console.log('edge function response status:', res.status);
+  console.log('edge function status:', res.status);
   if(!res.ok){
     const txt=await res.text();
     console.error('edge function error:', txt);
-    return showErr('delete-err','edge function error: '+txt);
+    return showErr('delete-err','error: '+txt);
   }
   await sb.auth.signOut();
   showToast('account deleted. take care 🌿');
