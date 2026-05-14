@@ -1,7 +1,3 @@
-
-Mintofox · HTML
-Copy
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +10,7 @@ Copy
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
 body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse 60% 40% at 20% 80%,rgba(79,201,126,.12) 0%,transparent 60%),radial-gradient(ellipse 50% 60% at 85% 15%,rgba(79,201,126,.08) 0%,transparent 55%);}
- 
+
 /* NAV */
 nav{display:flex;align-items:center;padding:0 2rem;height:70px;background:rgba(15,35,25,.92);backdrop-filter:blur(12px);border-bottom:2px solid rgba(79,201,126,.2);position:sticky;top:0;z-index:200;}
 .nav-brand{display:flex;align-items:center;gap:.6rem;font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--mint-light);margin-right:auto;cursor:pointer;text-decoration:none;}
@@ -32,18 +28,18 @@ nav{display:flex;align-items:center;padding:0 2rem;height:70px;background:rgba(1
 .notif-btn:hover{background:rgba(79,201,126,.15);}
 .notif-badge{position:absolute;top:-4px;right:-4px;background:#ef4444;color:#fff;font-size:.65rem;font-weight:900;border-radius:100px;min-width:18px;height:18px;display:flex;align-items:center;justify-content:center;padding:0 4px;border:2px solid var(--bg);}
 .notif-badge.hidden{display:none;}
- 
+
 /* PAGES */
 .page{display:none;}
 .page.active{display:block;animation:fadeIn .3s ease both;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
- 
+
 main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex-direction:column;gap:1.5rem;}
- 
+
 /* CARDS */
 .card{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:18px;padding:1.6rem 1.8rem;box-shadow:0 4px 20px var(--shadow);}
 .card-title{font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--mint-light);margin-bottom:1rem;}
- 
+
 /* BUTTONS */
 .btn{padding:.55rem 1.3rem;border-radius:10px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer;border:none;transition:filter .2s,transform .15s;}
 .btn:hover{filter:brightness(1.1);transform:translateY(-1px);}
@@ -54,7 +50,7 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex
 .btn-red:hover{background:rgba(239,68,68,.2);}
 .btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
 .btn-full{width:100%;padding:.75rem;font-size:1rem;border-radius:12px;margin-top:.5rem;}
- 
+
 /* FORMS */
 .form-group{margin-bottom:1rem;}
 .form-group label{display:block;font-weight:800;font-size:.85rem;color:var(--mint-light);margin-bottom:.4rem;}
@@ -65,7 +61,7 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex
 .form-group textarea{resize:vertical;min-height:90px;}
 .msg-err{background:rgba(239,68,68,.12);border:1.5px solid rgba(239,68,68,.3);color:var(--red);border-radius:10px;padding:.7rem 1rem;font-size:.88rem;font-weight:700;margin-bottom:1rem;display:none;}
 .msg-ok{background:rgba(79,201,126,.12);border:1.5px solid rgba(79,201,126,.3);color:var(--mint-light);border-radius:10px;padding:.7rem 1rem;font-size:.88rem;font-weight:700;margin-bottom:1rem;display:none;}
- 
+
 /* HOME */
 .hero-card{background:linear-gradient(135deg,var(--mint-panel) 0%,#1e4d38 100%);border:1.5px solid rgba(79,201,126,.3);border-radius:20px;padding:2rem 2.5rem;display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start;box-shadow:0 8px 32px var(--shadow);}
 .avatar-img{width:200px;height:200px;border-radius:18px;object-fit:cover;border:3px solid rgba(79,201,126,.5);box-shadow:0 4px 20px rgba(0,0,0,.4);display:block;}
@@ -90,11 +86,11 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex
 .tag-pink{background:rgba(247,143,179,.1);border-color:rgba(247,143,179,.35);color:var(--pink);}
 .tag-purple{background:rgba(179,157,219,.1);border-color:rgba(179,157,219,.35);color:var(--purple);}
 .tag-gold{background:rgba(245,200,66,.1);border-color:rgba(245,200,66,.35);color:var(--accent);}
- 
+
 /* FORUMS */
 .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;}
 .page-title{font-family:'Fredoka One',cursive;font-size:2.2rem;color:var(--mint-light);}
- 
+
 /* SEARCH BAR */
 .search-bar{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:16px;padding:1.2rem 1.4rem;display:flex;flex-direction:column;gap:.9rem;box-shadow:0 4px 16px var(--shadow);}
 .search-row{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;}
@@ -113,7 +109,7 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex
 .sort-select option{background:#1f5238;}
 .search-clear{background:rgba(79,201,126,.08);border:1.5px solid rgba(79,201,126,.2);color:var(--mint-light);border-radius:8px;padding:.5rem .9rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer;transition:background .2s;white-space:nowrap;}
 .search-clear:hover{background:rgba(79,201,126,.15);}
- 
+
 /* FORUM CATEGORIES */
 .forum-categories{display:flex;flex-direction:column;gap:1rem;}
 .forum-category{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:16px;overflow:hidden;box-shadow:0 4px 16px var(--shadow);}
@@ -138,18 +134,18 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex
 .thread-action-btn.del{border-color:rgba(239,68,68,.2);color:var(--red);}
 .thread-action-btn.del:hover{background:rgba(239,68,68,.15);}
 .forum-empty{padding:2rem;text-align:center;color:rgba(232,254,242,.35);font-weight:700;font-size:.95rem;}
- 
+
 /* EXPANDABLE THREAD LIST */
 .thread-list-scroll{max-height:340px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(79,201,126,.3) transparent;}
 .thread-list-scroll::-webkit-scrollbar{width:6px;}
 .thread-list-scroll::-webkit-scrollbar-thumb{background:rgba(79,201,126,.3);border-radius:3px;}
 .view-all-btn{display:block;width:100%;padding:.85rem;background:rgba(79,201,126,.06);border:none;border-top:1px solid rgba(79,201,126,.1);color:var(--mint-light);font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;text-align:center;transition:background .15s;}
 .view-all-btn:hover{background:rgba(79,201,126,.12);}
- 
+
 /* SEARCH RESULTS */
 .search-results-section{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:16px;overflow:hidden;box-shadow:0 4px 16px var(--shadow);}
 .search-results-header{padding:1rem 1.5rem;background:rgba(79,201,126,.08);border-bottom:1px solid rgba(79,201,126,.15);font-family:'Fredoka One',cursive;font-size:1rem;color:var(--mint-light);}
- 
+
 /* THREAD VIEW */
 .back-btn{display:inline-flex;align-items:center;gap:.4rem;color:var(--mint-light);font-weight:800;cursor:pointer;font-size:.9rem;background:rgba(79,201,126,.08);border:1.5px solid rgba(79,201,126,.2);padding:.4rem .9rem;border-radius:8px;transition:background .15s;margin-bottom:1.5rem;}
 .back-btn:hover{background:rgba(79,201,126,.15);}
@@ -174,7 +170,7 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex
 .live-indicator{display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--mint);font-weight:800;margin-left:auto;}
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--mint);animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
- 
+
 /* USER POPOVER */
 .user-popover{position:fixed;z-index:600;background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.3);border-radius:14px;padding:1rem 1.2rem;box-shadow:0 8px 24px rgba(0,0,0,.5);min-width:190px;pointer-events:none;opacity:0;transition:opacity .15s;}
 .user-popover.visible{opacity:1;pointer-events:auto;}
@@ -185,7 +181,7 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex
 .pop-stat a:hover{text-decoration:underline;}
 .pop-view{margin-top:.6rem;font-size:.8rem;color:var(--mint);font-weight:800;cursor:pointer;}
 .pop-view:hover{text-decoration:underline;}
- 
+
 /* PROFILE MODAL */
 .profile-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:400;align-items:center;justify-content:center;padding:1rem;}
 .profile-modal-overlay.open{display:flex;animation:fadeIn .2s ease both;}
@@ -202,14 +198,14 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex
 .profile-modal-stat .lbl{font-size:.72rem;color:rgba(232,254,242,.4);font-weight:700;}
 .profile-modal-about{font-size:.9rem;line-height:1.6;color:rgba(232,254,242,.75);font-weight:700;white-space:pre-wrap;}
 .profile-modal-about-label{font-size:.75rem;font-weight:800;color:var(--mint-light);margin-bottom:.4rem;}
- 
+
 /* MODALS */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:300;align-items:center;justify-content:center;padding:1rem;}
 .modal-overlay.open{display:flex;animation:fadeIn .2s ease both;}
 .modal{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.3);border-radius:20px;padding:2rem;width:100%;max-width:520px;box-shadow:0 16px 48px rgba(0,0,0,.6);max-height:90vh;overflow-y:auto;}
 .modal-title{font-family:'Fredoka One',cursive;font-size:1.6rem;color:var(--mint-light);margin-bottom:1.2rem;}
 .modal-footer{display:flex;gap:.8rem;justify-content:flex-end;margin-top:1.2rem;}
- 
+
 /* NOTIFICATIONS PANEL */
 .notif-panel{position:fixed;top:78px;right:1.5rem;width:340px;background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.25);border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.5);z-index:250;display:none;}
 .notif-panel.open{display:block;animation:fadeIn .2s ease both;}
@@ -226,7 +222,7 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex
 .notif-text strong{color:var(--mint-light);}
 .notif-time{font-size:.75rem;color:rgba(232,254,242,.35);font-weight:700;margin-top:.2rem;}
 .notif-empty{padding:2rem;text-align:center;color:rgba(232,254,242,.3);font-weight:700;font-size:.9rem;}
- 
+
 /* AUTH */
 .auth-container{max-width:440px;margin:2rem auto;padding:0 1rem;}
 .auth-card{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.25);border-radius:20px;padding:2.5rem 2rem;box-shadow:0 8px 32px var(--shadow);}
@@ -239,7 +235,7 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex
 .auth-tab.active{background:var(--mint-panel);color:var(--mint-light);}
 .auth-footer{text-align:center;margin-top:1.2rem;font-size:.85rem;color:rgba(232,254,242,.4);font-weight:700;}
 .auth-footer a{color:var(--mint);cursor:pointer;}
- 
+
 /* ACCOUNT PAGE */
 .account-page{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;}
 .profile-grid{display:grid;grid-template-columns:260px 1fr;gap:1.5rem;align-items:start;}
@@ -264,7 +260,7 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex
 .toggle.on::after{left:22px;}
 .danger-zone{background:rgba(239,68,68,.05);border:1.5px solid rgba(239,68,68,.2);border-radius:18px;padding:1.6rem 1.8rem;}
 .danger-title{font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--red);margin-bottom:1rem;}
- 
+
 .toast{position:fixed;bottom:2rem;right:2rem;background:var(--card);border:1.5px solid rgba(79,201,126,.3);border-radius:12px;padding:.8rem 1.3rem;font-weight:800;font-size:.9rem;color:var(--mint-light);box-shadow:0 8px 24px rgba(0,0,0,.4);z-index:1000;transform:translateY(80px);opacity:0;transition:transform .3s,opacity .3s;pointer-events:none;}
 .toast.show{transform:translateY(0);opacity:1;}
 .hidden{display:none!important;}
@@ -284,7 +280,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
 </style>
 </head>
 <body>
- 
+
 <nav>
   <div class="nav-brand" onclick="showPage('home')">
     <div class="nav-logo"><img src="minto_pfp.gif" alt="MintoFox"></div>
@@ -302,7 +298,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
     <div class="nav-user" id="nav-user" onclick="showPage('account')">@guest</div>
   </div>
 </nav>
- 
+
 <!-- NOTIFICATIONS PANEL -->
 <div class="notif-panel" id="notif-panel">
   <div class="notif-panel-header">
@@ -311,7 +307,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
   </div>
   <div class="notif-list" id="notif-list"><div class="notif-empty">nothing here yet :3</div></div>
 </div>
- 
+
 <!-- ══════════════ HOME ══════════════ -->
 <div id="page-home" class="page active">
 <main>
@@ -360,7 +356,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
   </div>
 </main>
 </div>
- 
+
 <!-- ══════════════ FORUMS ══════════════ -->
 <div id="page-forums" class="page">
   <div id="forums-list-view">
@@ -369,7 +365,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
       <h2 class="page-title">💬 Forums</h2>
       <button class="btn btn-mint" onclick="openNewPostModal()">+ New Thread</button>
     </div>
- 
+
     <!-- SEARCH BAR -->
     <div class="search-bar">
       <div class="search-row">
@@ -412,7 +408,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
         </div>
       </div>
     </div>
- 
+
     <!-- SEARCH RESULTS (shown when searching) -->
     <div id="search-results-wrap" class="hidden">
       <div class="search-results-section">
@@ -420,7 +416,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
         <div id="search-results-list"></div>
       </div>
     </div>
- 
+
     <!-- CATEGORY LISTS (shown when not searching) -->
     <div id="forum-categories-wrap" class="forum-categories">
       <div class="forum-category"><div class="category-header"><span>📢</span><h3>General</h3></div><div id="cat-general"><div class="forum-empty">loading...</div></div></div>
@@ -430,7 +426,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
     </div>
   </main>
   </div>
- 
+
   <!-- THREAD VIEW -->
   <div id="thread-view" class="hidden">
   <main>
@@ -441,7 +437,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
   </main>
   </div>
 </div>
- 
+
 <!-- ══════════════ ACCOUNT ══════════════ -->
 <div id="page-account" class="page">
   <!-- logged out -->
@@ -480,7 +476,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
       </div>
     </div>
   </div>
- 
+
   <!-- logged in -->
   <div id="view-loggedin" class="account-page hidden">
     <div class="profile-grid">
@@ -496,7 +492,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
         </div>
       </div>
       <div class="profile-main">
- 
+
         <!-- profile info -->
         <div class="settings-card">
           <div class="card-title">👤 Profile</div>
@@ -509,7 +505,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
             <button class="btn btn-outline" onclick="openModal('modal-aboutme')">Edit</button>
           </div>
         </div>
- 
+
         <!-- account settings -->
         <div class="settings-card">
           <div class="card-title">⚙️ Account</div>
@@ -526,7 +522,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
             <button class="btn btn-outline" onclick="openModal('modal-password')">Change</button>
           </div>
         </div>
- 
+
         <!-- security -->
         <div class="settings-card">
           <div class="card-title">🔐 Security</div>
@@ -535,7 +531,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
             <button class="btn btn-outline" id="s-2fa-btn" onclick="handle2FA()">Enable</button>
           </div>
         </div>
- 
+
         <!-- preferences -->
         <div class="settings-card">
           <div class="card-title">🔔 Preferences</div>
@@ -548,7 +544,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
             <div class="toggle on"></div>
           </div>
         </div>
- 
+
         <!-- danger zone -->
         <div class="danger-zone">
           <div class="danger-title">⚠️ Danger Zone</div>
@@ -557,15 +553,15 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
             <button class="btn btn-red" onclick="openModal('modal-delete')">Delete</button>
           </div>
         </div>
- 
+
         <button class="btn btn-outline btn-full" style="margin-top:.5rem;" onclick="doLogout()">🚪 Log Out</button>
       </div>
     </div>
   </div>
 </div>
- 
+
 <!-- ══════════════ MODALS ══════════════ -->
- 
+
 <!-- new post -->
 <div class="modal-overlay" id="modal-newpost">
   <div class="modal">
@@ -580,7 +576,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
     </div>
   </div>
 </div>
- 
+
 <!-- edit post -->
 <div class="modal-overlay" id="modal-editpost">
   <div class="modal">
@@ -595,7 +591,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
     </div>
   </div>
 </div>
- 
+
 <!-- display name -->
 <div class="modal-overlay" id="modal-displayname">
   <div class="modal">
@@ -608,7 +604,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
     </div>
   </div>
 </div>
- 
+
 <!-- about me -->
 <div class="modal-overlay" id="modal-aboutme">
   <div class="modal">
@@ -621,7 +617,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
     </div>
   </div>
 </div>
- 
+
 <!-- username change -->
 <div class="modal-overlay" id="modal-username">
   <div class="modal">
@@ -636,7 +632,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
     </div>
   </div>
 </div>
- 
+
 <!-- email change -->
 <div class="modal-overlay" id="modal-email">
   <div class="modal">
@@ -651,7 +647,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
     </div>
   </div>
 </div>
- 
+
 <!-- password change -->
 <div class="modal-overlay" id="modal-password">
   <div class="modal">
@@ -666,7 +662,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
     </div>
   </div>
 </div>
- 
+
 <!-- 2fa setup -->
 <div class="modal-overlay" id="modal-2fa">
   <div class="modal">
@@ -692,7 +688,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
     </div>
   </div>
 </div>
- 
+
 <!-- delete account -->
 <div class="modal-overlay" id="modal-delete">
   <div class="modal">
@@ -716,7 +712,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
     </div>
   </div>
 </div>
- 
+
 <!-- profile view modal -->
 <div class="profile-modal-overlay" id="modal-profile">
   <div class="profile-modal">
@@ -737,7 +733,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
     <div class="profile-modal-about" id="pm-about"></div>
   </div>
 </div>
- 
+
 <!-- user popover -->
 <div class="user-popover" id="user-popover">
   <div class="pop-name" id="pop-name"></div>
@@ -746,21 +742,21 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
   <div class="pop-stat">joined: <span id="pop-joined"></span></div>
   <div class="pop-view" onclick="openProfileFromPopover()">view full profile →</div>
 </div>
- 
+
 <div class="toast" id="toast"></div>
 <footer>mintofox.net — made with 💚 and too much caffeine</footer>
- 
+
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 const sb = createClient('https://lmupyrjmsupdvxcewbhy.supabase.co','sb_publishable_Gn_DeJIDXWKnt5-ycuIAEA_afmk25X0');
- 
+
 // ── utils ────────────────────────────────────────────────────
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function timeAgo(d){const diff=Date.now()-new Date(d);const m=Math.floor(diff/6e4),h=Math.floor(diff/36e5),dy=Math.floor(diff/864e5);if(m<1)return'just now';if(m<60)return`${m}m ago`;if(h<24)return`${h}h ago`;return`${dy}d ago`;}
 function fmtDate(d){return new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'short'});}
 function fmtFull(d){return new Date(d).toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'});}
 window.showToast=m=>{const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);};
- 
+
 // ── modal helpers ────────────────────────────────────────────
 window.openModal=id=>{document.getElementById(id).classList.add('open');};
 window.closeModal=id=>{
@@ -769,7 +765,7 @@ window.closeModal=id=>{
   if(id==='modal-delete'){document.getElementById('delete-step-1').classList.remove('hidden');document.getElementById('delete-step-2').classList.add('hidden');}
 };
 document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
- 
+
 // ── page nav ─────────────────────────────────────────────────
 window.showPage=name=>{
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -779,7 +775,7 @@ window.showPage=name=>{
   window.scrollTo(0,0);
   if(name==='forums') loadForums();
 };
- 
+
 // ── auth tabs ────────────────────────────────────────────────
 window.switchTab=tab=>{
   ['login','register','reset'].forEach(t=>{
@@ -791,13 +787,13 @@ window.switchTab=tab=>{
 function clearMsgs(...ids){ids.forEach(id=>{const e=document.getElementById(id);if(e){e.style.display='none';e.textContent='';}})}
 function showErr(id,m){const e=document.getElementById(id);e.textContent=m;e.style.display='block';}
 function showOk(id,m){const e=document.getElementById(id);e.textContent=m;e.style.display='block';}
- 
+
 // ── session state ─────────────────────────────────────────────
 let currentUser=null;
 let currentProfile=null;
 let notifEnabled=true;
 let has2FA=false;
- 
+
 async function applyLoggedIn(user){
   currentUser=user;
   const uname=user.user_metadata?.username||user.email.split('@')[0];
@@ -839,7 +835,7 @@ async function applyLoggedIn(user){
   document.getElementById('pw-totp-wrap').classList.toggle('hidden',!has2FA);
   document.getElementById('delete-totp-wrap').classList.toggle('hidden',!has2FA);
 }
- 
+
 function applyLoggedOut(){
   currentUser=null;currentProfile=null;
   document.getElementById('nav-user').textContent='@guest';
@@ -847,10 +843,10 @@ function applyLoggedOut(){
   document.getElementById('view-loggedin').classList.add('hidden');
   document.getElementById('notif-btn').classList.add('hidden');
 }
- 
+
 sb.auth.getSession().then(({data:{session}})=>{if(session?.user)applyLoggedIn(session.user);});
 sb.auth.onAuthStateChange((_,session)=>{if(session?.user)applyLoggedIn(session.user);else applyLoggedOut();});
- 
+
 // ── login ────────────────────────────────────────────────────
 window.doLogin=async()=>{
   clearMsgs('auth-err','auth-ok');
@@ -884,7 +880,7 @@ window.doLogin=async()=>{
   btn.disabled=false;btn.textContent='Log In';
   showToast('welcome back!! 🦊');
 };
- 
+
 // ── register ─────────────────────────────────────────────────
 window.doRegister=async()=>{
   clearMsgs('auth-err','auth-ok');
@@ -901,7 +897,7 @@ window.doRegister=async()=>{
   if(error)return showErr('auth-err',error.message);
   showOk('auth-ok','account created! check your email to confirm, then log in :3');
 };
- 
+
 // ── reset request ────────────────────────────────────────────
 window.doResetRequest=async()=>{
   clearMsgs('auth-err','auth-ok');
@@ -913,9 +909,9 @@ window.doResetRequest=async()=>{
   if(error)return showErr('auth-err',error.message);
   showOk('auth-ok','reset link sent! check your inbox 📬');
 };
- 
+
 window.doLogout=async()=>{await sb.auth.signOut();showToast('logged out, see ya 👋');};
- 
+
 // ── display name ──────────────────────────────────────────────
 window.saveDisplayName=async()=>{
   const dn=document.getElementById('new-displayname').value.trim();
@@ -926,7 +922,7 @@ window.saveDisplayName=async()=>{
   document.getElementById('acct-displayname').textContent=dn?`"${dn}"`:'';
   closeModal('modal-displayname');showToast('display name updated! ✨');
 };
- 
+
 // ── about me ─────────────────────────────────────────────────
 window.saveAboutMe=async()=>{
   const about=document.getElementById('new-aboutme').value.trim();
@@ -936,7 +932,7 @@ window.saveAboutMe=async()=>{
   document.getElementById('s-aboutme').textContent=about||'(none)';
   closeModal('modal-aboutme');showToast('about me saved! 📝');
 };
- 
+
 // ── username change ──────────────────────────────────────────
 window.changeUsername=async()=>{
   clearMsgs('username-err');
@@ -962,7 +958,7 @@ window.changeUsername=async()=>{
   document.getElementById('nav-user').textContent='@'+newU;
   closeModal('modal-username');showToast('username updated! 🔤');
 };
- 
+
 // ── email change ─────────────────────────────────────────────
 window.changeEmail=async()=>{
   clearMsgs('email-err','email-ok');
@@ -972,7 +968,7 @@ window.changeEmail=async()=>{
   if(error)return showErr('email-err',error.message);
   showOk('email-ok','verification sent to both emails! confirm both links to complete the change 📬');
 };
- 
+
 // ── password change ──────────────────────────────────────────
 window.changePassword=async()=>{
   clearMsgs('password-err');
@@ -993,7 +989,7 @@ window.changePassword=async()=>{
   if(error)return showErr('password-err',error.message);
   closeModal('modal-password');showToast('password changed! 🔑');
 };
- 
+
 // ── 2FA ──────────────────────────────────────────────────────
 async function check2FAStatus(){
   const{data}=await sb.auth.mfa.listFactors();
@@ -1001,7 +997,7 @@ async function check2FAStatus(){
   document.getElementById('s-2fa-status').textContent=has2FA?'enabled ✅':'not enabled';
   document.getElementById('s-2fa-btn').textContent=has2FA?'Disable':'Enable';
 }
- 
+
 async function verifyTOTPCode(code){
   const{data:factors}=await sb.auth.mfa.listFactors();
   const f=factors?.totp?.[0];if(!f)return false;
@@ -1009,7 +1005,7 @@ async function verifyTOTPCode(code){
   const{error}=await sb.auth.mfa.verify({factorId:f.id,challengeId:ch.id,code});
   return!error;
 }
- 
+
 window.handle2FA=async()=>{
   if(has2FA){
     document.getElementById('tfa-title').textContent='🔐 Disable 2FA';
@@ -1029,7 +1025,7 @@ window.handle2FA=async()=>{
     window._enrollFactorId=data.id;
   }
 };
- 
+
 window.verify2FA=async()=>{
   clearMsgs('tfa-err');
   const code=document.getElementById('tfa-code').value.trim();
@@ -1043,7 +1039,7 @@ window.verify2FA=async()=>{
   document.getElementById('pw-totp-wrap').classList.remove('hidden');
   document.getElementById('delete-totp-wrap').classList.remove('hidden');
 };
- 
+
 window.disable2FA=async()=>{
   clearMsgs('tfa-disable-err');
   const code=document.getElementById('tfa-disable-code').value.trim();
@@ -1058,7 +1054,7 @@ window.disable2FA=async()=>{
   document.getElementById('pw-totp-wrap').classList.add('hidden');
   document.getElementById('delete-totp-wrap').classList.add('hidden');
 };
- 
+
 // ── notif preferences ─────────────────────────────────────────
 window.toggleNotifPref=async()=>{
   notifEnabled=!notifEnabled;
@@ -1066,19 +1062,19 @@ window.toggleNotifPref=async()=>{
   await sb.from('profiles').update({notif_enabled:notifEnabled}).eq('id',currentUser.id);
   showToast(notifEnabled?'notifications on 🔔':'notifications off 🔕');
 };
- 
+
 // ── account reset password ────────────────────────────────────
 window.doResetPassword=async()=>{
   await sb.auth.resetPasswordForEmail(currentUser.email,{redirectTo:'https://mintofox.net'});
   showToast('reset email sent! 📬');
 };
- 
+
 // ── delete account ────────────────────────────────────────────
 window.deleteStep2=()=>{
   document.getElementById('delete-step-1').classList.add('hidden');
   document.getElementById('delete-step-2').classList.remove('hidden');
 };
- 
+
 window.confirmDeleteAccount=async()=>{
   clearMsgs('delete-err');
   const pw=document.getElementById('delete-pw').value;
@@ -1101,16 +1097,16 @@ window.confirmDeleteAccount=async()=>{
   closeModal('modal-delete');
   showToast('account deleted. take care 🦊');
 };
- 
+
 // ── notifications ─────────────────────────────────────────────
 let notifSubscription=null;
- 
+
 async function loadNotifications(){
   if(!currentUser)return;
   const{data}=await sb.from('notifications').select('*').eq('user_id',currentUser.id).order('created_at',{ascending:false}).limit(30);
   renderNotifications(data||[]);
 }
- 
+
 function renderNotifications(items){
   const list=document.getElementById('notif-list');
   const unread=items.filter(n=>!n.read).length;
@@ -1124,7 +1120,7 @@ function renderNotifications(items){
       <div class="notif-time">${timeAgo(n.created_at)}</div>
     </div>`).join('');
 }
- 
+
 function subscribeToNotifications(){
   if(notifSubscription)return;
   notifSubscription=sb.channel('notifs:'+currentUser.id)
@@ -1134,7 +1130,7 @@ function subscribeToNotifications(){
       loadNotifications();
     }).subscribe();
 }
- 
+
 window.toggleNotifPanel=()=>{document.getElementById('notif-panel').classList.toggle('open');};
 window.markAllRead=async()=>{
   if(!currentUser)return;
@@ -1147,20 +1143,20 @@ window.openNotif=async(postId,notifId)=>{
   showPage('forums');
   setTimeout(()=>openThread(postId),300);
 };
- 
+
 document.addEventListener('click',e=>{
   const panel=document.getElementById('notif-panel');
   const btn=document.getElementById('notif-btn');
   if(panel.classList.contains('open')&&!panel.contains(e.target)&&!btn.contains(e.target))panel.classList.remove('open');
 });
- 
+
 // ── user popover ─────────────────────────────────────────────
 const popEl=document.getElementById('user-popover');
 let popTimer=null;
 const profCache={};
 let popoverCurrentAuthorId=null;
 let popoverCurrentAuthorName=null;
- 
+
 async function fetchProfile(aid,aname){
   if(profCache[aid])return profCache[aid];
   const[{data:prof},{count:pc},{count:rc}]=await Promise.all([
@@ -1171,7 +1167,7 @@ async function fetchProfile(aid,aname){
   const r={username:prof?.username||aname||'unknown',display_name:prof?.display_name||'',about_me:prof?.about_me||'',joined:prof?.created_at?fmtDate(prof.created_at):'?',posts:(pc||0)+(rc||0),id:aid};
   profCache[aid]=r;return r;
 }
- 
+
 window.showPopover=async(el,aid,aname)=>{
   clearTimeout(popTimer);
   popoverCurrentAuthorId=aid;
@@ -1193,20 +1189,20 @@ window.showPopover=async(el,aid,aname)=>{
 window.hidePopover=()=>{popTimer=setTimeout(()=>popEl.classList.remove('visible'),220);};
 popEl.addEventListener('mouseenter',()=>clearTimeout(popTimer));
 popEl.addEventListener('mouseleave',()=>popEl.classList.remove('visible'));
- 
+
 window.openProfileFromPopover=()=>{
   popEl.classList.remove('visible');
   if(popoverCurrentAuthorId) openProfileModal(popoverCurrentAuthorId,popoverCurrentAuthorName);
 };
- 
+
 window.searchByPopover=()=>{
   popEl.classList.remove('visible');
   filterByAuthor(popoverCurrentAuthorName);
 };
- 
+
 // ── profile modal ─────────────────────────────────────────────
 let profileModalAuthorName=null;
- 
+
 window.openProfileModal=async(aid,aname)=>{
   profileModalAuthorName=aname;
   document.getElementById('pm-username').textContent='loading...';
@@ -1223,20 +1219,20 @@ window.openProfileModal=async(aid,aname)=>{
   document.getElementById('pm-joined').textContent=p.joined;
   document.getElementById('pm-about').textContent=p.about_me||'(nothing here yet :3)';
 };
- 
+
 window.closeProfileModal=()=>document.getElementById('modal-profile').classList.remove('open');
 document.getElementById('modal-profile').addEventListener('click',e=>{if(e.target===e.currentTarget)closeProfileModal();});
- 
+
 window.searchByProfile=()=>{
   closeProfileModal();
   filterByAuthor(profileModalAuthorName);
 };
- 
+
 window.searchByMe=()=>{
   const uname=currentUser?.user_metadata?.username||currentUser?.email?.split('@')[0];
   if(uname) filterByAuthor(uname);
 };
- 
+
 function filterByAuthor(name){
   showPage('forums');
   setTimeout(()=>{
@@ -1244,7 +1240,7 @@ function filterByAuthor(name){
     onSearchChange();
   },100);
 }
- 
+
 // ── forums ────────────────────────────────────────────────────
 const CATS={general:'cat-general',tech:'cat-tech',gaming:'cat-gaming',other:'cat-other'};
 const INIT_LIMIT=3;
@@ -1254,7 +1250,7 @@ let expandedCats={};
 let searchDebounce=null;
 let activeThreadId=null;
 let realtimeChannel=null;
- 
+
 function threadRow(p,inThread=false){
   const init=esc((p.author_name||'?')[0].toUpperCase());
   const aid=esc(p.author_id||'');
@@ -1274,20 +1270,20 @@ function threadRow(p,inThread=false){
     ${actions}
   </div>`;
 }
- 
+
 async function fetchAllPosts(){
   const{data,error}=await sb.from('posts').select('*, replies(count)').order('created_at',{ascending:false});
   if(error)return[];
   return(data||[]).map(p=>({...p,reply_count:p.replies?.[0]?.count||0}));
 }
- 
+
 window.loadForums=async()=>{
   Object.values(CATS).forEach(id=>{document.getElementById(id).innerHTML='<div class="forum-empty">loading...</div>';});
   allPosts=await fetchAllPosts();
   renderCategories();
   onSearchChange();
 };
- 
+
 function sortPosts(posts){
   const sort=document.getElementById('sort-select').value;
   if(sort==='replies')return[...posts].sort((a,b)=>(b.reply_count||0)-(a.reply_count||0));
@@ -1295,7 +1291,7 @@ function sortPosts(posts){
   if(sort==='oldest')return[...posts].sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
   return posts;
 }
- 
+
 function renderCategories(){
   const sorted=sortPosts(allPosts);
   const grouped={general:[],tech:[],gaming:[],other:[]};
@@ -1314,16 +1310,16 @@ function renderCategories(){
     el.innerHTML=html;
   });
 }
- 
+
 window.expandCat=cat=>{expandedCats[cat]=true;renderCategories();};
 window.collapseCat=cat=>{expandedCats[cat]=false;renderCategories();};
- 
+
 // ── search ────────────────────────────────────────────────────
 window.onSearchChange=()=>{
   clearTimeout(searchDebounce);
   searchDebounce=setTimeout(runSearch,250);
 };
- 
+
 function isSearchActive(){
   return document.getElementById('search-q').value.trim()||
     document.getElementById('filter-author').value.trim()||
@@ -1331,7 +1327,7 @@ function isSearchActive(){
     document.getElementById('filter-to').value||
     (document.getElementById('filter-ago-n').value&&document.getElementById('filter-ago-unit').value);
 }
- 
+
 function runSearch(){
   if(!isSearchActive()){
     // just re-sort categories
@@ -1342,20 +1338,20 @@ function runSearch(){
   }
   document.getElementById('search-results-wrap').classList.remove('hidden');
   document.getElementById('forum-categories-wrap').classList.add('hidden');
- 
+
   const q=document.getElementById('search-q').value.trim().toLowerCase();
   const author=document.getElementById('filter-author').value.trim().toLowerCase();
   const from=document.getElementById('filter-from').value;
   const to=document.getElementById('filter-to').value;
   const agoN=parseInt(document.getElementById('filter-ago-n').value)||0;
   const agoUnit=document.getElementById('filter-ago-unit').value;
- 
+
   let cutoff=null;
   if(agoN&&agoUnit){
     const ms={hours:36e5,days:864e5,weeks:6048e5,months:2592e6};
     cutoff=new Date(Date.now()-agoN*(ms[agoUnit]||0));
   }
- 
+
   let filtered=allPosts.filter(p=>{
     if(q&&!p.title.toLowerCase().includes(q)&&!p.content.toLowerCase().includes(q))return false;
     if(author&&!(p.author_name||'').toLowerCase().includes(author))return false;
@@ -1365,7 +1361,7 @@ function runSearch(){
     if(cutoff&&d<cutoff)return false;
     return true;
   });
- 
+
   filtered=sortPosts(filtered);
   const header=document.getElementById('search-results-header');
   const list=document.getElementById('search-results-list');
@@ -1373,7 +1369,7 @@ function runSearch(){
   if(!filtered.length){list.innerHTML='<div class="forum-empty">nothing found :3</div>';return;}
   list.innerHTML=`<div class="thread-list-scroll" style="max-height:500px;">${filtered.map(p=>threadRow(p)).join('')}</div>`;
 }
- 
+
 window.clearSearch=()=>{
   ['search-q','filter-author','filter-from','filter-to','filter-ago-n'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('filter-ago-unit').value='';
@@ -1382,7 +1378,7 @@ window.clearSearch=()=>{
   document.getElementById('forum-categories-wrap').classList.remove('hidden');
   renderCategories();
 };
- 
+
 // ── thread view ───────────────────────────────────────────────
 window.openThread=async(postId)=>{
   activeThreadId=postId;
@@ -1394,7 +1390,7 @@ window.openThread=async(postId)=>{
   await renderThread(postId);
   subscribeToThread(postId);
 };
- 
+
 async function renderThread(postId){
   const[{data:post},{data:replies}]=await Promise.all([
     sb.from('posts').select('*').eq('id',postId).single(),
@@ -1424,10 +1420,10 @@ async function renderThread(postId){
         <span class="live-indicator"><span class="live-dot"></span>live</span>
       </div>
     </div>`;
- 
+
   const ra=document.getElementById('replies-area');
   ra.innerHTML=replies&&replies.length?replies.map(r=>replyHTML(r)).join(''):'<div class="forum-empty" style="padding:1rem 0;">no replies yet — jump in! 🦊</div>';
- 
+
   const ca=document.getElementById('reply-compose-area');
   ca.innerHTML=currentUser?`<div class="reply-compose">
     <div class="reply-compose-title">💬 Leave a Reply</div>
@@ -1436,7 +1432,7 @@ async function renderThread(postId){
     <div style="display:flex;justify-content:flex-end;"><button class="btn btn-mint" id="reply-btn" onclick="submitReply(${postId})">Reply 🦊</button></div>
   </div>`:`<div class="reply-compose"><div class="reply-login-note"><a onclick="showPage('account')">log in</a> to reply :3</div></div>`;
 }
- 
+
 function replyHTML(r){
   const raid=esc(r.author_id||'');const ran=esc(r.author_name||'anon');
   const isOwn=currentUser&&r.author_id===currentUser.id;
@@ -1448,7 +1444,7 @@ function replyHTML(r){
     <div class="reply-body" id="reply-body-${r.id}">${esc(r.content)}</div>
   </div>`;
 }
- 
+
 function subscribeToThread(postId){
   if(realtimeChannel)sb.removeChannel(realtimeChannel);
   realtimeChannel=sb.channel('thread:'+postId)
@@ -1470,14 +1466,14 @@ function subscribeToThread(postId){
     })
     .subscribe();
 }
- 
+
 window.backToForums=()=>{
   activeThreadId=null;
   if(realtimeChannel){sb.removeChannel(realtimeChannel);realtimeChannel=null;}
   document.getElementById('forums-list-view').classList.remove('hidden');
   document.getElementById('thread-view').classList.add('hidden');
 };
- 
+
 // ── follow thread ─────────────────────────────────────────────
 window.toggleFollow=async(postId,isFollowing)=>{
   if(!currentUser)return;
@@ -1493,7 +1489,7 @@ window.toggleFollow=async(postId,isFollowing)=>{
   btn.onclick=()=>toggleFollow(postId,now);
   showToast(now?'following this thread 🔔':'unfollowed');
 };
- 
+
 // ── submit reply ──────────────────────────────────────────────
 window.submitReply=async(postId)=>{
   const content=document.getElementById('reply-input').value.trim();
@@ -1507,7 +1503,7 @@ window.submitReply=async(postId)=>{
   document.getElementById('reply-input').value='';
   showToast('replied! 🎉');
 };
- 
+
 // ── edit / delete reply ───────────────────────────────────────
 window.openEditReply=async(id,content)=>{
   const bodyEl=document.getElementById('reply-body-'+id);
@@ -1520,29 +1516,29 @@ window.openEditReply=async(id,content)=>{
     </div>
   </div>`;
 };
- 
+
 window.cancelEditReply=(id,content)=>{document.getElementById('reply-body-'+id).textContent=content;};
- 
+
 window.saveEditReply=async(id)=>{
   const content=document.getElementById('edit-reply-'+id).value.trim();
   if(!content)return;
   await sb.from('replies').update({content}).eq('id',id);
   document.getElementById('reply-body-'+id).textContent=content;
 };
- 
+
 window.deleteReply=async(id)=>{
   if(!confirm('delete this reply?'))return;
   await sb.from('replies').delete().eq('id',id);
   document.getElementById('reply-'+id)?.remove();
   showToast('reply deleted');
 };
- 
+
 // ── new post ──────────────────────────────────────────────────
 window.openNewPostModal=()=>{
   if(!currentUser){showToast('log in first to post :3');showPage('account');return;}
   openModal('modal-newpost');
 };
- 
+
 window.submitPost=async()=>{
   const title=document.getElementById('post-title').value.trim();
   const content=document.getElementById('post-content').value.trim();
@@ -1563,7 +1559,7 @@ window.submitPost=async()=>{
   allPosts.unshift(data);
   renderCategories();
 };
- 
+
 // ── edit / delete post ────────────────────────────────────────
 window.openEditPost=(id,title,content)=>{
   document.getElementById('edit-post-id').value=id;
@@ -1571,7 +1567,7 @@ window.openEditPost=(id,title,content)=>{
   document.getElementById('edit-post-content').value=content;
   openModal('modal-editpost');
 };
- 
+
 window.submitEditPost=async()=>{
   const id=document.getElementById('edit-post-id').value;
   const title=document.getElementById('edit-post-title').value.trim();
@@ -1586,7 +1582,7 @@ window.submitEditPost=async()=>{
   renderCategories();
   if(activeThreadId==id)renderThread(id);
 };
- 
+
 window.deletePost=async(id,inThread=false)=>{
   if(!confirm('delete this thread? all replies will be deleted too.'))return;
   await sb.from('replies').delete().eq('post_id',id);
