@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MintoFox — mintofox.net</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --mint: #4fc97e; --mint-dark: #2e7d52; --mint-panel: #2a6b4a;
+    --mint-light: #a8f0c6; --bg-dark: #0f2319; --card: #1f5238;
+    --card-dark: #163826; --text: #e8fef2; --accent: #f5c842;
+    --pink: #f78fb3; --purple: #b39ddb; --shadow: rgba(0,0,0,0.4);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Nunito', sans-serif; background: var(--bg-dark); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: -1;
+    background: radial-gradient(ellipse 60% 40% at 20% 80%, rgba(79,201,126,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 60% at 85% 15%, rgba(79,201,126,0.08) 0%, transparent 55%);
+  }
+
+  /* NAV */
+  nav { display: flex; align-items: center; padding: 0 2rem; height: 70px; background: rgba(15,35,25,0.9); backdrop-filter: blur(12px); border-bottom: 2px solid rgba(79,201,126,0.2); position: sticky; top: 0; z-index: 100; }
+  .nav-brand { display: flex; align-items: center; gap: 0.6rem; font-family: 'Fredoka One', cursive; font-size: 1.3rem; color: var(--mint-light); margin-right: auto; cursor: pointer; text-decoration: none; }
+  .nav-logo { width: 40px; height: 40px; border-radius: 10px; overflow: hidden; border: 2px solid rgba(79,201,126,0.5); flex-shrink: 0; }
+  .nav-logo img { width: 100%; height: 100%; object-fit: cover; }
+  .nav-links { display: flex; list-style: none; }
+  .nav-links a { display: block; padding: 0.5rem 1.4rem; color: var(--text); text-decoration: none; font-weight: 700; font-size: 1rem; border-radius: 8px; transition: background 0.2s, color 0.2s; position: relative; cursor: pointer; }
+  .nav-links a.active { color: var(--mint-light); background: rgba(79,201,126,0.12); }
+  .nav-links a.active::after { content: ''; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%); width: 60%; height: 2px; background: var(--mint); border-radius: 2px; }
+  .nav-links a:hover:not(.active) { color: var(--mint-light); background: rgba(79,201,126,0.07); }
+  .nav-user { display: flex; align-items: center; gap: 0.6rem; margin-left: 1.5rem; font-size: 0.9rem; color: rgba(232,254,242,0.6); cursor: pointer; }
+
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; animation: fadeIn 0.35s ease both; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+  main { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; }
+
+  /* CARDS */
+  .card { background: linear-gradient(135deg, var(--card) 0%, var(--card-dark) 100%); border: 1.5px solid rgba(79,201,126,0.2); border-radius: 18px; padding: 1.6rem 1.8rem; box-shadow: 0 4px 20px var(--shadow); }
+  .card-title { font-family: 'Fredoka One', cursive; font-size: 1.2rem; color: var(--mint-light); margin-bottom: 1rem; }
+
+  /* HOME */
+  .hero-card { background: linear-gradient(135deg, var(--mint-panel) 0%, #1e4d38 100%); border: 1.5px solid rgba(79,201,126,0.3); border-radius: 20px; padding: 2rem 2.5rem; display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: start; box-shadow: 0 8px 32px var(--shadow); }
+  .avatar-img { width: 200px; height: 200px; border-radius: 18px; object-fit: cover; border: 3px solid rgba(79,201,126,0.5); box-shadow: 0 4px 20px rgba(0,0,0,0.4); display: block; }
+  .hero-info { display: flex; flex-direction: column; gap: 0.8rem; padding-top: 0.3rem; }
+  .hero-name { font-family: 'Fredoka One', cursive; font-size: 3.8rem; line-height: 1; color: var(--text); text-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+  .hero-bio { font-size: 1.05rem; line-height: 1.65; color: rgba(232,254,242,0.88); font-weight: 700; max-width: 700px; }
+  .fluffy-badge { display: inline-block; background: rgba(79,201,126,0.18); border: 1.5px solid rgba(79,201,126,0.4); color: var(--mint-light); font-weight: 800; font-size: 0.9rem; padding: 0.3rem 0.9rem; border-radius: 100px; width: fit-content; }
+  .lower-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .social-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+  .social-list li { display: flex; align-items: center; gap: 0.6rem; font-size: 0.95rem; font-weight: 700; }
+  .social-platform { color: var(--mint); min-width: 90px; font-weight: 800; }
+  .social-icon { font-size: 1.1rem; width: 22px; text-align: center; }
+  .community-card { background: linear-gradient(135deg, #111 0%, #1a1a1a 100%); border: 1.5px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 1.6rem 1.8rem; display: flex; flex-direction: column; gap: 1rem; box-shadow: 0 4px 20px var(--shadow); }
+  .community-card .card-title { color: #999; }
+  .fluxer-banner { background: #1a1a1a; border: 1.5px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 1.4rem 1.8rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; transition: border-color 0.2s, background 0.2s; text-decoration: none; }
+  .fluxer-banner:hover { border-color: rgba(255,255,255,0.25); background: #222; }
+  .fluxer-name { font-family: 'Fredoka One', cursive; font-size: 2rem; color: #fff; }
+  .fluxer-logo { width: 64px; height: 64px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .fluxer-logo img { width: 40px; height: 40px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.8rem; }
+  .tag { padding: 0.3rem 0.9rem; border-radius: 100px; font-size: 0.85rem; font-weight: 800; border: 1.5px solid; }
+  .tag-mint   { background: rgba(79,201,126,0.1);  border-color: rgba(79,201,126,0.35);  color: var(--mint-light); }
+  .tag-pink   { background: rgba(247,143,179,0.1); border-color: rgba(247,143,179,0.35); color: var(--pink); }
+  .tag-purple { background: rgba(179,157,219,0.1); border-color: rgba(179,157,219,0.35); color: var(--purple); }
+  .tag-gold   { background: rgba(245,200,66,0.1);  border-color: rgba(245,200,66,0.35);  color: var(--accent); }
+
+  /* BUTTONS */
+  .btn { padding: 0.55rem 1.3rem; border-radius: 10px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.95rem; cursor: pointer; border: none; transition: filter 0.2s, transform 0.15s; }
+  .btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn-mint { background: var(--mint); color: #0f2319; }
+  .btn-outline { background: transparent; color: var(--mint-light); border: 1.5px solid rgba(79,201,126,0.4); }
+  .btn-ghost { background: transparent; color: rgba(232,254,242,0.5); border: 1.5px solid rgba(232,254,242,0.15); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; filter: none; }
+  .btn-full { width: 100%; padding: 0.75rem; font-size: 1rem; border-radius: 12px; margin-top: 0.5rem; }
+
+  /* FORUMS LIST */
+  .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
+  .page-title { font-family: 'Fredoka One', cursive; font-size: 2.2rem; color: var(--mint-light); }
+  .forum-categories { display: flex; flex-direction: column; gap: 1rem; }
+  .forum-category { background: linear-gradient(135deg, var(--card) 0%, var(--card-dark) 100%); border: 1.5px solid rgba(79,201,126,0.2); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 16px var(--shadow); }
+  .category-header { padding: 1rem 1.5rem; background: rgba(79,201,126,0.08); border-bottom: 1px solid rgba(79,201,126,0.15); display: flex; align-items: center; gap: 0.6rem; }
+  .category-header h3 { font-family: 'Fredoka One', cursive; font-size: 1.1rem; color: var(--mint-light); flex: 1; }
+  .forum-thread { padding: 1rem 1.5rem; border-bottom: 1px solid rgba(79,201,126,0.08); display: flex; align-items: center; gap: 1rem; transition: background 0.15s; cursor: pointer; }
+  .forum-thread:last-child { border-bottom: none; }
+  .forum-thread:hover { background: rgba(79,201,126,0.06); }
+  .thread-initial { width: 38px; height: 38px; border-radius: 10px; background: rgba(79,201,126,0.15); border: 2px solid rgba(79,201,126,0.2); display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; color: var(--mint-light); flex-shrink: 0; cursor: pointer; position: relative; }
+  .thread-info { flex: 1; min-width: 0; }
+  .thread-title { font-weight: 800; font-size: 0.95rem; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .thread-meta { font-size: 0.8rem; color: rgba(232,254,242,0.45); margin-top: 0.15rem; }
+  .thread-meta .author-link { color: var(--mint); font-weight: 700; cursor: pointer; position: relative; }
+  .thread-replies { text-align: right; font-size: 0.8rem; color: rgba(232,254,242,0.45); flex-shrink: 0; }
+  .thread-replies strong { display: block; font-size: 1rem; color: var(--text); }
+  .forum-empty { padding: 2rem; text-align: center; color: rgba(232,254,242,0.35); font-weight: 700; font-size: 0.95rem; }
+  .view-all-row { padding: 0.85rem 1.5rem; border-top: 1px solid rgba(79,201,126,0.1); text-align: center; }
+  .view-all-btn { background: none; border: none; color: var(--mint); font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.9rem; cursor: pointer; padding: 0.2rem 0.6rem; border-radius: 6px; transition: background 0.15s; }
+  .view-all-btn:hover { background: rgba(79,201,126,0.1); }
+
+  /* USER TOOLTIP */
+  .user-tooltip { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #0a1f12; border: 1.5px solid rgba(79,201,126,0.35); border-radius: 12px; padding: 0.75rem 1rem; white-space: nowrap; z-index: 50; box-shadow: 0 8px 24px rgba(0,0,0,0.5); pointer-events: none; opacity: 0; transition: opacity 0.15s; min-width: 160px; }
+  .user-tooltip.visible { opacity: 1; }
+  .user-tooltip-name { font-family: 'Fredoka One', cursive; font-size: 1rem; color: var(--mint-light); }
+  .user-tooltip-meta { font-size: 0.78rem; color: rgba(232,254,242,0.5); font-weight: 700; margin-top: 0.25rem; line-height: 1.5; }
+
+  /* THREAD VIEW */
+  #page-thread main { gap: 1.2rem; }
+  .back-btn { display: inline-flex; align-items: center; gap: 0.4rem; background: none; border: none; color: var(--mint); font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.95rem; cursor: pointer; padding: 0; margin-bottom: 0.2rem; transition: opacity 0.2s; }
+  .back-btn:hover { opacity: 0.7; }
+  .thread-post-card { background: linear-gradient(135deg, var(--mint-panel) 0%, #1e4d38 100%); border: 1.5px solid rgba(79,201,126,0.3); border-radius: 18px; padding: 1.8rem 2rem; box-shadow: 0 4px 20px var(--shadow); }
+  .thread-post-title { font-family: 'Fredoka One', cursive; font-size: 1.9rem; color: var(--text); margin-bottom: 0.5rem; line-height: 1.2; }
+  .thread-post-meta { font-size: 0.82rem; color: rgba(232,254,242,0.45); font-weight: 700; margin-bottom: 1.2rem; }
+  .thread-post-meta .author-link { color: var(--mint); cursor: pointer; position: relative; }
+  .thread-post-content { font-size: 1rem; line-height: 1.7; color: rgba(232,254,242,0.9); font-weight: 700; white-space: pre-wrap; }
+  .replies-section { display: flex; flex-direction: column; gap: 0; }
+  .replies-header { font-family: 'Fredoka One', cursive; font-size: 1.2rem; color: var(--mint-light); margin-bottom: 0.6rem; }
+  .reply-card { background: linear-gradient(135deg, var(--card) 0%, var(--card-dark) 100%); border: 1.5px solid rgba(79,201,126,0.15); border-radius: 14px; padding: 1.2rem 1.5rem; margin-bottom: 0.8rem; }
+  .reply-meta { font-size: 0.8rem; color: rgba(232,254,242,0.4); font-weight: 700; margin-bottom: 0.6rem; }
+  .reply-meta .author-link { color: var(--mint); cursor: pointer; position: relative; }
+  .reply-content { font-size: 0.95rem; line-height: 1.65; color: rgba(232,254,242,0.85); font-weight: 700; white-space: pre-wrap; }
+  .reply-box { background: linear-gradient(135deg, var(--card) 0%, var(--card-dark) 100%); border: 1.5px solid rgba(79,201,126,0.2); border-radius: 14px; padding: 1.4rem 1.6rem; }
+  .reply-box-title { font-family: 'Fredoka One', cursive; font-size: 1.05rem; color: var(--mint-light); margin-bottom: 0.8rem; }
+  .reply-login-note { font-size: 0.9rem; font-weight: 700; color: rgba(232,254,242,0.45); }
+  .reply-login-note a { color: var(--mint); cursor: pointer; }
+
+  /* MODALS */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; padding: 1rem; }
+  .modal-overlay.open { display: flex; animation: fadeIn 0.2s ease both; }
+  .modal { background: linear-gradient(135deg, var(--card) 0%, var(--card-dark) 100%); border: 1.5px solid rgba(79,201,126,0.3); border-radius: 20px; padding: 2rem; width: 100%; max-width: 560px; box-shadow: 0 16px 48px rgba(0,0,0,0.6); }
+  .modal-title { font-family: 'Fredoka One', cursive; font-size: 1.6rem; color: var(--mint-light); margin-bottom: 1.2rem; }
+  .modal-footer { display: flex; gap: 0.8rem; justify-content: flex-end; margin-top: 1.2rem; }
+
+  /* FORMS */
+  .form-group { margin-bottom: 1rem; }
+  .form-group label { display: block; font-weight: 800; font-size: 0.85rem; color: var(--mint-light); margin-bottom: 0.4rem; }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.7rem 1rem; background: rgba(0,0,0,0.25); border: 1.5px solid rgba(79,201,126,0.2); border-radius: 10px; color: var(--text); font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 700; outline: none; transition: border-color 0.2s; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: rgba(79,201,126,0.5); }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(232,254,242,0.3); }
+  .form-group select option { background: #1f5238; }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  /* AUTH */
+  .auth-container { max-width: 440px; margin: 2rem auto; padding: 0 1rem; }
+  .auth-card { background: linear-gradient(135deg, var(--card) 0%, var(--card-dark) 100%); border: 1.5px solid rgba(79,201,126,0.25); border-radius: 20px; padding: 2.5rem 2rem; box-shadow: 0 8px 32px var(--shadow); }
+  .auth-title { font-family: 'Fredoka One', cursive; font-size: 2rem; text-align: center; color: var(--text); margin-bottom: 0.3rem; }
+  .auth-subtitle { text-align: center; font-size: 0.9rem; color: rgba(232,254,242,0.5); font-weight: 700; margin-bottom: 1.5rem; }
+  .auth-tabs { display: flex; margin-bottom: 1.5rem; background: rgba(0,0,0,0.2); border-radius: 10px; padding: 4px; }
+  .auth-tab { flex: 1; text-align: center; padding: 0.5rem; border-radius: 8px; font-weight: 800; font-size: 0.9rem; cursor: pointer; transition: background 0.2s, color 0.2s; color: rgba(232,254,242,0.5); }
+  .auth-tab.active { background: var(--mint-panel); color: var(--mint-light); }
+  .auth-footer { text-align: center; margin-top: 1rem; font-size: 0.85rem; color: rgba(232,254,242,0.4); font-weight: 700; }
+  .auth-footer a { color: var(--mint); cursor: pointer; }
+  .auth-error { background: rgba(220,70,70,0.12); border: 1.5px solid rgba(220,70,70,0.3); color: #f87171; border-radius: 10px; padding: 0.7rem 1rem; font-size: 0.88rem; font-weight: 700; margin-bottom: 1rem; display: none; }
+  .auth-success { background: rgba(79,201,126,0.12); border: 1.5px solid rgba(79,201,126,0.3); color: var(--mint-light); border-radius: 10px; padding: 0.7rem 1rem; font-size: 0.88rem; font-weight: 700; margin-bottom: 1rem; display: none; }
+  .divider { display: flex; align-items: center; gap: 0.8rem; margin: 1.2rem 0; color: rgba(232,254,242,0.25); font-size: 0.8rem; font-weight: 700; }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: rgba(79,201,126,0.15); }
+
+  /* PROFILE (logged in) */
+  .account-page { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+  .profile-grid { display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem; align-items: start; }
+  .profile-sidebar { display: flex; flex-direction: column; gap: 1rem; }
+  .profile-info-card { background: linear-gradient(135deg, var(--card) 0%, var(--card-dark) 100%); border: 1.5px solid rgba(79,201,126,0.25); border-radius: 18px; padding: 1.8rem 1.5rem; text-align: center; box-shadow: 0 4px 20px var(--shadow); }
+  .profile-initial-big { width: 80px; height: 80px; border-radius: 18px; background: rgba(79,201,126,0.2); border: 2px solid rgba(79,201,126,0.4); display: flex; align-items: center; justify-content: center; font-family: 'Fredoka One', cursive; font-size: 2.2rem; color: var(--mint-light); margin: 0 auto 1rem; }
+  .profile-name { font-family: 'Fredoka One', cursive; font-size: 1.8rem; color: var(--text); }
+  .profile-handle { font-size: 0.85rem; color: rgba(232,254,242,0.45); font-weight: 700; margin-bottom: 1rem; }
+  .profile-stats { display: flex; gap: 1rem; justify-content: center; border-top: 1px solid rgba(79,201,126,0.15); padding-top: 1rem; margin-top: 0.5rem; }
+  .stat { text-align: center; }
+  .stat-value { font-family: 'Fredoka One', cursive; font-size: 1.4rem; color: var(--mint-light); }
+  .stat-label { font-size: 0.75rem; color: rgba(232,254,242,0.45); font-weight: 700; }
+  .profile-main { display: flex; flex-direction: column; gap: 1rem; }
+  .settings-card { background: linear-gradient(135deg, var(--card) 0%, var(--card-dark) 100%); border: 1.5px solid rgba(79,201,126,0.2); border-radius: 18px; padding: 1.6rem 1.8rem; box-shadow: 0 4px 20px var(--shadow); }
+  .settings-row { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid rgba(79,201,126,0.08); gap: 1rem; }
+  .settings-row:last-child { border-bottom: none; }
+  .settings-label { font-weight: 800; font-size: 0.95rem; }
+  .settings-value { font-size: 0.9rem; color: rgba(232,254,242,0.5); font-weight: 700; }
+  .logout-btn { background: rgba(220,70,70,0.1); border: 1.5px solid rgba(220,70,70,0.25); color: #f87171; padding: 0.6rem 1.2rem; border-radius: 10px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.9rem; cursor: pointer; transition: background 0.2s; width: 100%; margin-top: 0.5rem; }
+  .logout-btn:hover { background: rgba(220,70,70,0.18); }
+
+  /* TOAST */
+  .toast { position: fixed; bottom: 2rem; right: 2rem; background: #0a1f12; border: 1.5px solid rgba(79,201,126,0.35); border-radius: 12px; padding: 0.8rem 1.3rem; font-weight: 800; font-size: 0.9rem; color: var(--mint-light); box-shadow: 0 8px 24px rgba(0,0,0,0.5); z-index: 300; transform: translateY(80px); opacity: 0; transition: transform 0.3s, opacity 0.3s; pointer-events: none; }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  .hidden { display: none !important; }
+
+  footer { text-align: center; padding: 1.5rem; font-size: 0.82rem; color: rgba(232,254,242,0.3); font-weight: 700; }
+
+  @media (max-width: 768px) {
+    .hero-card { grid-template-columns: 1fr; text-align: center; padding: 1.5rem; }
+    .avatar-img { margin: 0 auto; }
+    .fluffy-badge { margin: 0 auto; }
+    .hero-name { font-size: 2.8rem; }
+    .lower-grid { grid-template-columns: 1fr; }
+    .profile-grid { grid-template-columns: 1fr; }
+    nav { padding: 0 1rem; }
+    .nav-links a { padding: 0.5rem 0.8rem; font-size: 0.9rem; }
+    .nav-user span { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand" onclick="showPage('home')">
+    <div class="nav-logo"><img src="minto_pfp.gif" alt="MintoFox"></div>
+    mintofox.net
+  </div>
+  <ul class="nav-links">
+    <li><a id="nav-home" class="active" onclick="showPage('home')">Home</a></li>
+    <li><a id="nav-forums" onclick="showPage('forums')">Forums</a></li>
+    <li><a id="nav-account" onclick="showPage('account')">Account</a></li>
+  </ul>
+  <div class="nav-user" onclick="showPage('account')">
+    <span id="nav-username">@guest</span>
+  </div>
+</nav>
+
+<!-- ═══════ HOME ═══════ -->
+<div id="page-home" class="page active">
+<main>
+  <div class="hero-card">
+    <img src="minto_pfp.gif" alt="MintoFox avatar" class="avatar-img">
+    <div class="hero-info">
+      <h1 class="hero-name">MintoFox</h1>
+      <p class="hero-bio">a panromantic femboy furry fox that really likes computers, i like using linux (mainly arch or cachyos) sometimes but im forced to use windows a lot. i love when we actually have privacy on the internet. ...google... ew....</p>
+      <span class="fluffy-badge">am fluffy tho hehe :3</span>
+    </div>
+  </div>
+  <div class="lower-grid">
+    <div class="card">
+      <div class="card-title">🔗 Find me on</div>
+      <ul class="social-list">
+        <li><span class="social-icon">🐾</span><span class="social-platform">Stoat:</span><span>MintoFox#7491</span></li>
+        <li><span class="social-icon">〰️</span><span class="social-platform">Fluxer:</span><span>MintoFox#9084</span></li>
+        <li><span class="social-icon">🥽</span><span class="social-platform">VRChat:</span><span>MintoFox</span></li>
+        <li><span class="social-icon">🎮</span><span class="social-platform">Epic Games:</span><span>Minto Fox</span></li>
+        <li><span class="social-icon">🎮</span><span class="social-platform">Steam:</span><span>MintoFox</span></li>
+        <li><span class="social-icon">▶️</span><span class="social-platform">YouTube:</span><span>MintoFox</span></li>
+        <li><span class="social-icon">🎵</span><span class="social-platform">TikTok:</span><span>mintofox</span></li>
+        <li><span class="social-icon">🦋</span><span class="social-platform">Bluesky:</span><span>mintofox.bsky.social</span></li>
+      </ul>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1.5rem;">
+      <div class="community-card">
+        <div class="card-title">💬 Community</div>
+        <a class="fluxer-banner" href="https://fluxer.gg/AqmudXOJ" target="_blank" rel="noopener">
+          <span class="fluxer-name">Fluxer Community</span>
+          <div class="fluxer-logo"><img src="fluxer-symbol-white.svg" alt="Fluxer"></div>
+        </a>
+      </div>
+      <div class="card">
+        <div class="card-title">✨ Vibes</div>
+        <div class="tags">
+          <span class="tag tag-mint">🐧 Linux Enjoyer</span>
+          <span class="tag tag-gold">🦊 Furry</span>
+          <span class="tag tag-pink">💜 Panromantic</span>
+          <span class="tag tag-purple">🌸 Femboy</span>
+          <span class="tag tag-mint">🔒 Privacy First</span>
+          <span class="tag tag-pink">🥽 VRChat</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</div>
+
+<!-- ═══════ FORUMS LIST ═══════ -->
+<div id="page-forums" class="page">
+<main>
+  <div class="page-header">
+    <h2 class="page-title">💬 Forums</h2>
+    <button class="btn btn-mint" onclick="openNewPostModal()">+ New Thread</button>
+  </div>
+  <div class="forum-categories">
+    <div class="forum-category">
+      <div class="category-header"><span>📢</span><h3>General</h3></div>
+      <div id="cat-general"><div class="forum-empty">loading...</div></div>
+    </div>
+    <div class="forum-category">
+      <div class="category-header"><span>💻</span><h3>Tech &amp; Linux</h3></div>
+      <div id="cat-tech"><div class="forum-empty">loading...</div></div>
+    </div>
+    <div class="forum-category">
+      <div class="category-header"><span>🎮</span><h3>Gaming &amp; VRChat</h3></div>
+      <div id="cat-gaming"><div class="forum-empty">loading...</div></div>
+    </div>
+    <div class="forum-category">
+      <div class="category-header"><span>✨</span><h3>Other</h3></div>
+      <div id="cat-other"><div class="forum-empty">loading...</div></div>
+    </div>
+  </div>
+</main>
+</div>
+
+<!-- ═══════ THREAD VIEW ═══════ -->
+<div id="page-thread" class="page">
+<main>
+  <button class="back-btn" onclick="showPage('forums')">← back to forums</button>
+  <div class="thread-post-card" id="thread-post-card">
+    <div class="thread-post-title" id="thread-title"></div>
+    <div class="thread-post-meta" id="thread-meta"></div>
+    <div class="thread-post-content" id="thread-content"></div>
+  </div>
+  <div class="replies-section">
+    <div class="replies-header" id="replies-header">💬 Replies</div>
+    <div id="replies-list"></div>
+    <div class="reply-box" id="reply-box">
+      <div class="reply-box-title">Leave a reply</div>
+      <div id="reply-form-area"></div>
+    </div>
+  </div>
+</main>
+</div>
+
+<!-- ═══════ ACCOUNT ═══════ -->
+<div id="page-account" class="page">
+  <!-- Logged Out -->
+  <div id="view-loggedout" class="auth-container">
+    <div class="auth-card">
+      <div class="auth-title">mintofox.net</div>
+      <div class="auth-subtitle">log in or make an account :3</div>
+      <div class="auth-tabs">
+        <div class="auth-tab active" id="tab-login" onclick="switchTab('login')">Log In</div>
+        <div class="auth-tab" id="tab-register" onclick="switchTab('register')">Register</div>
+        <div class="auth-tab" id="tab-reset" onclick="switchTab('reset')">Reset</div>
+      </div>
+      <div id="auth-error" class="auth-error"></div>
+      <div id="auth-success" class="auth-success"></div>
+
+      <!-- Login -->
+      <div id="form-login">
+        <div class="form-group"><label>Email</label><input type="email" id="login-email" placeholder="you@example.com"></div>
+        <div class="form-group"><label>Password</label><input type="password" id="login-password" placeholder="••••••••"></div>
+        <button class="btn btn-mint btn-full" id="login-btn" onclick="doLogin()">Log In</button>
+        <div class="auth-footer">no account? <a onclick="switchTab('register')">register</a> · forgot password? <a onclick="switchTab('reset')">reset it</a></div>
+      </div>
+
+      <!-- Register -->
+      <div id="form-register" class="hidden">
+        <div class="form-group"><label>Username</label><input type="text" id="reg-username" placeholder="coolname"></div>
+        <div class="form-group"><label>Email</label><input type="email" id="reg-email" placeholder="you@example.com"></div>
+        <div class="form-group"><label>Password</label><input type="password" id="reg-password" placeholder="8+ characters"></div>
+        <button class="btn btn-mint btn-full" id="register-btn" onclick="doRegister()">Create Account</button>
+        <div class="auth-footer">already have one? <a onclick="switchTab('login')">log in</a></div>
+      </div>
+
+      <!-- Reset password -->
+      <div id="form-reset" class="hidden">
+        <p style="font-size:0.9rem;font-weight:700;color:rgba(232,254,242,0.6);margin-bottom:1rem;">enter your email and we'll send you a reset link :3</p>
+        <div class="form-group"><label>Email</label><input type="email" id="reset-email" placeholder="you@example.com"></div>
+        <button class="btn btn-mint btn-full" id="reset-btn" onclick="doResetPassword()">Send Reset Link</button>
+        <div class="auth-footer"><a onclick="switchTab('login')">← back to login</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logged In -->
+  <div id="view-loggedin" class="account-page hidden">
+    <div class="profile-grid">
+      <div class="profile-sidebar">
+        <div class="profile-info-card">
+          <div class="profile-initial-big" id="profile-initial">?</div>
+          <div class="profile-name" id="profile-name">—</div>
+          <div class="profile-handle" id="profile-handle">—</div>
+          <div class="profile-stats">
+            <div class="stat"><div class="stat-value" id="stat-posts">—</div><div class="stat-label">posts</div></div>
+            <div class="stat"><div class="stat-value" id="stat-joined">—</div><div class="stat-label">joined</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-main">
+        <div class="settings-card">
+          <div class="card-title">⚙️ Account</div>
+          <div class="settings-row">
+            <div><div class="settings-label">Username</div><div class="settings-value" id="settings-username">—</div></div>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-label">Email</div><div class="settings-value" id="settings-email">—</div></div>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-label">Password</div><div class="settings-value">••••••••••</div></div>
+            <button class="btn btn-outline" onclick="doResetPasswordLoggedIn()">Reset via Email</button>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-label">Member since</div><div class="settings-value" id="settings-joined">—</div></div>
+          </div>
+        </div>
+        <button class="logout-btn" onclick="doLogout()">🚪 Log Out</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ NEW POST MODAL ═══════ -->
+<div class="modal-overlay" id="post-modal">
+  <div class="modal">
+    <div class="modal-title">✍️ New Thread</div>
+    <div class="form-group">
+      <label>Category</label>
+      <select id="post-category">
+        <option value="general">📢 General</option>
+        <option value="tech">💻 Tech &amp; Linux</option>
+        <option value="gaming">🎮 Gaming &amp; VRChat</option>
+        <option value="other">✨ Other</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Title</label><input type="text" id="post-title" placeholder="what's on your mind?"></div>
+    <div class="form-group"><label>Content</label><textarea id="post-content" placeholder="go off..."></textarea></div>
+    <div id="post-error" class="auth-error"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-mint" id="post-submit-btn" onclick="submitPost()">Post it 🦊</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<footer>mintofox.net — made with 💚 and too much caffeine</footer>
+
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+const sb = createClient(
+  'https://lmupyrjmsupdvxcewbhy.supabase.co',
+  'sb_publishable_Gn_DeJIDXWKnt5-ycuIAEA_afmk25X0'
+);
+
+// ── helpers ───────────────────────────────────────────────────
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function timeAgo(d) {
+  const diff = Date.now() - new Date(d).getTime();
+  const m = Math.floor(diff/60000), h = Math.floor(diff/3600000), dy = Math.floor(diff/86400000);
+  if (m < 1) return 'just now';
+  if (m < 60) return `${m}m ago`;
+  if (h < 24) return `${h}h ago`;
+  if (dy < 30) return `${dy}d ago`;
+  return new Date(d).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+}
+
+function formatDate(d) {
+  return new Date(d).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+}
+
+window.showToast = function(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+};
+
+// ── page nav ──────────────────────────────────────────────────
+window.showPage = function(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  const navEl = document.getElementById('nav-' + name);
+  if (navEl) navEl.classList.add('active');
+  else document.getElementById('nav-forums').classList.add('active'); // thread page uses forums nav
+  window.scrollTo(0, 0);
+  if (name === 'forums') loadForums();
+};
+
+// ── auth state ────────────────────────────────────────────────
+let currentUser = null;
+
+function updateUI(user) {
+  currentUser = user;
+  const username = user?.user_metadata?.username || user?.email?.split('@')[0] || 'guest';
+  document.getElementById('nav-username').textContent = '@' + username;
+  if (user) {
+    document.getElementById('view-loggedout').classList.add('hidden');
+    document.getElementById('view-loggedin').classList.remove('hidden');
+    const initial = username[0].toUpperCase();
+    document.getElementById('profile-initial').textContent = initial;
+    document.getElementById('profile-name').textContent = username;
+    document.getElementById('profile-handle').textContent = user.email;
+    document.getElementById('settings-username').textContent = username;
+    document.getElementById('settings-email').textContent = user.email;
+    loadMyPostCount(user.id);
+    loadJoinDate(user.id);
+  } else {
+    document.getElementById('nav-username').textContent = '@guest';
+    document.getElementById('view-loggedout').classList.remove('hidden');
+    document.getElementById('view-loggedin').classList.add('hidden');
+  }
+}
+
+async function loadMyPostCount(uid) {
+  const { count } = await sb.from('posts').select('*', { count:'exact', head:true }).eq('author_id', uid);
+  document.getElementById('stat-posts').textContent = count ?? 0;
+}
+
+async function loadJoinDate(uid) {
+  const { data } = await sb.from('profiles').select('created_at').eq('id', uid).single();
+  const d = data?.created_at ? formatDate(data.created_at) : '—';
+  document.getElementById('stat-joined').textContent = d;
+  document.getElementById('settings-joined').textContent = d;
+}
+
+sb.auth.getSession().then(({ data: { session } }) => updateUI(session?.user ?? null));
+sb.auth.onAuthStateChange((_e, session) => updateUI(session?.user ?? null));
+
+// ── auth tab ──────────────────────────────────────────────────
+window.switchTab = function(tab) {
+  ['login','register','reset'].forEach(t => {
+    document.getElementById('tab-' + t).classList.toggle('active', t === tab);
+    document.getElementById('form-' + t).classList.toggle('hidden', t !== tab);
+  });
+  clearAuthMsg();
+};
+
+function clearAuthMsg() {
+  ['auth-error','auth-success'].forEach(id => {
+    const el = document.getElementById(id);
+    el.style.display = 'none'; el.textContent = '';
+  });
+}
+function authErr(msg) { const e = document.getElementById('auth-error'); e.textContent = msg; e.style.display = 'block'; }
+function authOk(msg)  { const e = document.getElementById('auth-success'); e.textContent = msg; e.style.display = 'block'; }
+
+// ── login ─────────────────────────────────────────────────────
+window.doLogin = async function() {
+  clearAuthMsg();
+  const email = document.getElementById('login-email').value.trim();
+  const pass  = document.getElementById('login-password').value;
+  if (!email || !pass) return authErr('fill everything in :3');
+  const btn = document.getElementById('login-btn');
+  btn.disabled = true; btn.textContent = 'logging in...';
+  const { error } = await sb.auth.signInWithPassword({ email, password: pass });
+  btn.disabled = false; btn.textContent = 'Log In';
+  if (error) return authErr(error.message);
+  showToast('welcome back!! 🦊');
+};
+
+// ── register ──────────────────────────────────────────────────
+window.doRegister = async function() {
+  clearAuthMsg();
+  const username = document.getElementById('reg-username').value.trim();
+  const email    = document.getElementById('reg-email').value.trim();
+  const pass     = document.getElementById('reg-password').value;
+  if (!username || !email || !pass) return authErr('fill everything in :3');
+  if (pass.length < 8) return authErr('password needs 8+ characters');
+  if (!/^[a-zA-Z0-9_\-]+$/.test(username)) return authErr('username: letters, numbers, _ and - only');
+  const btn = document.getElementById('register-btn');
+  btn.disabled = true; btn.textContent = 'creating...';
+  const { error } = await sb.auth.signUp({ email, password: pass, options: { data: { username } } });
+  btn.disabled = false; btn.textContent = 'Create Account';
+  if (error) return authErr(error.message);
+  authOk('account created! check your email to confirm :3');
+};
+
+// ── reset password (logged out) ───────────────────────────────
+window.doResetPassword = async function() {
+  clearAuthMsg();
+  const email = document.getElementById('reset-email').value.trim();
+  if (!email) return authErr('enter your email first');
+  const btn = document.getElementById('reset-btn');
+  btn.disabled = true; btn.textContent = 'sending...';
+  const { error } = await sb.auth.resetPasswordForEmail(email, {
+    redirectTo: 'https://mintofox.net'
+  });
+  btn.disabled = false; btn.textContent = 'Send Reset Link';
+  if (error) return authErr(error.message);
+  authOk('reset link sent! check your inbox 📬');
+};
+
+// ── reset password (logged in) ────────────────────────────────
+window.doResetPasswordLoggedIn = async function() {
+  if (!currentUser?.email) return;
+  await sb.auth.resetPasswordForEmail(currentUser.email, { redirectTo: 'https://mintofox.net' });
+  showToast('reset email sent! 📬');
+};
+
+// ── logout ────────────────────────────────────────────────────
+window.doLogout = async function() {
+  await sb.auth.signOut();
+  showToast('logged out, see ya 👋');
+};
+
+// ── user tooltip ──────────────────────────────────────────────
+const profileCache = {};
+
+async function getProfile(authorId) {
+  if (profileCache[authorId]) return profileCache[authorId];
+  const { data: profile } = await sb.from('profiles').select('username, created_at').eq('id', authorId).single();
+  const { count } = await sb.from('posts').select('*', { count:'exact', head:true }).eq('author_id', authorId);
+  const result = { username: profile?.username || '?', joined: profile?.created_at, posts: count ?? 0 };
+  profileCache[authorId] = result;
+  return result;
+}
+
+function makeTooltip() {
+  const tip = document.createElement('div');
+  tip.className = 'user-tooltip';
+  tip.innerHTML = '<div class="user-tooltip-name"></div><div class="user-tooltip-meta"></div>';
+  return tip;
+}
+
+function attachTooltip(el, authorId) {
+  if (!authorId) return;
+  let tip = null, timer = null;
+
+  el.addEventListener('mouseenter', async () => {
+    timer = setTimeout(async () => {
+      const profile = await getProfile(authorId);
+      tip = makeTooltip();
+      tip.querySelector('.user-tooltip-name').textContent = profile.username;
+      tip.querySelector('.user-tooltip-meta').innerHTML =
+        `${profile.posts} post${profile.posts === 1 ? '' : 's'}<br>joined ${profile.joined ? formatDate(profile.joined) : '?'}`;
+      el.style.position = 'relative';
+      el.appendChild(tip);
+      requestAnimationFrame(() => tip.classList.add('visible'));
+    }, 250);
+  });
+
+  el.addEventListener('mouseleave', () => {
+    clearTimeout(timer);
+    if (tip) { tip.remove(); tip = null; }
+  });
+}
+
+// ── forums ────────────────────────────────────────────────────
+const CAT_IDS = { general: 'cat-general', tech: 'cat-tech', gaming: 'cat-gaming', other: 'cat-other' };
+const allPostsCache = {};
+
+window.loadForums = async function() {
+  Object.values(CAT_IDS).forEach(id => {
+    document.getElementById(id).innerHTML = '<div class="forum-empty">loading...</div>';
+  });
+
+  const { data: posts, error } = await sb.from('posts').select('*').order('created_at', { ascending: false });
+  if (error) {
+    Object.values(CAT_IDS).forEach(id => {
+      document.getElementById(id).innerHTML = '<div class="forum-empty">couldn\'t load posts :(</div>';
+    });
+    return;
+  }
+
+  // cache all posts for "view all"
+  const grouped = { general: [], tech: [], gaming: [], other: [] };
+  posts.forEach(p => {
+    // get reply count per post (batch later — for now store post)
+    const cat = grouped[p.category] !== undefined ? p.category : 'other';
+    grouped[cat].push(p);
+    allPostsCache[p.id] = p;
+  });
+
+  // get reply counts
+  const postIds = posts.map(p => p.id);
+  let replyCounts = {};
+  if (postIds.length) {
+    const { data: rc } = await sb.from('replies').select('post_id').in('post_id', postIds);
+    (rc || []).forEach(r => { replyCounts[r.post_id] = (replyCounts[r.post_id] || 0) + 1; });
+  }
+
+  Object.entries(grouped).forEach(([cat, catPosts]) => {
+    const el = document.getElementById(CAT_IDS[cat]);
+    if (!catPosts.length) { el.innerHTML = '<div class="forum-empty">no threads yet — be the first! 🦊</div>'; return; }
+    const preview = catPosts.slice(0, 3);
+    const rest    = catPosts.slice(3);
+    el.innerHTML = '';
+    preview.forEach(p => el.appendChild(makeThreadEl(p, replyCounts[p.id] || 0)));
+    if (rest.length) {
+      const row = document.createElement('div');
+      row.className = 'view-all-row';
+      row.innerHTML = `<button class="view-all-btn" onclick="expandCategory('${cat}')">view all ${catPosts.length} threads ↓</button>`;
+      el._allPosts = catPosts;
+      el._replyCounts = replyCounts;
+      el.appendChild(row);
+    }
+  });
+};
+
+window.expandCategory = function(cat) {
+  const el = document.getElementById(CAT_IDS[cat]);
+  const posts = el._allPosts || [];
+  const rc    = el._replyCounts || {};
+  el.innerHTML = '';
+  posts.forEach(p => el.appendChild(makeThreadEl(p, rc[p.id] || 0)));
+};
+
+function makeThreadEl(post, replyCount) {
+  const div = document.createElement('div');
+  div.className = 'forum-thread';
+  div.onclick = () => openThread(post.id);
+
+  const initial = (post.author_name || '?')[0].toUpperCase();
+  div.innerHTML = `
+    <div class="thread-initial" id="ti-${post.id}">${esc(initial)}</div>
+    <div class="thread-info">
+      <div class="thread-title">${esc(post.title)}</div>
+      <div class="thread-meta">by <span class="author-link" id="al-${post.id}" onclick="event.stopPropagation()">${esc(post.author_name || 'anonymous')}</span> · ${timeAgo(post.created_at)}</div>
+    </div>
+    <div class="thread-replies"><strong>${replyCount}</strong>replies</div>`;
+
+  // attach tooltips after inserting
+  requestAnimationFrame(() => {
+    const tiEl = document.getElementById(`ti-${post.id}`);
+    const alEl = document.getElementById(`al-${post.id}`);
+    if (tiEl && post.author_id) attachTooltip(tiEl, post.author_id);
+    if (alEl && post.author_id) attachTooltip(alEl, post.author_id);
+  });
+
+  return div;
+}
+
+// ── thread view ───────────────────────────────────────────────
+let currentPostId = null;
+
+window.openThread = async function(postId) {
+  currentPostId = postId;
+  showPage('thread');
+
+  // get post
+  const post = allPostsCache[postId];
+  if (!post) return;
+
+  document.getElementById('thread-title').textContent = post.title;
+  document.getElementById('thread-content').textContent = post.content;
+
+  const metaEl = document.getElementById('thread-meta');
+  metaEl.innerHTML = `posted by <span class="author-link" id="thread-author-link">${esc(post.author_name || 'anonymous')}</span> · ${formatDate(post.created_at)} at ${new Date(post.created_at).toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' })}`;
+  if (post.author_id) {
+    requestAnimationFrame(() => {
+      const el = document.getElementById('thread-author-link');
+      if (el) attachTooltip(el, post.author_id);
+    });
+  }
+
+  loadReplies(postId);
+  renderReplyForm();
+};
+
+async function loadReplies(postId) {
+  const listEl = document.getElementById('replies-list');
+  listEl.innerHTML = '<div class="forum-empty">loading replies...</div>';
+
+  const { data: replies, error } = await sb.from('replies').select('*').eq('post_id', postId).order('created_at', { ascending: true });
+  if (error || !replies) { listEl.innerHTML = '<div class="forum-empty">couldn\'t load replies :(</div>'; return; }
+
+  document.getElementById('replies-header').textContent = `💬 ${replies.length} ${replies.length === 1 ? 'Reply' : 'Replies'}`;
+
+  if (!replies.length) { listEl.innerHTML = '<div class="forum-empty">no replies yet — say something! 🦊</div>'; return; }
+
+  listEl.innerHTML = '';
+  replies.forEach(r => {
+    const card = document.createElement('div');
+    card.className = 'reply-card';
+    card.innerHTML = `
+      <div class="reply-meta">
+        <span class="author-link" id="ra-${r.id}">${esc(r.author_name || 'anonymous')}</span>
+        · ${formatDate(r.created_at)} at ${new Date(r.created_at).toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' })}
+      </div>
+      <div class="reply-content">${esc(r.content)}</div>`;
+    listEl.appendChild(card);
+    if (r.author_id) {
+      requestAnimationFrame(() => {
+        const el = document.getElementById(`ra-${r.id}`);
+        if (el) attachTooltip(el, r.author_id);
+      });
+    }
+  });
+}
+
+function renderReplyForm() {
+  const area = document.getElementById('reply-form-area');
+  if (!currentUser) {
+    area.innerHTML = `<p class="reply-login-note"><a onclick="showPage('account')">Log in</a> to leave a reply :3</p>`;
+    return;
+  }
+  area.innerHTML = `
+    <div class="form-group"><textarea id="reply-input" placeholder="write your reply..." style="min-height:80px;"></textarea></div>
+    <div id="reply-error" class="auth-error"></div>
+    <div style="display:flex;justify-content:flex-end;">
+      <button class="btn btn-mint" id="reply-btn" onclick="submitReply()">Reply 🦊</button>
+    </div>`;
+}
+
+window.submitReply = async function() {
+  const content = document.getElementById('reply-input')?.value.trim();
+  const errEl   = document.getElementById('reply-error');
+  errEl.style.display = 'none';
+  if (!content) { errEl.textContent = 'write something first :3'; errEl.style.display = 'block'; return; }
+
+  const btn = document.getElementById('reply-btn');
+  btn.disabled = true; btn.textContent = 'posting...';
+
+  const username = currentUser.user_metadata?.username || currentUser.email.split('@')[0];
+  const { error } = await sb.from('replies').insert({
+    post_id: currentPostId,
+    content,
+    author_name: username,
+    author_id: currentUser.id,
+  });
+
+  btn.disabled = false; btn.textContent = 'Reply 🦊';
+  if (error) { errEl.textContent = error.message; errEl.style.display = 'block'; return; }
+
+  document.getElementById('reply-input').value = '';
+  showToast('reply posted! 🎉');
+  loadReplies(currentPostId);
+};
+
+// ── new post modal ────────────────────────────────────────────
+window.openNewPostModal = function() {
+  if (!currentUser) { showToast('log in first to post :3'); showPage('account'); return; }
+  document.getElementById('post-modal').classList.add('open');
+};
+
+window.closeModal = function() {
+  document.getElementById('post-modal').classList.remove('open');
+  document.getElementById('post-error').style.display = 'none';
+};
+
+document.getElementById('post-modal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+
+window.submitPost = async function() {
+  const title    = document.getElementById('post-title').value.trim();
+  const content  = document.getElementById('post-content').value.trim();
+  const category = document.getElementById('post-category').value;
+  const errEl    = document.getElementById('post-error');
+  errEl.style.display = 'none';
+  if (!title)   { errEl.textContent = 'give it a title!';    errEl.style.display = 'block'; return; }
+  if (!content) { errEl.textContent = 'write something :3';  errEl.style.display = 'block'; return; }
+
+  const btn = document.getElementById('post-submit-btn');
+  btn.disabled = true; btn.textContent = 'posting...';
+
+  const username = currentUser.user_metadata?.username || currentUser.email.split('@')[0];
+  const { error } = await sb.from('posts').insert({ title, content, category, author_name: username, author_id: currentUser.id });
+
+  btn.disabled = false; btn.textContent = 'Post it 🦊';
+  if (error) { errEl.textContent = error.message; errEl.style.display = 'block'; return; }
+
+  document.getElementById('post-title').value = '';
+  document.getElementById('post-content').value = '';
+  closeModal();
+  showToast('thread posted!! 🎉');
+  loadForums();
+};
+
+// re-render reply form when auth state changes (so "log in to reply" updates live)
+sb.auth.onAuthStateChange(() => {
+  if (currentPostId) renderReplyForm();
+});
+</script>
+</body>
+</html>
