@@ -438,9 +438,7 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
   <div id="thread-view" class="hidden">
   <main>
     <div class="back-btn" onclick="backToForums()">← Back to Forums</div>
-    <div id="thread-post-area"></div>
-    <div id="reply-compose-area" style="margin-top:.6rem;margin-bottom:.6rem;"></div>
-    <div class="replies-section" id="replies-area"></div>
+    <div id="thread-content"></div>
   </main>
   </div>
 </div>
@@ -932,23 +930,29 @@ window.disableMfa=async()=>{
 
 // ─── delete account ───────────────────────────────────────────
 window.deleteAccount=async()=>{
-  const confirm=document.getElementById('delete-confirm-text').value.trim();
+  const confirmText=document.getElementById('delete-confirm-text').value.trim();
   const pw=document.getElementById('delete-password').value;
-  if(confirm!=='DELETE')return showErr('delete-err','type DELETE exactly');
+  if(confirmText!=='DELETE')return showErr('delete-err','type DELETE exactly');
   if(!pw)return showErr('delete-err','enter your password');
-  // re-auth
+  // get session token FIRST before anything else
+  const{data:{session}}=await sb.auth.getSession();
+  if(!session)return showErr('delete-err','session expired, please log out and back in');
+  // re-auth to verify password
   const{error:authErr}=await sb.auth.signInWithPassword({email:currentUser.email,password:pw});
   if(authErr)return showErr('delete-err','wrong password');
-  // delete posts and replies (cascade should handle it via DB but let's be safe)
+  // delete data
   await sb.from('replies').delete().eq('author_id',currentUser.id);
   await sb.from('posts').delete().eq('author_id',currentUser.id);
   await sb.from('profiles').delete().eq('id',currentUser.id);
-  // call edge function to fully delete the auth account
-  const{data:{session}}=await sb.auth.getSession();
-  await fetch('https://lmupyrjmsupdvxcewbhy.supabase.co/functions/v1/delete-user',{
+  // call edge function with the token we grabbed before re-auth changed it
+  const res=await fetch('https://lmupyrjmsupdvxcewbhy.supabase.co/functions/v1/delete-user',{
     method:'POST',
     headers:{Authorization:'Bearer '+session.access_token}
   });
+  if(!res.ok){
+    const txt=await res.text();
+    return showErr('delete-err','edge function error: '+txt+' (is the function deployed?)');
+  }
   await sb.auth.signOut();
   showToast('account deleted. take care 🌿');
 };
@@ -1159,8 +1163,8 @@ function threadRow(p,inExpandable=false){
   const canEdit=currentUser&&currentUser.id===p.author_id;
   const editBtns=canEdit?`
     <div class="thread-actions">
-      <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openEditPost(${p.id},'${esc(p.title)}','${esc(p.content).replace(/'/g,"\\'")}')">✏️</button>
-      <button class="btn btn-red btn-sm" onclick="event.stopPropagation();deletePost(${p.id})">🗑️</button>
+      <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openThread(${p.id}).then(()=>openEditPost())">✏️</button>
+      <button class="btn btn-red btn-sm" onclick="event.stopPropagation();deletePost(${p.id},false)">🗑️</button>
     </div>`:'';
   return`<div class="forum-thread">
     <div class="thread-clickable" onclick="openThread(${p.id})">
@@ -1242,13 +1246,14 @@ subscribeForums();
 let threadChannel=null;
 let currentThreadId=null;
 
+// store current post data safely so edit/delete don't break on special chars
+let currentPostData=null;
+
 window.openThread=async(postId)=>{
   currentThreadId=postId;
   document.getElementById('forums-list-view').classList.add('hidden');
   document.getElementById('thread-view').classList.remove('hidden');
-  document.getElementById('thread-post-area').innerHTML='<div class="forum-empty">loading...</div>';
-  document.getElementById('replies-area').innerHTML='';
-  document.getElementById('reply-compose-area').innerHTML='';
+  document.getElementById('thread-content').innerHTML='<div class="forum-empty">loading...</div>';
   await renderThread(postId);
   subscribeThread(postId);
 };
@@ -1258,13 +1263,31 @@ async function renderThread(postId){
     sb.from('posts').select('*').eq('id',postId).single(),
     sb.from('replies').select('*').eq('post_id',postId).order('created_at',{ascending:false}),
   ]);
-  if(!post){document.getElementById('thread-post-area').innerHTML='<div class="forum-empty">post not found :(</div>';return;}
+  const tc=document.getElementById('thread-content');
+  if(!post){tc.innerHTML='<div class="forum-empty">post not found :(</div>';return;}
+
+  // store safely for edit/delete
+  currentPostData=post;
 
   const aid=esc(post.author_id||'');const an=esc(post.author_name||'anon');
   const canEditPost=currentUser&&currentUser.id===post.author_id;
   const isFollowing=currentUser?await checkFollowing(postId):false;
 
-  document.getElementById('thread-post-area').innerHTML=`
+  const composeHTML=currentUser
+    ?`<div class="reply-compose">
+        <div class="reply-compose-title">💬 Leave a Reply</div>
+        <div class="form-group"><textarea id="reply-input" placeholder="write your reply..."></textarea></div>
+        <div id="reply-err" class="msg-err"></div>
+        <div style="display:flex;justify-content:flex-end;"><button class="btn btn-mint" id="reply-btn" onclick="submitReply(${postId})">Reply 🦊</button></div>
+      </div>`
+    :`<div class="reply-compose"><div class="reply-login-note"><a onclick="showPage('account')">log in</a> to reply :3</div></div>`;
+
+  const repliesHTML=replies&&replies.length
+    ?`<div style="font-size:.78rem;color:rgba(232,254,242,.25);font-weight:700;padding:.2rem 0 .4rem;display:flex;align-items:center;gap:.4rem;"><span class="live-dot"></span>live · ${replies.length} repl${replies.length===1?'y':'ies'}, newest first</div>`+replies.map(replyHTML).join('')
+    :`<div class="forum-empty" style="padding:.8rem 0;">no replies yet — jump in! 🦊</div>`;
+
+  // write everything in one shot so DOM order = visual order
+  tc.innerHTML=`
     <div class="thread-post-card">
       <div class="thread-post-title">${esc(post.title)}</div>
       <div class="thread-post-meta">
@@ -1275,33 +1298,12 @@ async function renderThread(postId){
       <div class="thread-post-body">${esc(post.content)}</div>
       <div class="thread-post-actions">
         ${currentUser?`<button class="btn btn-ghost btn-sm follow-btn" id="follow-btn" onclick="toggleFollow(${postId})">${isFollowing?'★ Following':'☆ Follow'}</button>`:''}
-        ${canEditPost?`<button class="btn btn-ghost btn-sm" onclick="openEditPost(${post.id},'${esc(post.title)}','${esc(post.content).replace(/'/g,"\\'")}')">✏️ Edit</button>
+        ${canEditPost?`<button class="btn btn-ghost btn-sm" onclick="openEditPost()">✏️ Edit</button>
           <button class="btn btn-red btn-sm" onclick="deletePost(${post.id},true)">🗑️ Delete</button>`:''}
       </div>
-    </div>`;
-
-  // compose box FIRST, above replies
-  const ca=document.getElementById('reply-compose-area');
-  if(currentUser){
-    const prev=document.getElementById('reply-input')?document.getElementById('reply-input').value:'';
-    ca.innerHTML=`<div class="reply-compose">
-      <div class="reply-compose-title">💬 Leave a Reply</div>
-      <div class="form-group"><textarea id="reply-input" placeholder="write your reply...">${esc(prev)}</textarea></div>
-      <div id="reply-err" class="msg-err"></div>
-      <div style="display:flex;justify-content:flex-end;"><button class="btn btn-mint" id="reply-btn" onclick="submitReply(${postId})">Reply 🦊</button></div>
-    </div>`;
-  } else {
-    ca.innerHTML=`<div class="reply-compose"><div class="reply-login-note"><a onclick="showPage('account')">log in</a> to reply :3</div></div>`;
-  }
-
-  // replies below, newest first
-  const ra=document.getElementById('replies-area');
-  if(replies&&replies.length){
-    ra.innerHTML=`<div style="font-size:.78rem;color:rgba(232,254,242,.25);font-weight:700;padding:.2rem 0 .4rem;display:flex;align-items:center;gap:.4rem;"><span class="live-dot"></span>live · ${replies.length} repl${replies.length===1?'y':'ies'}, newest first</div>`+
-      replies.map(replyHTML).join('');
-  } else {
-    ra.innerHTML='<div class="forum-empty" style="padding:.8rem 0;">no replies yet — jump in! 🦊</div>';
-  }
+    </div>
+    <div style="margin-top:.6rem;margin-bottom:.6rem;">${composeHTML}</div>
+    <div class="replies-section" id="replies-area">${repliesHTML}</div>`;
 }
 
 function replyHTML(r){
@@ -1390,10 +1392,11 @@ window.submitReply=async(postId)=>{
 };
 
 // ─── edit / delete post ───────────────────────────────────────
-window.openEditPost=(id,title,content)=>{
-  document.getElementById('edit-post-id').value=id;
-  document.getElementById('edit-post-title').value=title;
-  document.getElementById('edit-post-content').value=content;
+window.openEditPost=()=>{
+  if(!currentPostData)return;
+  document.getElementById('edit-post-id').value=currentPostData.id;
+  document.getElementById('edit-post-title').value=currentPostData.title||'';
+  document.getElementById('edit-post-content').value=currentPostData.content||'';
   openModal('modal-edit-post');
 };
 
