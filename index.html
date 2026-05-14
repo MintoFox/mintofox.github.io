@@ -6,28 +6,28 @@
 <title>MintoFox — mintofox.net</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
-:root{--mint:#4fc97e;--mint-panel:#2a6b4a;--mint-light:#a8f0c6;--bg:#0f2319;--card:#1f5238;--card-dark:#163826;--text:#e8fef2;--accent:#f5c842;--pink:#f78fb3;--purple:#b39ddb;--red:#f87171;--shadow:rgba(0,0,0,.4);}
+:root{--mint:#4fc97e;--mint-dark:#2e7d52;--mint-panel:#2a6b4a;--mint-light:#a8f0c6;--bg:#0f2319;--card:#1f5238;--card-dark:#163826;--text:#e8fef2;--gold:#f5c842;--pink:#f78fb3;--purple:#b39ddb;--red:#f87171;--shadow:rgba(0,0,0,0.4);}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
 body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse 60% 40% at 20% 80%,rgba(79,201,126,.12) 0%,transparent 60%),radial-gradient(ellipse 50% 60% at 85% 15%,rgba(79,201,126,.08) 0%,transparent 55%);}
 
 /* NAV */
-nav{display:flex;align-items:center;padding:0 2rem;height:70px;background:rgba(15,35,25,.92);backdrop-filter:blur(12px);border-bottom:2px solid rgba(79,201,126,.2);position:sticky;top:0;z-index:200;}
+nav{display:flex;align-items:center;padding:0 2rem;height:70px;background:rgba(15,35,25,.95);backdrop-filter:blur(12px);border-bottom:2px solid rgba(79,201,126,.2);position:sticky;top:0;z-index:100;}
 .nav-brand{display:flex;align-items:center;gap:.6rem;font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--mint-light);margin-right:auto;cursor:pointer;text-decoration:none;}
 .nav-logo{width:40px;height:40px;border-radius:10px;overflow:hidden;border:2px solid rgba(79,201,126,.5);flex-shrink:0;}
 .nav-logo img{width:100%;height:100%;object-fit:cover;}
 .nav-links{display:flex;list-style:none;}
-.nav-links a{display:block;padding:.5rem 1.4rem;color:var(--text);text-decoration:none;font-weight:700;font-size:1rem;border-radius:8px;transition:background .2s,color .2s;position:relative;cursor:pointer;}
+.nav-links a{display:block;padding:.5rem 1.2rem;color:var(--text);text-decoration:none;font-weight:700;font-size:1rem;border-radius:8px;transition:background .2s,color .2s;position:relative;cursor:pointer;}
 .nav-links a.active{color:var(--mint-light);background:rgba(79,201,126,.12);}
 .nav-links a.active::after{content:'';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);width:60%;height:2px;background:var(--mint);border-radius:2px;}
 .nav-links a:hover:not(.active){color:var(--mint-light);background:rgba(79,201,126,.07);}
-.nav-right{display:flex;align-items:center;gap:.8rem;margin-left:1.5rem;}
+.nav-right{display:flex;align-items:center;gap:.8rem;margin-left:1rem;}
 .nav-user{font-size:.9rem;color:rgba(232,254,242,.6);cursor:pointer;font-weight:700;}
 .nav-user:hover{color:var(--mint-light);}
-.notif-btn{position:relative;background:rgba(79,201,126,.08);border:1.5px solid rgba(79,201,126,.2);border-radius:10px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;transition:background .2s;}
+.notif-btn{position:relative;width:36px;height:36px;border-radius:50%;background:rgba(79,201,126,.08);border:1.5px solid rgba(79,201,126,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:background .2s;}
 .notif-btn:hover{background:rgba(79,201,126,.15);}
-.notif-badge{position:absolute;top:-4px;right:-4px;background:#ef4444;color:#fff;font-size:.65rem;font-weight:900;border-radius:100px;min-width:18px;height:18px;display:flex;align-items:center;justify-content:center;padding:0 4px;border:2px solid var(--bg);}
-.notif-badge.hidden{display:none;}
+.notif-badge{position:absolute;top:-3px;right:-3px;background:#f87171;border-radius:50%;width:16px;height:16px;font-size:.6rem;font-weight:900;display:flex;align-items:center;justify-content:center;color:#fff;display:none;}
+.notif-badge.show{display:flex;}
 
 /* PAGES */
 .page{display:none;}
@@ -36,35 +36,37 @@ nav{display:flex;align-items:center;padding:0 2rem;height:70px;background:rgba(1
 
 main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex-direction:column;gap:1.5rem;}
 
-/* CARDS */
+/* GENERIC CARD */
 .card{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:18px;padding:1.6rem 1.8rem;box-shadow:0 4px 20px var(--shadow);}
-.card-title{font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--mint-light);margin-bottom:1rem;}
+.card-title{font-family:'Fredoka One',cursive;font-size:1.15rem;color:var(--mint-light);margin-bottom:1rem;}
 
 /* BUTTONS */
-.btn{padding:.55rem 1.3rem;border-radius:10px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer;border:none;transition:filter .2s,transform .15s;}
+.btn{padding:.5rem 1.2rem;border-radius:10px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;border:none;transition:filter .2s,transform .15s;display:inline-flex;align-items:center;gap:.4rem;}
 .btn:hover{filter:brightness(1.1);transform:translateY(-1px);}
 .btn:active{transform:translateY(0);}
 .btn-mint{background:var(--mint);color:#0f2319;}
 .btn-outline{background:transparent;color:var(--mint-light);border:1.5px solid rgba(79,201,126,.4);}
-.btn-red{background:rgba(239,68,68,.1);border:1.5px solid rgba(239,68,68,.3);color:var(--red);}
-.btn-red:hover{background:rgba(239,68,68,.2);}
-.btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
-.btn-full{width:100%;padding:.75rem;font-size:1rem;border-radius:12px;margin-top:.5rem;}
+.btn-ghost{background:rgba(79,201,126,.08);color:var(--mint-light);border:1.5px solid rgba(79,201,126,.15);}
+.btn-red{background:rgba(248,113,113,.12);color:var(--red);border:1.5px solid rgba(248,113,113,.25);}
+.btn-red:hover{background:rgba(248,113,113,.2);}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+.btn-full{width:100%;justify-content:center;padding:.75rem;font-size:1rem;border-radius:12px;margin-top:.4rem;}
+.btn-sm{padding:.3rem .8rem;font-size:.8rem;border-radius:8px;}
 
 /* FORMS */
-.form-group{margin-bottom:1rem;}
-.form-group label{display:block;font-weight:800;font-size:.85rem;color:var(--mint-light);margin-bottom:.4rem;}
-.form-group input,.form-group select,.form-group textarea{width:100%;padding:.7rem 1rem;background:rgba(0,0,0,.25);border:1.5px solid rgba(79,201,126,.2);border-radius:10px;color:var(--text);font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:700;outline:none;transition:border-color .2s;}
+.form-group{margin-bottom:.9rem;}
+.form-group label{display:block;font-weight:800;font-size:.82rem;color:var(--mint-light);margin-bottom:.35rem;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:.65rem 1rem;background:rgba(0,0,0,.3);border:1.5px solid rgba(79,201,126,.2);border-radius:10px;color:var(--text);font-family:'Nunito',sans-serif;font-size:.92rem;font-weight:700;outline:none;transition:border-color .2s;}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:rgba(79,201,126,.5);}
-.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(232,254,242,.3);}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(232,254,242,.25);}
 .form-group select option{background:#1f5238;}
-.form-group textarea{resize:vertical;min-height:90px;}
-.msg-err{background:rgba(239,68,68,.12);border:1.5px solid rgba(239,68,68,.3);color:var(--red);border-radius:10px;padding:.7rem 1rem;font-size:.88rem;font-weight:700;margin-bottom:1rem;display:none;}
-.msg-ok{background:rgba(79,201,126,.12);border:1.5px solid rgba(79,201,126,.3);color:var(--mint-light);border-radius:10px;padding:.7rem 1rem;font-size:.88rem;font-weight:700;margin-bottom:1rem;display:none;}
+.form-group textarea{resize:vertical;min-height:90px;line-height:1.6;}
+.msg-err{background:rgba(248,113,113,.12);border:1.5px solid rgba(248,113,113,.3);color:var(--red);border-radius:10px;padding:.65rem 1rem;font-size:.85rem;font-weight:700;margin-bottom:.8rem;display:none;}
+.msg-ok{background:rgba(79,201,126,.12);border:1.5px solid rgba(79,201,126,.3);color:var(--mint-light);border-radius:10px;padding:.65rem 1rem;font-size:.85rem;font-weight:700;margin-bottom:.8rem;display:none;}
 
 /* HOME */
 .hero-card{background:linear-gradient(135deg,var(--mint-panel) 0%,#1e4d38 100%);border:1.5px solid rgba(79,201,126,.3);border-radius:20px;padding:2rem 2.5rem;display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start;box-shadow:0 8px 32px var(--shadow);}
-.avatar-img{width:200px;height:200px;border-radius:18px;object-fit:cover;border:3px solid rgba(79,201,126,.5);box-shadow:0 4px 20px rgba(0,0,0,.4);display:block;}
+.avatar-img{width:200px;height:200px;border-radius:18px;object-fit:cover;border:3px solid rgba(79,201,126,.5);box-shadow:0 4px 20px rgba(0,0,0,.4);}
 .hero-info{display:flex;flex-direction:column;gap:.8rem;padding-top:.3rem;}
 .hero-name{font-family:'Fredoka One',cursive;font-size:3.8rem;line-height:1;color:var(--text);}
 .hero-bio{font-size:1.05rem;line-height:1.65;color:rgba(232,254,242,.88);font-weight:700;max-width:700px;}
@@ -74,208 +76,196 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex
 .social-list li{display:flex;align-items:center;gap:.6rem;font-size:.95rem;font-weight:700;}
 .social-platform{color:var(--mint);min-width:90px;font-weight:800;}
 .community-card{background:linear-gradient(135deg,#111 0%,#1a1a1a 100%);border:1.5px solid rgba(255,255,255,.08);border-radius:18px;padding:1.6rem 1.8rem;display:flex;flex-direction:column;gap:1rem;box-shadow:0 4px 20px var(--shadow);}
-.community-card .card-title{color:#999;}
-.fluxer-banner{background:#1a1a1a;border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:1.4rem 1.8rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;text-decoration:none;transition:border-color .2s,background .2s;}
+.community-card .card-title{color:#888;}
+.fluxer-banner{background:#1a1a1a;border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:1.3rem 1.6rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;text-decoration:none;transition:border-color .2s,background .2s;}
 .fluxer-banner:hover{border-color:rgba(255,255,255,.25);background:#222;}
-.fluxer-name{font-family:'Fredoka One',cursive;font-size:2rem;color:#fff;}
-.fluxer-logo{width:64px;height:64px;border-radius:50%;background:#333;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.fluxer-logo img{width:40px;height:40px;}
+.fluxer-name{font-family:'Fredoka One',cursive;font-size:1.9rem;color:#fff;}
+.fluxer-logo{width:60px;height:60px;border-radius:50%;background:#333;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.fluxer-logo img{width:38px;height:38px;}
 .tags{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.8rem;}
-.tag{padding:.3rem .9rem;border-radius:100px;font-size:.85rem;font-weight:800;border:1.5px solid;}
+.tag{padding:.3rem .9rem;border-radius:100px;font-size:.82rem;font-weight:800;border:1.5px solid;}
 .tag-mint{background:rgba(79,201,126,.1);border-color:rgba(79,201,126,.35);color:var(--mint-light);}
 .tag-pink{background:rgba(247,143,179,.1);border-color:rgba(247,143,179,.35);color:var(--pink);}
 .tag-purple{background:rgba(179,157,219,.1);border-color:rgba(179,157,219,.35);color:var(--purple);}
-.tag-gold{background:rgba(245,200,66,.1);border-color:rgba(245,200,66,.35);color:var(--accent);}
+.tag-gold{background:rgba(245,200,66,.1);border-color:rgba(245,200,66,.35);color:var(--gold);}
 
 /* FORUMS */
 .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;}
 .page-title{font-family:'Fredoka One',cursive;font-size:2.2rem;color:var(--mint-light);}
 
 /* SEARCH BAR */
-.search-bar{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:16px;padding:1.2rem 1.4rem;display:flex;flex-direction:column;gap:.9rem;box-shadow:0 4px 16px var(--shadow);}
-.search-row{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;}
-.search-input-wrap{flex:1;min-width:200px;position:relative;}
-.search-input-wrap input{width:100%;padding:.6rem 1rem .6rem 2.4rem;background:rgba(0,0,0,.25);border:1.5px solid rgba(79,201,126,.2);border-radius:10px;color:var(--text);font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:700;outline:none;transition:border-color .2s;}
+.search-bar{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:16px;padding:1.2rem 1.4rem;box-shadow:0 4px 16px var(--shadow);}
+.search-row{display:flex;gap:.7rem;align-items:center;margin-bottom:.8rem;}
+.search-input-wrap{flex:1;position:relative;}
+.search-input-wrap input{padding:.65rem 1rem .65rem 2.4rem;background:rgba(0,0,0,.3);border:1.5px solid rgba(79,201,126,.2);border-radius:10px;color:var(--text);font-family:'Nunito',sans-serif;font-size:.92rem;font-weight:700;outline:none;width:100%;transition:border-color .2s;}
 .search-input-wrap input:focus{border-color:rgba(79,201,126,.5);}
-.search-input-wrap input::placeholder{color:rgba(232,254,242,.3);}
-.search-icon{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);color:rgba(232,254,242,.4);font-size:.95rem;pointer-events:none;}
-.filter-row{display:flex;gap:.8rem;flex-wrap:wrap;align-items:flex-end;}
-.filter-group{display:flex;flex-direction:column;gap:.3rem;}
-.filter-label{font-size:.75rem;font-weight:800;color:rgba(232,254,242,.5);}
-.filter-input{padding:.5rem .8rem;background:rgba(0,0,0,.25);border:1.5px solid rgba(79,201,126,.2);border-radius:8px;color:var(--text);font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;outline:none;transition:border-color .2s;}
-.filter-input:focus{border-color:rgba(79,201,126,.5);}
-.filter-input::placeholder{color:rgba(232,254,242,.3);}
-.sort-select{padding:.5rem .8rem;background:rgba(0,0,0,.25);border:1.5px solid rgba(79,201,126,.2);border-radius:8px;color:var(--text);font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;outline:none;cursor:pointer;}
-.sort-select option{background:#1f5238;}
-.search-clear{background:rgba(79,201,126,.08);border:1.5px solid rgba(79,201,126,.2);color:var(--mint-light);border-radius:8px;padding:.5rem .9rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer;transition:background .2s;white-space:nowrap;}
-.search-clear:hover{background:rgba(79,201,126,.15);}
+.search-input-wrap input::placeholder{color:rgba(232,254,242,.25);}
+.search-icon{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);font-size:.9rem;opacity:.5;}
+.filter-toggle{background:rgba(79,201,126,.08);border:1.5px solid rgba(79,201,126,.2);color:var(--mint-light);border-radius:10px;padding:.6rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer;transition:background .2s;white-space:nowrap;}
+.filter-toggle:hover{background:rgba(79,201,126,.15);}
+.filter-panel{display:none;border-top:1px solid rgba(79,201,126,.15);padding-top:.9rem;margin-top:.1rem;}
+.filter-panel.open{display:block;animation:fadeIn .2s ease both;}
+.filter-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem;align-items:end;}
+.filter-group label{display:block;font-weight:800;font-size:.78rem;color:rgba(232,254,242,.5);margin-bottom:.3rem;}
+.filter-group input,.filter-group select{padding:.5rem .8rem;background:rgba(0,0,0,.3);border:1.5px solid rgba(79,201,126,.15);border-radius:8px;color:var(--text);font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;outline:none;width:100%;}
+.filter-group input:focus,.filter-group select:focus{border-color:rgba(79,201,126,.4);}
+.filter-actions{display:flex;gap:.5rem;margin-top:.8rem;justify-content:flex-end;}
 
 /* FORUM CATEGORIES */
 .forum-categories{display:flex;flex-direction:column;gap:1rem;}
 .forum-category{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:16px;overflow:hidden;box-shadow:0 4px 16px var(--shadow);}
-.category-header{padding:1rem 1.5rem;background:rgba(79,201,126,.08);border-bottom:1px solid rgba(79,201,126,.15);display:flex;align-items:center;gap:.6rem;}
-.category-header h3{font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--mint-light);}
-.forum-thread{padding:1rem 1.5rem;border-bottom:1px solid rgba(79,201,126,.08);display:flex;align-items:center;gap:1rem;transition:background .15s;}
+.category-header{padding:.9rem 1.4rem;background:rgba(79,201,126,.08);border-bottom:1px solid rgba(79,201,126,.15);display:flex;align-items:center;gap:.6rem;}
+.category-header h3{font-family:'Fredoka One',cursive;font-size:1.05rem;color:var(--mint-light);}
+.forum-thread{padding:.9rem 1.4rem;border-bottom:1px solid rgba(79,201,126,.07);display:flex;align-items:center;gap:.9rem;transition:background .15s;}
 .forum-thread:last-child{border-bottom:none;}
-.forum-thread:hover{background:rgba(79,201,126,.05);}
-.forum-thread.clickable{cursor:pointer;}
-.thread-initial{width:38px;height:38px;border-radius:10px;background:rgba(79,201,126,.15);border:2px solid rgba(79,201,126,.2);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;color:var(--mint-light);flex-shrink:0;position:relative;cursor:pointer;}
+.forum-thread:hover{background:rgba(79,201,126,.04);}
+.thread-clickable{cursor:pointer;flex:1;display:flex;align-items:center;gap:.9rem;min-width:0;}
+.thread-initial{width:36px;height:36px;border-radius:9px;background:rgba(79,201,126,.15);border:1.5px solid rgba(79,201,126,.2);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;color:var(--mint-light);flex-shrink:0;}
 .thread-info{flex:1;min-width:0;}
-.thread-title-text{font-weight:800;font-size:.95rem;color:var(--text);cursor:pointer;}
-.thread-title-text:hover{color:var(--mint-light);}
-.thread-meta{font-size:.8rem;color:rgba(232,254,242,.45);margin-top:.15rem;}
+.thread-title-text{font-weight:800;font-size:.92rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.thread-meta{font-size:.77rem;color:rgba(232,254,242,.4);margin-top:.12rem;}
 .author-link{color:var(--mint);font-weight:700;cursor:pointer;}
 .author-link:hover{text-decoration:underline;}
-.thread-stats{text-align:right;font-size:.8rem;color:rgba(232,254,242,.45);flex-shrink:0;}
-.thread-stats strong{display:block;font-size:1rem;color:var(--text);}
-.thread-actions{display:flex;gap:.4rem;flex-shrink:0;}
-.thread-action-btn{background:rgba(79,201,126,.08);border:1.5px solid rgba(79,201,126,.15);color:var(--mint-light);border-radius:7px;padding:.25rem .6rem;font-size:.78rem;font-weight:800;cursor:pointer;transition:background .15s;}
-.thread-action-btn:hover{background:rgba(79,201,126,.2);}
-.thread-action-btn.del{border-color:rgba(239,68,68,.2);color:var(--red);}
-.thread-action-btn.del:hover{background:rgba(239,68,68,.15);}
-.forum-empty{padding:2rem;text-align:center;color:rgba(232,254,242,.35);font-weight:700;font-size:.95rem;}
+.thread-right{display:flex;align-items:center;gap:.6rem;flex-shrink:0;}
+.thread-stats{text-align:right;font-size:.77rem;color:rgba(232,254,242,.4);}
+.thread-stats strong{display:block;font-size:.95rem;color:var(--text);}
+.thread-actions{display:flex;gap:.3rem;opacity:0;transition:opacity .15s;}
+.forum-thread:hover .thread-actions{opacity:1;}
+.forum-empty{padding:2rem;text-align:center;color:rgba(232,254,242,.3);font-weight:700;font-size:.92rem;}
 
-/* EXPANDABLE THREAD LIST */
-.thread-list-scroll{max-height:340px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(79,201,126,.3) transparent;}
-.thread-list-scroll::-webkit-scrollbar{width:6px;}
-.thread-list-scroll::-webkit-scrollbar-thumb{background:rgba(79,201,126,.3);border-radius:3px;}
-.view-all-btn{display:block;width:100%;padding:.85rem;background:rgba(79,201,126,.06);border:none;border-top:1px solid rgba(79,201,126,.1);color:var(--mint-light);font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;text-align:center;transition:background .15s;}
-.view-all-btn:hover{background:rgba(79,201,126,.12);}
-
-/* SEARCH RESULTS */
-.search-results-section{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:16px;overflow:hidden;box-shadow:0 4px 16px var(--shadow);}
-.search-results-header{padding:1rem 1.5rem;background:rgba(79,201,126,.08);border-bottom:1px solid rgba(79,201,126,.15);font-family:'Fredoka One',cursive;font-size:1rem;color:var(--mint-light);}
+/* EXPANDED CATEGORY SCROLL WINDOW */
+.cat-expanded{border-top:1px solid rgba(79,201,126,.1);max-height:360px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(79,201,126,.3) transparent;}
+.cat-expanded::-webkit-scrollbar{width:5px;}
+.cat-expanded::-webkit-scrollbar-thumb{background:rgba(79,201,126,.3);border-radius:3px;}
+.view-all-btn{display:block;width:100%;padding:.75rem;background:rgba(79,201,126,.05);border:none;border-top:1px solid rgba(79,201,126,.1);color:var(--mint-light);font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer;text-align:center;transition:background .15s;}
+.view-all-btn:hover{background:rgba(79,201,126,.1);}
 
 /* THREAD VIEW */
-.back-btn{display:inline-flex;align-items:center;gap:.4rem;color:var(--mint-light);font-weight:800;cursor:pointer;font-size:.9rem;background:rgba(79,201,126,.08);border:1.5px solid rgba(79,201,126,.2);padding:.4rem .9rem;border-radius:8px;transition:background .15s;margin-bottom:1.5rem;}
+.back-btn{display:inline-flex;align-items:center;gap:.4rem;color:var(--mint-light);font-weight:800;cursor:pointer;font-size:.88rem;background:rgba(79,201,126,.08);border:1.5px solid rgba(79,201,126,.2);padding:.4rem .9rem;border-radius:8px;transition:background .15s;margin-bottom:1.2rem;}
 .back-btn:hover{background:rgba(79,201,126,.15);}
-.thread-post-card{background:linear-gradient(135deg,var(--mint-panel) 0%,#1e4d38 100%);border:1.5px solid rgba(79,201,126,.3);border-radius:16px;padding:1.8rem 2rem;box-shadow:0 4px 20px var(--shadow);margin-bottom:1.2rem;}
-.thread-post-title{font-family:'Fredoka One',cursive;font-size:1.9rem;color:var(--text);margin-bottom:.6rem;}
-.thread-post-meta{font-size:.82rem;color:rgba(232,254,242,.45);font-weight:700;margin-bottom:1.2rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
+.thread-post-card{background:linear-gradient(135deg,var(--mint-panel) 0%,#1e4d38 100%);border:1.5px solid rgba(79,201,126,.3);border-radius:16px;padding:1.7rem 1.9rem;box-shadow:0 4px 20px var(--shadow);margin-bottom:1rem;}
+.thread-post-title{font-family:'Fredoka One',cursive;font-size:1.8rem;color:var(--text);margin-bottom:.5rem;}
+.thread-post-meta{font-size:.8rem;color:rgba(232,254,242,.45);font-weight:700;margin-bottom:1.1rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
+.cat-badge{background:rgba(79,201,126,.15);border:1px solid rgba(79,201,126,.3);color:var(--mint-light);border-radius:100px;padding:.12rem .6rem;font-size:.72rem;font-weight:800;}
 .thread-post-body{font-size:1rem;line-height:1.75;color:rgba(232,254,242,.9);font-weight:700;white-space:pre-wrap;}
-.cat-badge{background:rgba(79,201,126,.15);border:1px solid rgba(79,201,126,.3);color:var(--mint-light);border-radius:100px;padding:.15rem .7rem;font-size:.75rem;font-weight:800;}
-.post-actions{display:flex;gap:.5rem;margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(79,201,126,.15);flex-wrap:wrap;}
-.follow-btn{background:rgba(79,201,126,.1);border:1.5px solid rgba(79,201,126,.3);color:var(--mint-light);border-radius:8px;padding:.4rem .9rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer;transition:background .2s;}
-.follow-btn:hover{background:rgba(79,201,126,.2);}
-.follow-btn.following{background:rgba(79,201,126,.25);border-color:var(--mint);}
-.replies-section{display:flex;flex-direction:column;gap:.8rem;}
-.reply-card{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.12);border-radius:14px;padding:1.2rem 1.5rem;box-shadow:0 2px 10px var(--shadow);}
-.reply-meta{font-size:.8rem;color:rgba(232,254,242,.4);font-weight:700;margin-bottom:.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem;}
-.reply-body{font-size:.95rem;line-height:1.65;color:rgba(232,254,242,.85);font-weight:700;white-space:pre-wrap;}
-.reply-edit-area{margin-top:.6rem;}
-.reply-compose{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:14px;padding:1.3rem 1.5rem;box-shadow:0 2px 10px var(--shadow);}
-.reply-compose-title{font-family:'Fredoka One',cursive;font-size:1rem;color:var(--mint-light);margin-bottom:.8rem;}
-.reply-login-note{font-size:.9rem;color:rgba(232,254,242,.4);font-weight:700;text-align:center;padding:.5rem;}
+.thread-post-actions{display:flex;gap:.5rem;margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(79,201,126,.15);}
+.follow-btn{display:flex;align-items:center;gap:.4rem;}
+.replies-section{display:flex;flex-direction:column;gap:.7rem;}
+.reply-card{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.12);border-radius:13px;padding:1.1rem 1.4rem;box-shadow:0 2px 10px var(--shadow);position:relative;}
+.reply-meta{font-size:.78rem;color:rgba(232,254,242,.4);font-weight:700;margin-bottom:.45rem;display:flex;align-items:center;gap:.5rem;}
+.reply-body{font-size:.93rem;line-height:1.65;color:rgba(232,254,242,.85);font-weight:700;white-space:pre-wrap;}
+.reply-actions{position:absolute;top:.8rem;right:.9rem;display:flex;gap:.3rem;opacity:0;transition:opacity .15s;}
+.reply-card:hover .reply-actions{opacity:1;}
+.reply-compose{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:13px;padding:1.2rem 1.4rem;margin-top:.5rem;}
+.reply-compose-title{font-family:'Fredoka One',cursive;font-size:.95rem;color:var(--mint-light);margin-bottom:.7rem;}
+.reply-login-note{text-align:center;font-size:.88rem;color:rgba(232,254,242,.35);font-weight:700;padding:.4rem;}
 .reply-login-note a{color:var(--mint);cursor:pointer;}
-.live-indicator{display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--mint);font-weight:800;margin-left:auto;}
-.live-dot{width:7px;height:7px;border-radius:50%;background:var(--mint);animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--mint);margin-right:.3rem;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
 
 /* USER POPOVER */
-.user-popover{position:fixed;z-index:600;background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.3);border-radius:14px;padding:1rem 1.2rem;box-shadow:0 8px 24px rgba(0,0,0,.5);min-width:190px;pointer-events:none;opacity:0;transition:opacity .15s;}
+.user-popover{position:fixed;z-index:600;background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.3);border-radius:14px;padding:1rem 1.2rem;box-shadow:0 8px 24px rgba(0,0,0,.55);min-width:190px;pointer-events:none;opacity:0;transition:opacity .15s;}
 .user-popover.visible{opacity:1;pointer-events:auto;}
-.pop-name{font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--text);margin-bottom:.1rem;}
-.pop-displayname{font-size:.8rem;color:rgba(232,254,242,.45);font-weight:700;margin-bottom:.4rem;}
-.pop-stat{font-size:.8rem;color:rgba(232,254,242,.5);font-weight:700;line-height:1.8;}
-.pop-stat a{color:var(--mint);cursor:pointer;text-decoration:none;}
-.pop-stat a:hover{text-decoration:underline;}
-.pop-view{margin-top:.6rem;font-size:.8rem;color:var(--mint);font-weight:800;cursor:pointer;}
-.pop-view:hover{text-decoration:underline;}
+.pop-name{font-family:'Fredoka One',cursive;font-size:1.05rem;color:var(--text);margin-bottom:.15rem;}
+.pop-dn{font-size:.8rem;color:rgba(232,254,242,.45);font-weight:700;margin-bottom:.5rem;}
+.pop-stat{font-size:.78rem;color:rgba(232,254,242,.45);font-weight:700;line-height:1.8;}
+.pop-stat span{color:var(--mint-light);cursor:pointer;}
+.pop-stat span:hover{text-decoration:underline;}
+.pop-view{margin-top:.6rem;}
 
 /* PROFILE MODAL */
-.profile-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:400;align-items:center;justify-content:center;padding:1rem;}
-.profile-modal-overlay.open{display:flex;animation:fadeIn .2s ease both;}
-.profile-modal{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.3);border-radius:20px;padding:2rem;width:100%;max-width:480px;box-shadow:0 16px 48px rgba(0,0,0,.6);position:relative;}
-.profile-modal-close{position:absolute;top:1rem;right:1rem;background:rgba(79,201,126,.08);border:1.5px solid rgba(79,201,126,.2);color:var(--mint-light);border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;}
-.profile-modal-close:hover{background:rgba(79,201,126,.18);}
-.profile-modal-name{font-family:'Fredoka One',cursive;font-size:2rem;color:var(--text);}
-.profile-modal-displayname{font-size:.9rem;color:rgba(232,254,242,.5);font-weight:700;margin-bottom:.8rem;}
-.profile-modal-stats{display:flex;gap:1.5rem;margin-bottom:1.2rem;padding:.8rem 0;border-top:1px solid rgba(79,201,126,.15);border-bottom:1px solid rgba(79,201,126,.15);}
+.profile-modal-body{display:flex;flex-direction:column;gap:1rem;max-height:75vh;overflow-y:auto;}
+.profile-modal-header{display:flex;align-items:center;gap:1.2rem;padding-bottom:1rem;border-bottom:1px solid rgba(79,201,126,.15);}
+.profile-modal-initial{width:64px;height:64px;border-radius:16px;background:rgba(79,201,126,.15);border:2px solid rgba(79,201,126,.3);display:flex;align-items:center;justify-content:center;font-family:'Fredoka One',cursive;font-size:1.8rem;color:var(--mint-light);flex-shrink:0;}
+.profile-modal-names{flex:1;}
+.profile-modal-display{font-family:'Fredoka One',cursive;font-size:1.5rem;color:var(--text);}
+.profile-modal-username{font-size:.85rem;color:rgba(232,254,242,.45);font-weight:700;}
+.profile-modal-stats{display:flex;gap:1.2rem;}
 .profile-modal-stat{text-align:center;}
-.profile-modal-stat .val{font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--mint-light);}
-.profile-modal-stat .val.clickable-stat{cursor:pointer;}
-.profile-modal-stat .val.clickable-stat:hover{text-decoration:underline;}
-.profile-modal-stat .lbl{font-size:.72rem;color:rgba(232,254,242,.4);font-weight:700;}
-.profile-modal-about{font-size:.9rem;line-height:1.6;color:rgba(232,254,242,.75);font-weight:700;white-space:pre-wrap;}
-.profile-modal-about-label{font-size:.75rem;font-weight:800;color:var(--mint-light);margin-bottom:.4rem;}
-
-/* MODALS */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:300;align-items:center;justify-content:center;padding:1rem;}
-.modal-overlay.open{display:flex;animation:fadeIn .2s ease both;}
-.modal{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.3);border-radius:20px;padding:2rem;width:100%;max-width:520px;box-shadow:0 16px 48px rgba(0,0,0,.6);max-height:90vh;overflow-y:auto;}
-.modal-title{font-family:'Fredoka One',cursive;font-size:1.6rem;color:var(--mint-light);margin-bottom:1.2rem;}
-.modal-footer{display:flex;gap:.8rem;justify-content:flex-end;margin-top:1.2rem;}
+.profile-modal-stat .sv{font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--mint-light);cursor:pointer;}
+.profile-modal-stat .sv:hover{text-decoration:underline;}
+.profile-modal-stat .sl{font-size:.72rem;color:rgba(232,254,242,.4);font-weight:700;}
+.profile-modal-about{font-size:.92rem;line-height:1.7;color:rgba(232,254,242,.75);font-weight:700;}
 
 /* NOTIFICATIONS PANEL */
-.notif-panel{position:fixed;top:78px;right:1.5rem;width:340px;background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.25);border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.5);z-index:250;display:none;}
-.notif-panel.open{display:block;animation:fadeIn .2s ease both;}
-.notif-panel-header{padding:1rem 1.2rem;border-bottom:1px solid rgba(79,201,126,.15);display:flex;align-items:center;justify-content:space-between;}
-.notif-panel-title{font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--mint-light);}
-.notif-mark-all{font-size:.8rem;color:var(--mint);font-weight:800;cursor:pointer;}
-.notif-mark-all:hover{text-decoration:underline;}
-.notif-list{max-height:360px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(79,201,126,.3) transparent;}
-.notif-item{padding:.9rem 1.2rem;border-bottom:1px solid rgba(79,201,126,.08);cursor:pointer;transition:background .15s;}
-.notif-item:hover{background:rgba(79,201,126,.06);}
-.notif-item.unread{background:rgba(79,201,126,.05);border-left:3px solid var(--mint);}
-.notif-item:last-child{border-bottom:none;}
-.notif-text{font-size:.88rem;font-weight:700;color:rgba(232,254,242,.85);line-height:1.4;}
-.notif-text strong{color:var(--mint-light);}
-.notif-time{font-size:.75rem;color:rgba(232,254,242,.35);font-weight:700;margin-top:.2rem;}
-.notif-empty{padding:2rem;text-align:center;color:rgba(232,254,242,.3);font-weight:700;font-size:.9rem;}
+.notif-panel{position:fixed;top:75px;right:1.5rem;width:340px;background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.25);border-radius:16px;box-shadow:0 12px 32px rgba(0,0,0,.5);z-index:300;display:none;max-height:70vh;overflow:hidden;flex-direction:column;}
+.notif-panel.open{display:flex;animation:fadeIn .2s ease both;}
+.notif-header{padding:.9rem 1.2rem;border-bottom:1px solid rgba(79,201,126,.15);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.notif-header-title{font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--mint-light);}
+.notif-list{overflow-y:auto;flex:1;scrollbar-width:thin;scrollbar-color:rgba(79,201,126,.3) transparent;}
+.notif-item{padding:.8rem 1.2rem;border-bottom:1px solid rgba(79,201,126,.08);cursor:pointer;transition:background .15s;}
+.notif-item:hover{background:rgba(79,201,126,.05);}
+.notif-item.unread{background:rgba(79,201,126,.07);}
+.notif-text{font-size:.85rem;font-weight:700;color:var(--text);line-height:1.5;}
+.notif-text span{color:var(--mint);}
+.notif-time{font-size:.72rem;color:rgba(232,254,242,.35);margin-top:.2rem;font-weight:700;}
+.notif-empty{padding:2rem;text-align:center;color:rgba(232,254,242,.3);font-size:.88rem;font-weight:700;}
+
+/* MODALS */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;align-items:center;justify-content:center;padding:1rem;}
+.modal-overlay.open{display:flex;animation:fadeIn .2s ease both;}
+.modal{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.3);border-radius:20px;padding:1.8rem;width:100%;max-width:520px;box-shadow:0 16px 48px rgba(0,0,0,.6);max-height:90vh;overflow-y:auto;}
+.modal-wide{max-width:680px;}
+.modal-title{font-family:'Fredoka One',cursive;font-size:1.5rem;color:var(--mint-light);margin-bottom:1.1rem;}
+.modal-footer{display:flex;gap:.7rem;justify-content:flex-end;margin-top:1.1rem;padding-top:1rem;border-top:1px solid rgba(79,201,126,.1);}
 
 /* AUTH */
 .auth-container{max-width:440px;margin:2rem auto;padding:0 1rem;}
-.auth-card{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.25);border-radius:20px;padding:2.5rem 2rem;box-shadow:0 8px 32px var(--shadow);}
-.auth-logo{width:80px;height:80px;border-radius:18px;overflow:hidden;border:3px solid rgba(79,201,126,.4);margin:0 auto 1.2rem;box-shadow:0 4px 16px rgba(0,0,0,.4);}
+.auth-card{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.25);border-radius:20px;padding:2.2rem 1.8rem;box-shadow:0 8px 32px var(--shadow);}
+.auth-logo{width:72px;height:72px;border-radius:16px;overflow:hidden;border:3px solid rgba(79,201,126,.4);margin:0 auto 1rem;box-shadow:0 4px 16px rgba(0,0,0,.4);}
 .auth-logo img{width:100%;height:100%;object-fit:cover;}
-.auth-title{font-family:'Fredoka One',cursive;font-size:2rem;text-align:center;color:var(--text);margin-bottom:.3rem;}
-.auth-subtitle{text-align:center;font-size:.9rem;color:rgba(232,254,242,.5);font-weight:700;margin-bottom:2rem;}
-.auth-tabs{display:flex;margin-bottom:1.8rem;background:rgba(0,0,0,.2);border-radius:10px;padding:4px;}
-.auth-tab{flex:1;text-align:center;padding:.5rem;border-radius:8px;font-weight:800;font-size:.85rem;cursor:pointer;transition:background .2s,color .2s;color:rgba(232,254,242,.5);}
+.auth-title{font-family:'Fredoka One',cursive;font-size:1.9rem;text-align:center;color:var(--text);margin-bottom:.25rem;}
+.auth-subtitle{text-align:center;font-size:.88rem;color:rgba(232,254,242,.45);font-weight:700;margin-bottom:1.8rem;}
+.auth-tabs{display:flex;margin-bottom:1.6rem;background:rgba(0,0,0,.2);border-radius:10px;padding:3px;}
+.auth-tab{flex:1;text-align:center;padding:.45rem;border-radius:8px;font-weight:800;font-size:.85rem;cursor:pointer;transition:background .2s,color .2s;color:rgba(232,254,242,.45);}
 .auth-tab.active{background:var(--mint-panel);color:var(--mint-light);}
-.auth-footer{text-align:center;margin-top:1.2rem;font-size:.85rem;color:rgba(232,254,242,.4);font-weight:700;}
+.auth-footer{text-align:center;margin-top:1rem;font-size:.82rem;color:rgba(232,254,242,.35);font-weight:700;}
 .auth-footer a{color:var(--mint);cursor:pointer;}
 
 /* ACCOUNT PAGE */
 .account-page{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;}
-.profile-grid{display:grid;grid-template-columns:260px 1fr;gap:1.5rem;align-items:start;}
-.profile-sidebar{display:flex;flex-direction:column;gap:1rem;}
-.profile-card-block{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.25);border-radius:18px;padding:1.8rem 1.5rem;text-align:center;box-shadow:0 4px 20px var(--shadow);}
-.profile-name-big{font-family:'Fredoka One',cursive;font-size:1.8rem;color:var(--text);margin-bottom:.1rem;}
-.profile-displayname{font-size:.85rem;color:rgba(232,254,242,.45);font-weight:700;margin-bottom:.3rem;}
-.profile-handle{font-size:.8rem;color:rgba(232,254,242,.35);font-weight:700;margin-bottom:1rem;}
-.profile-stats{display:flex;gap:1rem;justify-content:center;border-top:1px solid rgba(79,201,126,.15);padding-top:1rem;margin-top:.5rem;}
-.stat{text-align:center;}
-.stat-value{font-family:'Fredoka One',cursive;font-size:1.4rem;color:var(--mint-light);}
-.stat-label{font-size:.75rem;color:rgba(232,254,242,.45);font-weight:700;}
-.profile-main{display:flex;flex-direction:column;gap:1rem;}
-.settings-card{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:18px;padding:1.6rem 1.8rem;box-shadow:0 4px 20px var(--shadow);}
-.settings-row{display:flex;align-items:center;justify-content:space-between;padding:.75rem 0;border-bottom:1px solid rgba(79,201,126,.08);gap:1rem;}
+.account-grid{display:grid;grid-template-columns:240px 1fr;gap:1.5rem;align-items:start;}
+.account-sidebar{display:flex;flex-direction:column;gap:1rem;}
+.account-profile-card{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.25);border-radius:18px;padding:1.6rem 1.4rem;text-align:center;box-shadow:0 4px 20px var(--shadow);}
+.account-initial{width:72px;height:72px;border-radius:16px;background:rgba(79,201,126,.15);border:2px solid rgba(79,201,126,.3);display:flex;align-items:center;justify-content:center;font-family:'Fredoka One',cursive;font-size:2rem;color:var(--mint-light);margin:0 auto .9rem;}
+.account-display-name{font-family:'Fredoka One',cursive;font-size:1.5rem;color:var(--text);margin-bottom:.15rem;}
+.account-username{font-size:.82rem;color:rgba(232,254,242,.4);font-weight:700;margin-bottom:.9rem;}
+.account-stats{display:flex;gap:.8rem;justify-content:center;border-top:1px solid rgba(79,201,126,.15);padding-top:.9rem;}
+.account-stat .sv{font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--mint-light);cursor:pointer;}
+.account-stat .sv:hover{text-decoration:underline;}
+.account-stat .sl{font-size:.72rem;color:rgba(232,254,242,.4);font-weight:700;}
+.account-main{display:flex;flex-direction:column;gap:1rem;}
+.settings-card{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:16px;padding:1.4rem 1.6rem;box-shadow:0 4px 16px var(--shadow);}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:.65rem 0;border-bottom:1px solid rgba(79,201,126,.07);}
 .settings-row:last-child{border-bottom:none;}
-.settings-label{font-weight:800;font-size:.95rem;flex-shrink:0;}
-.settings-value{font-size:.9rem;color:rgba(232,254,242,.5);font-weight:700;word-break:break-all;}
-.toggle{width:44px;height:24px;border-radius:100px;background:rgba(79,201,126,.15);border:1.5px solid rgba(79,201,126,.3);position:relative;cursor:pointer;transition:background .2s;flex-shrink:0;}
+.settings-label{font-weight:800;font-size:.9rem;}
+.settings-value{font-size:.85rem;color:rgba(232,254,242,.45);font-weight:700;}
+.toggle{width:42px;height:22px;border-radius:100px;background:rgba(79,201,126,.15);border:1.5px solid rgba(79,201,126,.25);position:relative;cursor:pointer;transition:background .2s;flex-shrink:0;}
 .toggle.on{background:var(--mint);border-color:var(--mint);}
-.toggle::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left .2s;}
+.toggle::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:left .2s;}
 .toggle.on::after{left:22px;}
-.danger-zone{background:rgba(239,68,68,.05);border:1.5px solid rgba(239,68,68,.2);border-radius:18px;padding:1.6rem 1.8rem;}
-.danger-title{font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--red);margin-bottom:1rem;}
+.danger-zone{background:rgba(248,113,113,.05);border:1.5px solid rgba(248,113,113,.2);border-radius:16px;padding:1.4rem 1.6rem;}
 
-.toast{position:fixed;bottom:2rem;right:2rem;background:var(--card);border:1.5px solid rgba(79,201,126,.3);border-radius:12px;padding:.8rem 1.3rem;font-weight:800;font-size:.9rem;color:var(--mint-light);box-shadow:0 8px 24px rgba(0,0,0,.4);z-index:1000;transform:translateY(80px);opacity:0;transition:transform .3s,opacity .3s;pointer-events:none;}
+/* TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--card);border:1.5px solid rgba(79,201,126,.3);border-radius:12px;padding:.75rem 1.2rem;font-weight:800;font-size:.88rem;color:var(--mint-light);box-shadow:0 8px 24px rgba(0,0,0,.4);z-index:1000;transform:translateY(80px);opacity:0;transition:transform .3s,opacity .3s;pointer-events:none;}
 .toast.show{transform:translateY(0);opacity:1;}
+
 .hidden{display:none!important;}
-footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,.3);font-weight:700;}
+footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.25);font-weight:700;}
+
+/* DIVIDER */
+.section-divider{height:1px;background:rgba(79,201,126,.1);margin:.5rem 0;}
+
 @media(max-width:768px){
   .hero-card{grid-template-columns:1fr;text-align:center;padding:1.5rem;}
   .avatar-img{margin:0 auto;}
   .fluffy-badge{margin:0 auto;}
-  .hero-name{font-size:2.8rem;}
-  .lower-grid{grid-template-columns:1fr;}
-  .profile-grid{grid-template-columns:1fr;}
+  .hero-name{font-size:2.6rem;}
+  .lower-grid,.account-grid{grid-template-columns:1fr;}
+  .filter-grid{grid-template-columns:1fr 1fr;}
   nav{padding:0 1rem;}
-  .nav-links a{padding:.5rem .8rem;font-size:.9rem;}
-  .nav-user{display:none;}
-  .notif-panel{right:.5rem;width:calc(100vw - 1rem);}
+  .nav-links a{padding:.5rem .7rem;font-size:.88rem;}
+  .notif-panel{width:calc(100vw - 2rem);right:1rem;}
 }
 </style>
 </head>
@@ -293,22 +283,23 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
   </ul>
   <div class="nav-right">
     <div class="notif-btn hidden" id="notif-btn" onclick="toggleNotifPanel()">
-      🔔<span class="notif-badge hidden" id="notif-badge">0</span>
+      🔔
+      <div class="notif-badge" id="notif-badge"></div>
     </div>
-    <div class="nav-user" id="nav-user" onclick="showPage('account')">@guest</div>
+    <div class="nav-user" id="nav-username" onclick="showPage('account')">@guest</div>
   </div>
 </nav>
 
 <!-- NOTIFICATIONS PANEL -->
 <div class="notif-panel" id="notif-panel">
-  <div class="notif-panel-header">
-    <div class="notif-panel-title">🔔 Notifications</div>
-    <div class="notif-mark-all" onclick="markAllRead()">mark all read</div>
+  <div class="notif-header">
+    <div class="notif-header-title">🔔 Notifications</div>
+    <button class="btn btn-ghost btn-sm" onclick="markAllRead()">mark all read</button>
   </div>
-  <div class="notif-list" id="notif-list"><div class="notif-empty">nothing here yet :3</div></div>
+  <div class="notif-list" id="notif-list"><div class="notif-empty">no notifications yet :3</div></div>
 </div>
 
-<!-- ══════════════ HOME ══════════════ -->
+<!-- ══════════ HOME ══════════ -->
 <div id="page-home" class="page active">
 <main>
   <div class="hero-card">
@@ -348,7 +339,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
           <span class="tag tag-gold">🦊 Furry</span>
           <span class="tag tag-pink">💜 Panromantic</span>
           <span class="tag tag-purple">🌸 Femboy</span>
-          <span class="tag tag-mint">🌐 Internet Privacy</span>
+          <span class="tag tag-mint">🔒 Internet Privacy</span>
           <span class="tag tag-pink">🥽 VRChat</span>
         </div>
       </div>
@@ -357,7 +348,7 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
 </main>
 </div>
 
-<!-- ══════════════ FORUMS ══════════════ -->
+<!-- ══════════ FORUMS ══════════ -->
 <div id="page-forums" class="page">
   <div id="forums-list-view">
   <main>
@@ -366,79 +357,94 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
       <button class="btn btn-mint" onclick="openNewPostModal()">+ New Thread</button>
     </div>
 
-    <!-- SEARCH BAR -->
+    <!-- Search bar -->
     <div class="search-bar">
       <div class="search-row">
         <div class="search-input-wrap">
           <span class="search-icon">🔍</span>
-          <input type="text" id="search-q" placeholder="search threads..." oninput="onSearchChange()">
+          <input type="text" id="search-query" placeholder="search threads..." oninput="onSearchInput()">
         </div>
-        <select class="sort-select" id="sort-select" onchange="onSearchChange()">
+        <select id="sort-select" onchange="loadForums()" style="padding:.65rem .9rem;background:rgba(0,0,0,.3);border:1.5px solid rgba(79,201,126,.2);border-radius:10px;color:var(--text);font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;outline:none;cursor:pointer;">
           <option value="replies">Most Replies</option>
           <option value="newest">Newest First</option>
-          <option value="oldest">Oldest First</option>
         </select>
-        <button class="search-clear" onclick="clearSearch()">Clear</button>
+        <button class="filter-toggle" onclick="toggleFilters()">⚙️ Filters</button>
       </div>
-      <div class="filter-row">
-        <div class="filter-group">
-          <div class="filter-label">AUTHOR</div>
-          <input class="filter-input" type="text" id="filter-author" placeholder="username" oninput="onSearchChange()" style="width:150px;">
-        </div>
-        <div class="filter-group">
-          <div class="filter-label">FROM DATE</div>
-          <input class="filter-input" type="date" id="filter-from" onchange="onSearchChange()" style="width:150px;">
-        </div>
-        <div class="filter-group">
-          <div class="filter-label">TO DATE</div>
-          <input class="filter-input" type="date" id="filter-to" onchange="onSearchChange()" style="width:150px;">
-        </div>
-        <div class="filter-group">
-          <div class="filter-label">TIME AGO</div>
-          <div style="display:flex;gap:.4rem;">
-            <input class="filter-input" type="number" id="filter-ago-n" placeholder="2" min="1" oninput="onSearchChange()" style="width:65px;">
-            <select class="sort-select" id="filter-ago-unit" onchange="onSearchChange()">
-              <option value="">—</option>
-              <option value="hours">hours</option>
-              <option value="days">days</option>
-              <option value="weeks">weeks</option>
-              <option value="months">months</option>
+      <div class="filter-panel" id="filter-panel">
+        <div class="filter-grid">
+          <div class="filter-group">
+            <label>Author</label>
+            <input type="text" id="filter-author" placeholder="username...">
+          </div>
+          <div class="filter-group">
+            <label>From date</label>
+            <input type="date" id="filter-from">
+          </div>
+          <div class="filter-group">
+            <label>To date</label>
+            <input type="date" id="filter-to">
+          </div>
+          <div class="filter-group">
+            <label>Posted within</label>
+            <select id="filter-within">
+              <option value="">any time</option>
+              <option value="1">1 day ago</option>
+              <option value="2">2 days ago</option>
+              <option value="7">1 week ago</option>
+              <option value="14">2 weeks ago</option>
+              <option value="30">1 month ago</option>
             </select>
           </div>
+          <div class="filter-group">
+            <label>Category</label>
+            <select id="filter-cat">
+              <option value="">all categories</option>
+              <option value="general">General</option>
+              <option value="tech">Tech</option>
+              <option value="gaming">Gaming</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="filter-actions">
+          <button class="btn btn-ghost btn-sm" onclick="clearFilters()">Clear</button>
+          <button class="btn btn-mint btn-sm" onclick="loadForums()">Apply</button>
         </div>
       </div>
     </div>
 
-    <!-- SEARCH RESULTS (shown when searching) -->
-    <div id="search-results-wrap" class="hidden">
-      <div class="search-results-section">
-        <div class="search-results-header" id="search-results-header">Results</div>
+    <!-- search results view -->
+    <div id="search-results-view" class="hidden">
+      <div class="forum-category" id="search-results-cat">
+        <div class="category-header"><span>🔍</span><h3 id="search-results-title">Results</h3></div>
         <div id="search-results-list"></div>
       </div>
     </div>
 
-    <!-- CATEGORY LISTS (shown when not searching) -->
-    <div id="forum-categories-wrap" class="forum-categories">
-      <div class="forum-category"><div class="category-header"><span>📢</span><h3>General</h3></div><div id="cat-general"><div class="forum-empty">loading...</div></div></div>
-      <div class="forum-category"><div class="category-header"><span>💻</span><h3>Tech</h3></div><div id="cat-tech"><div class="forum-empty">loading...</div></div></div>
-      <div class="forum-category"><div class="category-header"><span>🎮</span><h3>Gaming</h3></div><div id="cat-gaming"><div class="forum-empty">loading...</div></div></div>
-      <div class="forum-category"><div class="category-header"><span>✨</span><h3>Other</h3></div><div id="cat-other"><div class="forum-empty">loading...</div></div></div>
+    <!-- normal category view -->
+    <div id="category-view">
+      <div class="forum-categories">
+        <div class="forum-category"><div class="category-header"><span>📢</span><h3>General</h3></div><div id="cat-general"><div class="forum-empty">loading...</div></div></div>
+        <div class="forum-category"><div class="category-header"><span>💻</span><h3>Tech</h3></div><div id="cat-tech"><div class="forum-empty">loading...</div></div></div>
+        <div class="forum-category"><div class="category-header"><span>🎮</span><h3>Gaming</h3></div><div id="cat-gaming"><div class="forum-empty">loading...</div></div></div>
+        <div class="forum-category"><div class="category-header"><span>✨</span><h3>Other</h3></div><div id="cat-other"><div class="forum-empty">loading...</div></div></div>
+      </div>
     </div>
   </main>
   </div>
 
-  <!-- THREAD VIEW -->
+  <!-- Thread view -->
   <div id="thread-view" class="hidden">
   <main>
     <div class="back-btn" onclick="backToForums()">← Back to Forums</div>
     <div id="thread-post-area"></div>
     <div class="replies-section" id="replies-area"></div>
-    <div id="reply-compose-area" style="margin-top:.8rem;"></div>
+    <div id="reply-compose-area" style="margin-top:.6rem;"></div>
   </main>
   </div>
 </div>
 
-<!-- ══════════════ ACCOUNT ══════════════ -->
+<!-- ══════════ ACCOUNT ══════════ -->
 <div id="page-account" class="page">
   <!-- logged out -->
   <div id="view-loggedout" class="auth-container">
@@ -456,20 +462,22 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
       <div id="form-login">
         <div class="form-group"><label>Email</label><input type="email" id="login-email" placeholder="you@example.com"></div>
         <div class="form-group"><label>Password</label><input type="password" id="login-password" placeholder="••••••••"></div>
-        <div class="form-group hidden" id="login-totp-wrap"><label>Authenticator Code</label><input type="text" id="login-totp" placeholder="6-digit code" maxlength="6" inputmode="numeric"></div>
+        <div id="mfa-section" class="hidden">
+          <div class="form-group"><label>Authenticator Code</label><input type="text" id="login-mfa" placeholder="6-digit code" maxlength="6" inputmode="numeric"></div>
+        </div>
         <button class="btn btn-mint btn-full" id="login-btn" onclick="doLogin()">Log In</button>
         <div class="auth-footer">no account? <a onclick="switchTab('register')">register</a> · <a onclick="switchTab('reset')">forgot password?</a></div>
       </div>
       <div id="form-register" class="hidden">
         <div class="form-group"><label>Username</label><input type="text" id="reg-username" placeholder="coolname"></div>
-        <div class="form-group"><label>Display Name</label><input type="text" id="reg-displayname" placeholder="Cool Name (shown publicly)"></div>
+        <div class="form-group"><label>Display Name</label><input type="text" id="reg-displayname" placeholder="Cool Name"></div>
         <div class="form-group"><label>Email</label><input type="email" id="reg-email" placeholder="you@example.com"></div>
         <div class="form-group"><label>Password</label><input type="password" id="reg-password" placeholder="8+ characters"></div>
         <button class="btn btn-mint btn-full" id="register-btn" onclick="doRegister()">Create Account</button>
         <div class="auth-footer">already have one? <a onclick="switchTab('login')">log in</a></div>
       </div>
       <div id="form-reset" class="hidden">
-        <p style="font-size:.9rem;color:rgba(232,254,242,.6);font-weight:700;margin-bottom:1rem;">enter your email and we'll send a reset link :3</p>
+        <p style="font-size:.88rem;color:rgba(232,254,242,.5);font-weight:700;margin-bottom:.9rem;">enter your email and we'll send a reset link :3</p>
         <div class="form-group"><label>Email</label><input type="email" id="reset-email" placeholder="you@example.com"></div>
         <button class="btn btn-mint btn-full" id="reset-btn" onclick="doResetRequest()">Send Reset Link</button>
         <div class="auth-footer">remembered it? <a onclick="switchTab('login')">log in</a></div>
@@ -479,268 +487,241 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
 
   <!-- logged in -->
   <div id="view-loggedin" class="account-page hidden">
-    <div class="profile-grid">
-      <div class="profile-sidebar">
-        <div class="profile-card-block">
-          <div class="profile-name-big" id="acct-username">—</div>
-          <div class="profile-displayname" id="acct-displayname"></div>
-          <div class="profile-handle" id="acct-email">—</div>
-          <div class="profile-stats">
-            <div class="stat"><div class="stat-value" id="acct-posts" style="cursor:pointer;" onclick="searchByMe()">—</div><div class="stat-label">posts</div></div>
-            <div class="stat"><div class="stat-value" id="acct-joined">—</div><div class="stat-label">joined</div></div>
+    <div class="account-grid">
+      <div class="account-sidebar">
+        <div class="account-profile-card">
+          <div class="account-initial" id="acct-initial">?</div>
+          <div class="account-display-name" id="acct-display-name">—</div>
+          <div class="account-username" id="acct-username">—</div>
+          <div class="account-stats">
+            <div class="account-stat"><div class="sv" id="acct-posts" onclick="searchByCurrentUser()">—</div><div class="sl">posts</div></div>
+            <div class="account-stat"><div class="sv" id="acct-joined">—</div><div class="sl">joined</div></div>
           </div>
         </div>
       </div>
-      <div class="profile-main">
+      <div class="account-main">
 
-        <!-- profile info -->
+        <!-- Profile settings -->
         <div class="settings-card">
           <div class="card-title">👤 Profile</div>
-          <div class="settings-row">
-            <div><div class="settings-label">Display Name</div><div class="settings-value" id="s-displayname">—</div></div>
-            <button class="btn btn-outline" onclick="openModal('modal-displayname')">Edit</button>
-          </div>
-          <div class="settings-row">
-            <div style="flex:1;"><div class="settings-label">About Me</div><div class="settings-value" id="s-aboutme" style="margin-top:.3rem;white-space:pre-wrap;max-width:400px;">—</div></div>
-            <button class="btn btn-outline" onclick="openModal('modal-aboutme')">Edit</button>
-          </div>
+          <div class="form-group"><label>Display Name</label><input type="text" id="edit-display-name" placeholder="Cool Name"></div>
+          <div class="form-group"><label>About Me</label><textarea id="edit-about-me" placeholder="tell the world who you are :3"></textarea></div>
+          <div id="profile-save-msg" class="msg-ok"></div>
+          <button class="btn btn-mint" onclick="saveProfile()">Save Profile</button>
         </div>
 
-        <!-- account settings -->
+        <!-- Account settings -->
         <div class="settings-card">
           <div class="card-title">⚙️ Account</div>
           <div class="settings-row">
-            <div><div class="settings-label">Username</div><div class="settings-value" id="s-username">—</div></div>
-            <button class="btn btn-outline" onclick="openModal('modal-username')">Change</button>
+            <div><div class="settings-label">Username</div><div class="settings-value" id="settings-username">—</div></div>
+            <button class="btn btn-outline btn-sm" onclick="openModal('modal-change-username')">Change</button>
           </div>
           <div class="settings-row">
-            <div><div class="settings-label">Email</div><div class="settings-value" id="s-email">—</div></div>
-            <button class="btn btn-outline" onclick="openModal('modal-email')">Change</button>
+            <div><div class="settings-label">Email</div><div class="settings-value" id="settings-email">—</div></div>
+            <button class="btn btn-outline btn-sm" onclick="openModal('modal-change-email')">Change</button>
           </div>
           <div class="settings-row">
             <div><div class="settings-label">Password</div><div class="settings-value">••••••••</div></div>
-            <button class="btn btn-outline" onclick="openModal('modal-password')">Change</button>
+            <button class="btn btn-outline btn-sm" onclick="openModal('modal-change-password')">Change</button>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-label">Two-Factor Auth</div><div class="settings-value" id="mfa-status">checking...</div></div>
+            <button class="btn btn-outline btn-sm" id="mfa-toggle-btn" onclick="handleMfaToggle()">...</button>
           </div>
         </div>
 
-        <!-- security -->
+        <!-- Notifications settings -->
         <div class="settings-card">
-          <div class="card-title">🔐 Security</div>
+          <div class="card-title">🔔 Notifications</div>
           <div class="settings-row">
-            <div><div class="settings-label">Two-Factor Auth (TOTP)</div><div class="settings-value" id="s-2fa-status">not enabled</div></div>
-            <button class="btn btn-outline" id="s-2fa-btn" onclick="handle2FA()">Enable</button>
+            <div class="settings-label">Replies to my posts</div>
+            <div class="toggle on" id="toggle-notif-replies" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="settings-row">
+            <div class="settings-label">Replies to followed posts</div>
+            <div class="toggle on" id="toggle-notif-follows" onclick="this.classList.toggle('on')"></div>
           </div>
         </div>
 
-        <!-- preferences -->
-        <div class="settings-card">
-          <div class="card-title">🔔 Preferences</div>
-          <div class="settings-row">
-            <div class="settings-label">Reply notifications</div>
-            <div class="toggle on" id="toggle-notifs" onclick="toggleNotifPref()"></div>
-          </div>
-          <div class="settings-row">
-            <div class="settings-label">Dark mode (it's always on obviously)</div>
-            <div class="toggle on"></div>
-          </div>
-        </div>
-
-        <!-- danger zone -->
+        <!-- Danger zone -->
         <div class="danger-zone">
-          <div class="danger-title">⚠️ Danger Zone</div>
-          <div class="settings-row" style="border:none;padding-top:0;">
-            <div><div class="settings-label" style="color:var(--red);">Delete Account</div><div class="settings-value">permanently deletes your account, posts, and replies</div></div>
-            <button class="btn btn-red" onclick="openModal('modal-delete')">Delete</button>
-          </div>
+          <div class="card-title" style="color:var(--red);">⚠️ Danger Zone</div>
+          <button class="btn btn-red" onclick="openModal('modal-delete-account')">Delete Account</button>
         </div>
 
-        <button class="btn btn-outline btn-full" style="margin-top:.5rem;" onclick="doLogout()">🚪 Log Out</button>
+        <button class="btn btn-outline" onclick="doLogout()" style="width:100%;justify-content:center;">🚪 Log Out</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════ MODALS ══════════════ -->
+<!-- ══════════ MODALS ══════════ -->
 
-<!-- new post -->
-<div class="modal-overlay" id="modal-newpost">
+<!-- New Post -->
+<div class="modal-overlay" id="modal-new-post">
   <div class="modal">
     <div class="modal-title">✍️ New Thread</div>
-    <div class="form-group"><label>Category</label><select id="post-category"><option value="general">📢 General</option><option value="tech">💻 Tech</option><option value="gaming">🎮 Gaming</option><option value="other">✨ Other</option></select></div>
+    <div class="form-group"><label>Category</label>
+      <select id="post-category">
+        <option value="general">📢 General</option>
+        <option value="tech">💻 Tech</option>
+        <option value="gaming">🎮 Gaming</option>
+        <option value="other">✨ Other</option>
+      </select>
+    </div>
     <div class="form-group"><label>Title</label><input type="text" id="post-title" placeholder="what's on your mind?"></div>
     <div class="form-group"><label>Content</label><textarea id="post-content" placeholder="go off..."></textarea></div>
     <div id="post-err" class="msg-err"></div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeModal('modal-newpost')">Cancel</button>
+      <button class="btn btn-outline" onclick="closeModal('modal-new-post')">Cancel</button>
       <button class="btn btn-mint" id="post-submit-btn" onclick="submitPost()">Post it 🦊</button>
     </div>
   </div>
 </div>
 
-<!-- edit post -->
-<div class="modal-overlay" id="modal-editpost">
+<!-- Edit Post -->
+<div class="modal-overlay" id="modal-edit-post">
   <div class="modal">
     <div class="modal-title">✏️ Edit Thread</div>
     <input type="hidden" id="edit-post-id">
     <div class="form-group"><label>Title</label><input type="text" id="edit-post-title"></div>
     <div class="form-group"><label>Content</label><textarea id="edit-post-content"></textarea></div>
-    <div id="editpost-err" class="msg-err"></div>
+    <div id="edit-post-err" class="msg-err"></div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeModal('modal-editpost')">Cancel</button>
-      <button class="btn btn-mint" onclick="submitEditPost()">Save Changes</button>
+      <button class="btn btn-outline" onclick="closeModal('modal-edit-post')">Cancel</button>
+      <button class="btn btn-mint" onclick="saveEditPost()">Save Changes</button>
     </div>
   </div>
 </div>
 
-<!-- display name -->
-<div class="modal-overlay" id="modal-displayname">
+<!-- Edit Reply -->
+<div class="modal-overlay" id="modal-edit-reply">
   <div class="modal">
-    <div class="modal-title">✏️ Display Name</div>
-    <div class="form-group"><label>Display Name</label><input type="text" id="new-displayname" placeholder="shown on your profile"></div>
-    <div id="displayname-err" class="msg-err"></div>
+    <div class="modal-title">✏️ Edit Reply</div>
+    <input type="hidden" id="edit-reply-id">
+    <div class="form-group"><label>Content</label><textarea id="edit-reply-content"></textarea></div>
+    <div id="edit-reply-err" class="msg-err"></div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeModal('modal-displayname')">Cancel</button>
-      <button class="btn btn-mint" onclick="saveDisplayName()">Save</button>
+      <button class="btn btn-outline" onclick="closeModal('modal-edit-reply')">Cancel</button>
+      <button class="btn btn-mint" onclick="saveEditReply()">Save Changes</button>
     </div>
   </div>
 </div>
 
-<!-- about me -->
-<div class="modal-overlay" id="modal-aboutme">
-  <div class="modal">
-    <div class="modal-title">📝 About Me</div>
-    <div class="form-group"><label>About Me</label><textarea id="new-aboutme" placeholder="tell people about yourself..." style="min-height:140px;"></textarea></div>
-    <div id="aboutme-err" class="msg-err"></div>
+<!-- Profile Modal -->
+<div class="modal-overlay" id="modal-profile">
+  <div class="modal modal-wide">
+    <div class="profile-modal-body" id="profile-modal-body">
+      <div class="forum-empty">loading profile...</div>
+    </div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeModal('modal-aboutme')">Cancel</button>
-      <button class="btn btn-mint" onclick="saveAboutMe()">Save</button>
+      <button class="btn btn-outline" onclick="closeModal('modal-profile')">Close</button>
     </div>
   </div>
 </div>
 
-<!-- username change -->
-<div class="modal-overlay" id="modal-username">
+<!-- Change Username -->
+<div class="modal-overlay" id="modal-change-username">
   <div class="modal">
     <div class="modal-title">🔤 Change Username</div>
-    <div class="form-group"><label>New Username</label><input type="text" id="new-username" placeholder="new_username"></div>
-    <div class="form-group"><label>Current Password</label><input type="password" id="username-pw" placeholder="confirm with password"></div>
-    <div class="form-group hidden" id="username-totp-wrap"><label>Authenticator Code (if enabled)</label><input type="text" id="username-totp" placeholder="6-digit code" maxlength="6"></div>
-    <div id="username-err" class="msg-err"></div>
+    <p style="font-size:.88rem;color:rgba(232,254,242,.5);font-weight:700;margin-bottom:1rem;">requires your current password to confirm</p>
+    <div class="form-group"><label>New Username</label><input type="text" id="new-username" placeholder="coolname"></div>
+    <div class="form-group"><label>Current Password</label><input type="password" id="cu-password" placeholder="••••••••"></div>
+    <div id="mfa-cu-section" class="hidden"><div class="form-group"><label>Authenticator Code</label><input type="text" id="cu-mfa" placeholder="6-digit code" maxlength="6" inputmode="numeric"></div></div>
+    <div id="cu-err" class="msg-err"></div>
+    <div id="cu-ok" class="msg-ok"></div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeModal('modal-username')">Cancel</button>
-      <button class="btn btn-mint" onclick="changeUsername()">Change</button>
+      <button class="btn btn-outline" onclick="closeModal('modal-change-username')">Cancel</button>
+      <button class="btn btn-mint" onclick="changeUsername()">Change Username</button>
     </div>
   </div>
 </div>
 
-<!-- email change -->
-<div class="modal-overlay" id="modal-email">
+<!-- Change Email -->
+<div class="modal-overlay" id="modal-change-email">
   <div class="modal">
     <div class="modal-title">📧 Change Email</div>
-    <p style="font-size:.9rem;color:rgba(232,254,242,.6);font-weight:700;margin-bottom:1rem;">a verification link will be sent to your new email, and a confirmation to your old one.</p>
+    <p style="font-size:.88rem;color:rgba(232,254,242,.5);font-weight:700;margin-bottom:1rem;">verification links will be sent to both your old and new email</p>
     <div class="form-group"><label>New Email</label><input type="email" id="new-email" placeholder="new@example.com"></div>
-    <div id="email-err" class="msg-err"></div>
-    <div id="email-ok" class="msg-ok"></div>
+    <div id="ce-err" class="msg-err"></div>
+    <div id="ce-ok" class="msg-ok"></div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeModal('modal-email')">Cancel</button>
+      <button class="btn btn-outline" onclick="closeModal('modal-change-email')">Cancel</button>
       <button class="btn btn-mint" onclick="changeEmail()">Send Verification</button>
     </div>
   </div>
 </div>
 
-<!-- password change -->
-<div class="modal-overlay" id="modal-password">
+<!-- Change Password -->
+<div class="modal-overlay" id="modal-change-password">
   <div class="modal">
     <div class="modal-title">🔑 Change Password</div>
-    <div class="form-group"><label>Current Password</label><input type="password" id="cur-pw" placeholder="••••••••"></div>
-    <div class="form-group"><label>New Password</label><input type="password" id="new-pw" placeholder="8+ characters"></div>
-    <div class="form-group hidden" id="pw-totp-wrap"><label>Authenticator Code</label><input type="text" id="pw-totp" placeholder="6-digit code" maxlength="6"></div>
-    <div id="password-err" class="msg-err"></div>
+    <div class="form-group"><label>Current Password</label><input type="password" id="cp-current" placeholder="••••••••"></div>
+    <div class="form-group"><label>New Password</label><input type="password" id="cp-new" placeholder="8+ characters"></div>
+    <div class="form-group"><label>Confirm New Password</label><input type="password" id="cp-confirm" placeholder="••••••••"></div>
+    <div id="mfa-cp-section" class="hidden"><div class="form-group"><label>Authenticator Code</label><input type="text" id="cp-mfa" placeholder="6-digit code" maxlength="6" inputmode="numeric"></div></div>
+    <div id="cp-err" class="msg-err"></div>
+    <div id="cp-ok" class="msg-ok"></div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeModal('modal-password')">Cancel</button>
-      <button class="btn btn-mint" onclick="changePassword()">Update Password</button>
+      <button class="btn btn-outline" onclick="closeModal('modal-change-password')">Cancel</button>
+      <button class="btn btn-mint" onclick="changePassword()">Change Password</button>
     </div>
   </div>
 </div>
 
-<!-- 2fa setup -->
-<div class="modal-overlay" id="modal-2fa">
+<!-- Setup 2FA -->
+<div class="modal-overlay" id="modal-setup-mfa">
   <div class="modal">
-    <div class="modal-title" id="tfa-title">🔐 Enable 2FA</div>
-    <div id="tfa-step-qr">
-      <p style="font-size:.9rem;font-weight:700;color:rgba(232,254,242,.7);margin-bottom:1rem;">scan this QR code with your authenticator app (Google Authenticator, Authy, etc.)</p>
-      <div id="tfa-qr-wrap" style="text-align:center;margin-bottom:1rem;"></div>
-      <div class="form-group"><label>Confirm Code</label><input type="text" id="tfa-code" placeholder="6-digit code" maxlength="6" inputmode="numeric"></div>
-      <div id="tfa-err" class="msg-err"></div>
-      <div class="modal-footer">
-        <button class="btn btn-outline" onclick="closeModal('modal-2fa')">Cancel</button>
-        <button class="btn btn-mint" onclick="verify2FA()">Verify &amp; Enable</button>
-      </div>
-    </div>
-    <div id="tfa-step-disable" class="hidden">
-      <p style="font-size:.9rem;font-weight:700;color:rgba(232,254,242,.7);margin-bottom:1rem;">enter your authenticator code to disable 2FA.</p>
-      <div class="form-group"><label>Code</label><input type="text" id="tfa-disable-code" placeholder="6-digit code" maxlength="6" inputmode="numeric"></div>
-      <div id="tfa-disable-err" class="msg-err"></div>
-      <div class="modal-footer">
-        <button class="btn btn-outline" onclick="closeModal('modal-2fa')">Cancel</button>
-        <button class="btn btn-red" onclick="disable2FA()">Disable 2FA</button>
-      </div>
+    <div class="modal-title">🔐 Set Up 2FA</div>
+    <p style="font-size:.88rem;color:rgba(232,254,242,.5);font-weight:700;margin-bottom:1rem;">scan the QR code with your authenticator app (Google Authenticator, Authy, etc.)</p>
+    <div style="text-align:center;margin-bottom:1rem;"><img id="mfa-qr" src="" alt="QR Code" style="border-radius:10px;max-width:180px;background:#fff;padding:8px;"></div>
+    <p style="font-size:.78rem;color:rgba(232,254,242,.35);font-weight:700;margin-bottom:1rem;text-align:center;" id="mfa-secret-text"></p>
+    <div class="form-group"><label>Enter code to confirm</label><input type="text" id="mfa-verify-code" placeholder="6-digit code" maxlength="6" inputmode="numeric"></div>
+    <div id="mfa-setup-err" class="msg-err"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-setup-mfa')">Cancel</button>
+      <button class="btn btn-mint" onclick="verifyMfaSetup()">Verify &amp; Enable</button>
     </div>
   </div>
 </div>
 
-<!-- delete account -->
-<div class="modal-overlay" id="modal-delete">
+<!-- Disable 2FA -->
+<div class="modal-overlay" id="modal-disable-mfa">
+  <div class="modal">
+    <div class="modal-title">🔓 Disable 2FA</div>
+    <div class="form-group"><label>Authenticator Code</label><input type="text" id="disable-mfa-code" placeholder="6-digit code" maxlength="6" inputmode="numeric"></div>
+    <div id="disable-mfa-err" class="msg-err"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-disable-mfa')">Cancel</button>
+      <button class="btn btn-red" onclick="disableMfa()">Disable 2FA</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Account -->
+<div class="modal-overlay" id="modal-delete-account">
   <div class="modal">
     <div class="modal-title" style="color:var(--red);">⚠️ Delete Account</div>
-    <p style="font-size:.95rem;font-weight:700;color:rgba(232,254,242,.75);margin-bottom:1.2rem;">this will permanently delete your account, all your posts, and all your replies. this cannot be undone.</p>
-    <div id="delete-step-1">
-      <p style="font-size:.9rem;font-weight:800;color:var(--red);margin-bottom:1rem;">are you sure?</p>
-      <div class="modal-footer">
-        <button class="btn btn-outline" onclick="closeModal('modal-delete')">No, keep my account</button>
-        <button class="btn btn-red" onclick="deleteStep2()">Yes, continue</button>
-      </div>
-    </div>
-    <div id="delete-step-2" class="hidden">
-      <div class="form-group"><label>Enter your password to confirm</label><input type="password" id="delete-pw" placeholder="••••••••"></div>
-      <div class="form-group hidden" id="delete-totp-wrap"><label>Authenticator Code</label><input type="text" id="delete-totp" placeholder="6-digit code" maxlength="6"></div>
-      <div id="delete-err" class="msg-err"></div>
-      <div class="modal-footer">
-        <button class="btn btn-outline" onclick="closeModal('modal-delete')">Cancel</button>
-        <button class="btn btn-red" onclick="confirmDeleteAccount()">Delete Everything</button>
-      </div>
+    <p style="font-size:.9rem;color:rgba(232,254,242,.6);font-weight:700;margin-bottom:1rem;">this will permanently delete your account, all your posts, and all your replies. this cannot be undone.</p>
+    <div class="form-group"><label>Type DELETE to confirm</label><input type="text" id="delete-confirm-text" placeholder="DELETE"></div>
+    <div class="form-group"><label>Current Password</label><input type="password" id="delete-password" placeholder="••••••••"></div>
+    <div id="mfa-del-section" class="hidden"><div class="form-group"><label>Authenticator Code</label><input type="text" id="delete-mfa" placeholder="6-digit code" maxlength="6" inputmode="numeric"></div></div>
+    <div id="delete-err" class="msg-err"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-delete-account')">Cancel</button>
+      <button class="btn btn-red" onclick="deleteAccount()">Delete Forever</button>
     </div>
   </div>
 </div>
 
-<!-- profile view modal -->
-<div class="profile-modal-overlay" id="modal-profile">
-  <div class="profile-modal">
-    <div class="profile-modal-close" onclick="closeProfileModal()">✕</div>
-    <div class="profile-modal-name" id="pm-username"></div>
-    <div class="profile-modal-displayname" id="pm-displayname"></div>
-    <div class="profile-modal-stats">
-      <div class="profile-modal-stat">
-        <div class="val clickable-stat" id="pm-posts" onclick="searchByProfile()"></div>
-        <div class="lbl">posts</div>
-      </div>
-      <div class="profile-modal-stat">
-        <div class="val" id="pm-joined"></div>
-        <div class="lbl">joined</div>
-      </div>
-    </div>
-    <div class="profile-modal-about-label">About Me</div>
-    <div class="profile-modal-about" id="pm-about"></div>
-  </div>
-</div>
-
-<!-- user popover -->
+<!-- User Popover -->
 <div class="user-popover" id="user-popover">
-  <div class="pop-name" id="pop-name"></div>
-  <div class="pop-displayname" id="pop-displayname"></div>
-  <div class="pop-stat">posts: <a id="pop-posts" onclick="searchByPopover()"></a></div>
-  <div class="pop-stat">joined: <span id="pop-joined"></span></div>
-  <div class="pop-view" onclick="openProfileFromPopover()">view full profile →</div>
+  <div class="pop-name" id="pop-name">...</div>
+  <div class="pop-dn" id="pop-dn"></div>
+  <div class="pop-stat">posts: <span id="pop-posts" onclick="searchByAuthorFromPop()">...</span></div>
+  <div class="pop-stat">joined: <span id="pop-joined">...</span></div>
+  <div class="pop-view"><button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center;margin-top:.2rem;" onclick="openProfileModal(currentPopId,currentPopName)">View Profile</button></div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -750,140 +731,109 @@ footer{text-align:center;padding:1.5rem;font-size:.82rem;color:rgba(232,254,242,
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 const sb = createClient('https://lmupyrjmsupdvxcewbhy.supabase.co','sb_publishable_Gn_DeJIDXWKnt5-ycuIAEA_afmk25X0');
 
-// ── utils ────────────────────────────────────────────────────
+// ─── utils ────────────────────────────────────────────────────
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function timeAgo(d){const diff=Date.now()-new Date(d);const m=Math.floor(diff/6e4),h=Math.floor(diff/36e5),dy=Math.floor(diff/864e5);if(m<1)return'just now';if(m<60)return`${m}m ago`;if(h<24)return`${h}h ago`;return`${dy}d ago`;}
 function fmtDate(d){return new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'short'});}
 function fmtFull(d){return new Date(d).toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'});}
-window.showToast=m=>{const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);};
 
-// ── modal helpers ────────────────────────────────────────────
+window.showToast=msg=>{const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);};
 window.openModal=id=>{document.getElementById(id).classList.add('open');};
-window.closeModal=id=>{
-  document.getElementById(id).classList.remove('open');
-  // reset delete steps
-  if(id==='modal-delete'){document.getElementById('delete-step-1').classList.remove('hidden');document.getElementById('delete-step-2').classList.add('hidden');}
-};
-document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
+window.closeModal=id=>{document.getElementById(id).classList.remove('open');};
+document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
 
-// ── page nav ─────────────────────────────────────────────────
+// ─── nav ──────────────────────────────────────────────────────
 window.showPage=name=>{
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   document.getElementById('nav-'+name).classList.add('active');
   window.scrollTo(0,0);
-  if(name==='forums') loadForums();
+  if(name==='forums'){backToForums();loadForums();}
 };
 
-// ── auth tabs ────────────────────────────────────────────────
+// ─── auth tab ─────────────────────────────────────────────────
 window.switchTab=tab=>{
   ['login','register','reset'].forEach(t=>{
     document.getElementById('tab-'+t).classList.toggle('active',t===tab);
     document.getElementById('form-'+t).classList.toggle('hidden',t!==tab);
-  });
-  clearMsgs('auth-err','auth-ok');
+  });clearMsgs();
 };
-function clearMsgs(...ids){ids.forEach(id=>{const e=document.getElementById(id);if(e){e.style.display='none';e.textContent='';}})}
-function showErr(id,m){const e=document.getElementById(id);e.textContent=m;e.style.display='block';}
-function showOk(id,m){const e=document.getElementById(id);e.textContent=m;e.style.display='block';}
+function clearMsgs(){['auth-err','auth-ok'].forEach(id=>{const e=document.getElementById(id);if(e){e.style.display='none';e.textContent='';}});}
+function showErr(id,m){const e=document.getElementById(id);if(e){e.textContent=m;e.style.display='block';}}
+function showOk(id,m){const e=document.getElementById(id);if(e){e.textContent=m;e.style.display='block';}}
 
-// ── session state ─────────────────────────────────────────────
+// ─── session ──────────────────────────────────────────────────
 let currentUser=null;
-let currentProfile=null;
-let notifEnabled=true;
-let has2FA=false;
+let mfaFactorId=null;
 
 async function applyLoggedIn(user){
   currentUser=user;
   const uname=user.user_metadata?.username||user.email.split('@')[0];
-  document.getElementById('nav-user').textContent='@'+uname;
-  document.getElementById('acct-username').textContent=uname;
-  document.getElementById('acct-email').textContent=user.email;
-  document.getElementById('s-username').textContent=uname;
-  document.getElementById('s-email').textContent=user.email;
-  document.getElementById('view-loggedout').classList.add('hidden');
-  document.getElementById('view-loggedin').classList.remove('hidden');
+  document.getElementById('nav-username').textContent='@'+uname;
   document.getElementById('notif-btn').classList.remove('hidden');
-  // fetch profile
+
+  // load profile
   const{data:prof}=await sb.from('profiles').select('*').eq('id',user.id).single();
-  currentProfile=prof;
-  if(prof){
-    const dn=prof.display_name||'';
-    document.getElementById('acct-displayname').textContent=dn?`"${dn}"`:'';
-    document.getElementById('s-displayname').textContent=dn||'(none)';
-    document.getElementById('s-aboutme').textContent=prof.about_me||'(none)';
-    document.getElementById('acct-joined').textContent=fmtDate(prof.created_at);
-    notifEnabled=prof.notif_enabled!==false;
-    document.getElementById('toggle-notifs').classList.toggle('on',notifEnabled);
-    document.getElementById('new-displayname').value=dn;
-    document.getElementById('new-aboutme').value=prof.about_me||'';
-  }
+  const dn=prof?.display_name||uname;
+  document.getElementById('acct-initial').textContent=dn[0].toUpperCase();
+  document.getElementById('acct-display-name').textContent=dn;
+  document.getElementById('acct-username').textContent='@'+uname;
+  document.getElementById('settings-username').textContent=uname;
+  document.getElementById('settings-email').textContent=user.email;
+  document.getElementById('edit-display-name').value=dn;
+  document.getElementById('edit-about-me').value=prof?.about_me||'';
+  if(prof?.created_at) document.getElementById('acct-joined').textContent=fmtDate(prof.created_at);
+
   // post count
   const[{count:pc},{count:rc}]=await Promise.all([
     sb.from('posts').select('*',{count:'exact',head:true}).eq('author_id',user.id),
     sb.from('replies').select('*',{count:'exact',head:true}).eq('author_id',user.id),
   ]);
   document.getElementById('acct-posts').textContent=(pc||0)+(rc||0);
-  // 2fa status
-  await check2FAStatus();
-  // notifications
+
+  document.getElementById('view-loggedout').classList.add('hidden');
+  document.getElementById('view-loggedin').classList.remove('hidden');
+
+  checkMfaStatus();
   loadNotifications();
-  subscribeToNotifications();
-  // username totp wrap visibility
-  document.getElementById('username-totp-wrap').classList.toggle('hidden',!has2FA);
-  document.getElementById('pw-totp-wrap').classList.toggle('hidden',!has2FA);
-  document.getElementById('delete-totp-wrap').classList.toggle('hidden',!has2FA);
+  subscribeNotifications();
 }
 
 function applyLoggedOut(){
-  currentUser=null;currentProfile=null;
-  document.getElementById('nav-user').textContent='@guest';
+  currentUser=null;
+  document.getElementById('nav-username').textContent='@guest';
+  document.getElementById('notif-btn').classList.add('hidden');
   document.getElementById('view-loggedout').classList.remove('hidden');
   document.getElementById('view-loggedin').classList.add('hidden');
-  document.getElementById('notif-btn').classList.add('hidden');
 }
 
 sb.auth.getSession().then(({data:{session}})=>{if(session?.user)applyLoggedIn(session.user);});
 sb.auth.onAuthStateChange((_,session)=>{if(session?.user)applyLoggedIn(session.user);else applyLoggedOut();});
 
-// ── login ────────────────────────────────────────────────────
+// ─── login ────────────────────────────────────────────────────
 window.doLogin=async()=>{
-  clearMsgs('auth-err','auth-ok');
+  clearMsgs();
   const email=document.getElementById('login-email').value.trim();
   const pw=document.getElementById('login-password').value;
   if(!email||!pw)return showErr('auth-err','fill everything in :3');
   const btn=document.getElementById('login-btn');btn.disabled=true;btn.textContent='logging in...';
   const{data,error}=await sb.auth.signInWithPassword({email,password:pw});
-  if(error){
-    // check if MFA required
-    if(error.message?.includes('MFA')||data?.session===null&&data?.user){
-      document.getElementById('login-totp-wrap').classList.remove('hidden');
-      btn.disabled=false;btn.textContent='Log In';
-      return showErr('auth-err','enter your authenticator code to continue');
-    }
+  if(error){btn.disabled=false;btn.textContent='Log In';return showErr('auth-err',error.message);}
+  // check if MFA required
+  if(data?.session===null&&data?.user===null){
+    // MFA challenge needed — show code input
+    document.getElementById('mfa-section').classList.remove('hidden');
     btn.disabled=false;btn.textContent='Log In';
-    return showErr('auth-err',error.message);
-  }
-  // handle MFA challenge if needed
-  if(data?.session===null){
-    const totp=document.getElementById('login-totp').value.trim();
-    if(!totp){document.getElementById('login-totp-wrap').classList.remove('hidden');btn.disabled=false;btn.textContent='Log In';return showErr('auth-err','enter your authenticator code :3');}
-    const factors=await sb.auth.mfa.listFactors();
-    const totpFactor=factors.data?.totp?.[0];
-    if(totpFactor){
-      const{data:challengeData}=await sb.auth.mfa.challenge({factorId:totpFactor.id});
-      const{error:verifyError}=await sb.auth.mfa.verify({factorId:totpFactor.id,challengeId:challengeData.id,code:totp});
-      if(verifyError){btn.disabled=false;btn.textContent='Log In';return showErr('auth-err',verifyError.message);}
-    }
+    showErr('auth-err','enter your authenticator code');return;
   }
   btn.disabled=false;btn.textContent='Log In';
   showToast('welcome back!! 🦊');
 };
 
-// ── register ─────────────────────────────────────────────────
+// ─── register ─────────────────────────────────────────────────
 window.doRegister=async()=>{
-  clearMsgs('auth-err','auth-ok');
+  clearMsgs();
   const uname=document.getElementById('reg-username').value.trim();
   const dn=document.getElementById('reg-displayname').value.trim();
   const email=document.getElementById('reg-email').value.trim();
@@ -892,15 +842,15 @@ window.doRegister=async()=>{
   if(pw.length<8)return showErr('auth-err','password needs 8+ characters');
   if(!/^[a-zA-Z0-9_\-]+$/.test(uname))return showErr('auth-err','username: letters, numbers, _ and - only');
   const btn=document.getElementById('register-btn');btn.disabled=true;btn.textContent='creating...';
-  const{error}=await sb.auth.signUp({email,password:pw,options:{data:{username:uname,display_name:dn}}});
+  const{error}=await sb.auth.signUp({email,password:pw,options:{data:{username:uname,display_name:dn||uname}}});
   btn.disabled=false;btn.textContent='Create Account';
   if(error)return showErr('auth-err',error.message);
   showOk('auth-ok','account created! check your email to confirm, then log in :3');
 };
 
-// ── reset request ────────────────────────────────────────────
+// ─── reset request ────────────────────────────────────────────
 window.doResetRequest=async()=>{
-  clearMsgs('auth-err','auth-ok');
+  clearMsgs();
   const email=document.getElementById('reset-email').value.trim();
   if(!email)return showErr('auth-err','enter your email :3');
   const btn=document.getElementById('reset-btn');btn.disabled=true;btn.textContent='sending...';
@@ -910,195 +860,137 @@ window.doResetRequest=async()=>{
   showOk('auth-ok','reset link sent! check your inbox 📬');
 };
 
+// ─── logout ───────────────────────────────────────────────────
 window.doLogout=async()=>{await sb.auth.signOut();showToast('logged out, see ya 👋');};
 
-// ── display name ──────────────────────────────────────────────
-window.saveDisplayName=async()=>{
-  const dn=document.getElementById('new-displayname').value.trim();
-  clearMsgs('displayname-err');
-  const{error}=await sb.from('profiles').update({display_name:dn}).eq('id',currentUser.id);
-  if(error)return showErr('displayname-err',error.message);
-  document.getElementById('s-displayname').textContent=dn||'(none)';
-  document.getElementById('acct-displayname').textContent=dn?`"${dn}"`:'';
-  closeModal('modal-displayname');showToast('display name updated! ✨');
+// ─── save profile ─────────────────────────────────────────────
+window.saveProfile=async()=>{
+  if(!currentUser)return;
+  const dn=document.getElementById('edit-display-name').value.trim();
+  const about=document.getElementById('edit-about-me').value.trim();
+  const{error}=await sb.from('profiles').upsert({id:currentUser.id,display_name:dn,about_me:about},{onConflict:'id'});
+  if(error)return showErr('profile-save-msg',error.message);
+  showOk('profile-save-msg','profile saved! 🦊');
+  document.getElementById('acct-display-name').textContent=dn||'—';
+  document.getElementById('acct-initial').textContent=(dn||'?')[0].toUpperCase();
+  setTimeout(()=>{const e=document.getElementById('profile-save-msg');e.style.display='none';},3000);
 };
 
-// ── about me ─────────────────────────────────────────────────
-window.saveAboutMe=async()=>{
-  const about=document.getElementById('new-aboutme').value.trim();
-  clearMsgs('aboutme-err');
-  const{error}=await sb.from('profiles').update({about_me:about}).eq('id',currentUser.id);
-  if(error)return showErr('aboutme-err',error.message);
-  document.getElementById('s-aboutme').textContent=about||'(none)';
-  closeModal('modal-aboutme');showToast('about me saved! 📝');
-};
-
-// ── username change ──────────────────────────────────────────
+// ─── change username ──────────────────────────────────────────
 window.changeUsername=async()=>{
-  clearMsgs('username-err');
-  const newU=document.getElementById('new-username').value.trim();
-  const pw=document.getElementById('username-pw').value;
-  if(!newU||!pw)return showErr('username-err','fill everything in :3');
-  if(!/^[a-zA-Z0-9_\-]+$/.test(newU))return showErr('username-err','letters, numbers, _ and - only');
-  // re-auth
-  const{error:reErr}=await sb.auth.signInWithPassword({email:currentUser.email,password:pw});
-  if(reErr)return showErr('username-err','wrong password');
-  // 2fa check if enabled
-  if(has2FA){
-    const code=document.getElementById('username-totp').value.trim();
-    if(!code)return showErr('username-err','enter your authenticator code');
-    const ok=await verifyTOTPCode(code);
-    if(!ok)return showErr('username-err','invalid authenticator code');
-  }
-  const{error}=await sb.auth.updateUser({data:{username:newU}});
-  if(error)return showErr('username-err',error.message);
-  await sb.from('profiles').update({username:newU}).eq('id',currentUser.id);
-  document.getElementById('s-username').textContent=newU;
-  document.getElementById('acct-username').textContent=newU;
-  document.getElementById('nav-user').textContent='@'+newU;
-  closeModal('modal-username');showToast('username updated! 🔤');
+  const newu=document.getElementById('new-username').value.trim();
+  const pw=document.getElementById('cu-password').value;
+  if(!newu||!pw)return showErr('cu-err','fill everything in');
+  if(!/^[a-zA-Z0-9_\-]+$/.test(newu))return showErr('cu-err','letters, numbers, _ and - only');
+  // re-auth first
+  const{error:authErr}=await sb.auth.signInWithPassword({email:currentUser.email,password:pw});
+  if(authErr)return showErr('cu-err','wrong password');
+  const{error}=await sb.auth.updateUser({data:{username:newu}});
+  if(error)return showErr('cu-err',error.message);
+  await sb.from('profiles').update({username:newu}).eq('id',currentUser.id);
+  showOk('cu-ok','username changed!');document.getElementById('settings-username').textContent=newu;
+  document.getElementById('acct-username').textContent='@'+newu;
+  document.getElementById('nav-username').textContent='@'+newu;
 };
 
-// ── email change ─────────────────────────────────────────────
+// ─── change email ─────────────────────────────────────────────
 window.changeEmail=async()=>{
-  clearMsgs('email-err','email-ok');
-  const newE=document.getElementById('new-email').value.trim();
-  if(!newE)return showErr('email-err','enter a new email :3');
-  const{error}=await sb.auth.updateUser({email:newE},{emailRedirectTo:'https://mintofox.net'});
-  if(error)return showErr('email-err',error.message);
-  showOk('email-ok','verification sent to both emails! confirm both links to complete the change 📬');
+  const newEmail=document.getElementById('new-email').value.trim();
+  if(!newEmail)return showErr('ce-err','enter a new email');
+  const{error}=await sb.auth.updateUser({email:newEmail});
+  if(error)return showErr('ce-err',error.message);
+  showOk('ce-ok','verification links sent to both emails! confirm both to complete the change 📬');
 };
 
-// ── password change ──────────────────────────────────────────
+// ─── change password (logged in) ─────────────────────────────
 window.changePassword=async()=>{
-  clearMsgs('password-err');
-  const cur=document.getElementById('cur-pw').value;
-  const nw=document.getElementById('new-pw').value;
-  if(!cur||!nw)return showErr('password-err','fill everything in :3');
-  if(nw.length<8)return showErr('password-err','new password needs 8+ characters');
-  // re-auth with current password
-  const{error:reErr}=await sb.auth.signInWithPassword({email:currentUser.email,password:cur});
-  if(reErr)return showErr('password-err','current password is wrong');
-  if(has2FA){
-    const code=document.getElementById('pw-totp').value.trim();
-    if(!code)return showErr('password-err','enter your authenticator code');
-    const ok=await verifyTOTPCode(code);
-    if(!ok)return showErr('password-err','invalid authenticator code');
-  }
+  const cur=document.getElementById('cp-current').value;
+  const nw=document.getElementById('cp-new').value;
+  const conf=document.getElementById('cp-confirm').value;
+  if(!cur||!nw||!conf)return showErr('cp-err','fill everything in');
+  if(nw.length<8)return showErr('cp-err','new password needs 8+ characters');
+  if(nw!==conf)return showErr('cp-err','new passwords don\'t match');
+  // re-auth to verify current password
+  const{error:authErr}=await sb.auth.signInWithPassword({email:currentUser.email,password:cur});
+  if(authErr)return showErr('cp-err','current password is wrong');
   const{error}=await sb.auth.updateUser({password:nw});
-  if(error)return showErr('password-err',error.message);
-  closeModal('modal-password');showToast('password changed! 🔑');
+  if(error)return showErr('cp-err',error.message);
+  showOk('cp-ok','password changed! 🔑');
 };
 
-// ── 2FA ──────────────────────────────────────────────────────
-async function check2FAStatus(){
+// ─── MFA ──────────────────────────────────────────────────────
+async function checkMfaStatus(){
   const{data}=await sb.auth.mfa.listFactors();
-  has2FA=(data?.totp?.length>0&&data.totp[0].status==='verified');
-  document.getElementById('s-2fa-status').textContent=has2FA?'enabled ✅':'not enabled';
-  document.getElementById('s-2fa-btn').textContent=has2FA?'Disable':'Enable';
-}
-
-async function verifyTOTPCode(code){
-  const{data:factors}=await sb.auth.mfa.listFactors();
-  const f=factors?.totp?.[0];if(!f)return false;
-  const{data:ch}=await sb.auth.mfa.challenge({factorId:f.id});
-  const{error}=await sb.auth.mfa.verify({factorId:f.id,challengeId:ch.id,code});
-  return!error;
-}
-
-window.handle2FA=async()=>{
-  if(has2FA){
-    document.getElementById('tfa-title').textContent='🔐 Disable 2FA';
-    document.getElementById('tfa-step-qr').classList.add('hidden');
-    document.getElementById('tfa-step-disable').classList.remove('hidden');
-    openModal('modal-2fa');
+  const totp=data?.totp||[];
+  const verified=totp.find(f=>f.status==='verified');
+  if(verified){
+    mfaFactorId=verified.id;
+    document.getElementById('mfa-status').textContent='enabled ✅';
+    document.getElementById('mfa-toggle-btn').textContent='Disable';
+    ['mfa-cu-section','mfa-cp-section','mfa-del-section'].forEach(id=>document.getElementById(id).classList.remove('hidden'));
   } else {
-    document.getElementById('tfa-title').textContent='🔐 Enable 2FA';
-    document.getElementById('tfa-step-qr').classList.remove('hidden');
-    document.getElementById('tfa-step-disable').classList.add('hidden');
-    openModal('modal-2fa');
-    // enroll
-    const{data,error}=await sb.auth.mfa.enroll({factorType:'totp',issuer:'mintofox.net'});
-    if(error){showToast('error setting up 2FA :(');closeModal('modal-2fa');return;}
-    const qrEl=document.getElementById('tfa-qr-wrap');
-    qrEl.innerHTML=`<img src="${data.totp.qr_code}" style="width:180px;height:180px;border-radius:10px;border:3px solid rgba(79,201,126,.3);" alt="QR Code"><p style="font-size:.75rem;margin-top:.6rem;color:rgba(232,254,242,.4);font-weight:700;word-break:break-all;">${data.totp.secret}</p>`;
-    window._enrollFactorId=data.id;
+    mfaFactorId=null;
+    document.getElementById('mfa-status').textContent='disabled';
+    document.getElementById('mfa-toggle-btn').textContent='Enable';
+    ['mfa-cu-section','mfa-cp-section','mfa-del-section'].forEach(id=>document.getElementById(id).classList.add('hidden'));
   }
+}
+
+window.handleMfaToggle=()=>{
+  if(mfaFactorId) openModal('modal-disable-mfa');
+  else startMfaSetup();
 };
 
-window.verify2FA=async()=>{
-  clearMsgs('tfa-err');
-  const code=document.getElementById('tfa-code').value.trim();
-  if(!code)return showErr('tfa-err','enter the code from your app');
-  const{data:ch,error:chErr}=await sb.auth.mfa.challenge({factorId:window._enrollFactorId});
-  if(chErr)return showErr('tfa-err',chErr.message);
-  const{error}=await sb.auth.mfa.verify({factorId:window._enrollFactorId,challengeId:ch.id,code});
-  if(error)return showErr('tfa-err','wrong code, try again');
-  closeModal('modal-2fa');showToast('2FA enabled! 🔐');await check2FAStatus();
-  document.getElementById('username-totp-wrap').classList.remove('hidden');
-  document.getElementById('pw-totp-wrap').classList.remove('hidden');
-  document.getElementById('delete-totp-wrap').classList.remove('hidden');
+async function startMfaSetup(){
+  const{data,error}=await sb.auth.mfa.enroll({factorType:'totp'});
+  if(error)return showToast('error starting 2FA setup');
+  document.getElementById('mfa-qr').src=data.totp.qr_code;
+  document.getElementById('mfa-secret-text').textContent='Manual: '+data.totp.secret;
+  window._pendingFactorId=data.id;
+  openModal('modal-setup-mfa');
+}
+
+window.verifyMfaSetup=async()=>{
+  const code=document.getElementById('mfa-verify-code').value.trim();
+  if(!code)return showErr('mfa-setup-err','enter the 6-digit code');
+  const{data,error}=await sb.auth.mfa.challenge({factorId:window._pendingFactorId});
+  if(error)return showErr('mfa-setup-err',error.message);
+  const{error:verErr}=await sb.auth.mfa.verify({factorId:window._pendingFactorId,challengeId:data.id,code});
+  if(verErr)return showErr('mfa-setup-err','wrong code, try again');
+  closeModal('modal-setup-mfa');showToast('2FA enabled! 🔐');checkMfaStatus();
 };
 
-window.disable2FA=async()=>{
-  clearMsgs('tfa-disable-err');
-  const code=document.getElementById('tfa-disable-code').value.trim();
-  const ok=await verifyTOTPCode(code);
-  if(!ok)return showErr('tfa-disable-err','wrong code');
-  const{data:factors}=await sb.auth.mfa.listFactors();
-  const f=factors?.totp?.[0];if(!f)return;
-  const{error}=await sb.auth.mfa.unenroll({factorId:f.id});
-  if(error)return showErr('tfa-disable-err',error.message);
-  closeModal('modal-2fa');showToast('2FA disabled');await check2FAStatus();
-  document.getElementById('username-totp-wrap').classList.add('hidden');
-  document.getElementById('pw-totp-wrap').classList.add('hidden');
-  document.getElementById('delete-totp-wrap').classList.add('hidden');
+window.disableMfa=async()=>{
+  const code=document.getElementById('disable-mfa-code').value.trim();
+  if(!code)return showErr('disable-mfa-err','enter your code');
+  const{data,error}=await sb.auth.mfa.challenge({factorId:mfaFactorId});
+  if(error)return showErr('disable-mfa-err',error.message);
+  const{error:verErr}=await sb.auth.mfa.verify({factorId:mfaFactorId,challengeId:data.id,code});
+  if(verErr)return showErr('disable-mfa-err','wrong code');
+  const{error:unenrollErr}=await sb.auth.mfa.unenroll({factorId:mfaFactorId});
+  if(unenrollErr)return showErr('disable-mfa-err',unenrollErr.message);
+  closeModal('modal-disable-mfa');showToast('2FA disabled');checkMfaStatus();
 };
 
-// ── notif preferences ─────────────────────────────────────────
-window.toggleNotifPref=async()=>{
-  notifEnabled=!notifEnabled;
-  document.getElementById('toggle-notifs').classList.toggle('on',notifEnabled);
-  await sb.from('profiles').update({notif_enabled:notifEnabled}).eq('id',currentUser.id);
-  showToast(notifEnabled?'notifications on 🔔':'notifications off 🔕');
-};
-
-// ── account reset password ────────────────────────────────────
-window.doResetPassword=async()=>{
-  await sb.auth.resetPasswordForEmail(currentUser.email,{redirectTo:'https://mintofox.net'});
-  showToast('reset email sent! 📬');
-};
-
-// ── delete account ────────────────────────────────────────────
-window.deleteStep2=()=>{
-  document.getElementById('delete-step-1').classList.add('hidden');
-  document.getElementById('delete-step-2').classList.remove('hidden');
-};
-
-window.confirmDeleteAccount=async()=>{
-  clearMsgs('delete-err');
-  const pw=document.getElementById('delete-pw').value;
+// ─── delete account ───────────────────────────────────────────
+window.deleteAccount=async()=>{
+  const confirm=document.getElementById('delete-confirm-text').value.trim();
+  const pw=document.getElementById('delete-password').value;
+  if(confirm!=='DELETE')return showErr('delete-err','type DELETE exactly');
   if(!pw)return showErr('delete-err','enter your password');
-  const{error:reErr}=await sb.auth.signInWithPassword({email:currentUser.email,password:pw});
-  if(reErr)return showErr('delete-err','wrong password');
-  if(has2FA){
-    const code=document.getElementById('delete-totp').value.trim();
-    if(!code)return showErr('delete-err','enter your authenticator code');
-    const ok=await verifyTOTPCode(code);
-    if(!ok)return showErr('delete-err','invalid authenticator code');
-  }
-  // delete posts and replies (cascade handles replies via FK, but let's be explicit)
+  // re-auth
+  const{error:authErr}=await sb.auth.signInWithPassword({email:currentUser.email,password:pw});
+  if(authErr)return showErr('delete-err','wrong password');
+  // delete posts and replies (cascade should handle it via DB but let's be safe)
   await sb.from('replies').delete().eq('author_id',currentUser.id);
   await sb.from('posts').delete().eq('author_id',currentUser.id);
-  // delete auth user (requires service role in prod; here we sign out and call delete)
-  const{error}=await sb.auth.admin?.deleteUser?.(currentUser.id)||{error:null};
-  // fallback: just sign out — user data is gone, auth row needs server-side cleanup
+  await sb.from('profiles').delete().eq('id',currentUser.id);
+  // delete auth user via admin (requires service role) — instead sign out and show message
   await sb.auth.signOut();
-  closeModal('modal-delete');
-  showToast('account deleted. take care 🦊');
+  showToast('account deleted. take care 🌿');
 };
 
-// ── notifications ─────────────────────────────────────────────
+// ─── notifications ────────────────────────────────────────────
 let notifSubscription=null;
 
 async function loadNotifications(){
@@ -1109,53 +1001,131 @@ async function loadNotifications(){
 
 function renderNotifications(items){
   const list=document.getElementById('notif-list');
-  const unread=items.filter(n=>!n.read).length;
   const badge=document.getElementById('notif-badge');
-  if(unread>0){badge.textContent=unread;badge.classList.remove('hidden');}
-  else badge.classList.add('hidden');
-  if(!items.length){list.innerHTML='<div class="notif-empty">nothing here yet :3</div>';return;}
+  const unread=items.filter(n=>!n.read).length;
+  if(unread>0){badge.textContent=unread>9?'9+':unread;badge.classList.add('show');}
+  else badge.classList.remove('show');
+  if(!items.length){list.innerHTML='<div class="notif-empty">no notifications yet :3</div>';return;}
   list.innerHTML=items.map(n=>`
-    <div class="notif-item ${n.read?'':'unread'}" onclick="openNotif(${n.post_id},${n.id})">
-      <div class="notif-text">${n.type==='reply_to_post'?`<strong>${esc(n.actor_name)}</strong> replied to your post`:`<strong>${esc(n.actor_name)}</strong> replied to a thread you're following`}</div>
+    <div class="notif-item ${n.read?'':'unread'}" onclick="clickNotif(${n.id},${n.post_id})">
+      <div class="notif-text">${notifText(n)}</div>
       <div class="notif-time">${timeAgo(n.created_at)}</div>
     </div>`).join('');
 }
 
-function subscribeToNotifications(){
-  if(notifSubscription)return;
-  notifSubscription=sb.channel('notifs:'+currentUser.id)
-    .on('postgres_changes',{event:'INSERT',schema:'public',table:'notifications',filter:`user_id=eq.${currentUser.id}`},payload=>{
-      if(!notifEnabled)return;
-      showToast(`🔔 ${payload.new.actor_name} ${payload.new.type==='reply_to_post'?'replied to your post':'replied to a thread you follow'}`);
-      loadNotifications();
-    }).subscribe();
+function notifText(n){
+  if(n.type==='reply_to_post') return `<span>${esc(n.actor_name)}</span> replied to your post`;
+  if(n.type==='reply_to_followed') return `<span>${esc(n.actor_name)}</span> replied to a post you're following`;
+  return 'new notification';
 }
 
-window.toggleNotifPanel=()=>{document.getElementById('notif-panel').classList.toggle('open');};
+window.clickNotif=async(notifId,postId)=>{
+  await sb.from('notifications').update({read:true}).eq('id',notifId);
+  toggleNotifPanel();
+  showPage('forums');
+  setTimeout(()=>openThread(postId),300);
+};
+
 window.markAllRead=async()=>{
   if(!currentUser)return;
   await sb.from('notifications').update({read:true}).eq('user_id',currentUser.id).eq('read',false);
   loadNotifications();
 };
-window.openNotif=async(postId,notifId)=>{
-  await sb.from('notifications').update({read:true}).eq('id',notifId);
-  document.getElementById('notif-panel').classList.remove('open');
-  showPage('forums');
-  setTimeout(()=>openThread(postId),300);
-};
 
+function subscribeNotifications(){
+  if(notifSubscription)return;
+  notifSubscription=sb.channel('notifs-'+currentUser.id)
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'notifications',filter:`user_id=eq.${currentUser.id}`},
+    ()=>loadNotifications())
+    .subscribe();
+}
+
+window.toggleNotifPanel=()=>{
+  const p=document.getElementById('notif-panel');
+  p.classList.toggle('open');
+};
 document.addEventListener('click',e=>{
   const panel=document.getElementById('notif-panel');
   const btn=document.getElementById('notif-btn');
-  if(panel.classList.contains('open')&&!panel.contains(e.target)&&!btn.contains(e.target))panel.classList.remove('open');
+  if(panel.classList.contains('open')&&!panel.contains(e.target)&&!btn.contains(e.target))
+    panel.classList.remove('open');
 });
 
-// ── user popover ─────────────────────────────────────────────
+// ─── search & filters ─────────────────────────────────────────
+window.toggleFilters=()=>document.getElementById('filter-panel').classList.toggle('open');
+window.clearFilters=()=>{
+  ['filter-author','filter-from','filter-to'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('filter-within').value='';
+  document.getElementById('filter-cat').value='';
+  document.getElementById('search-query').value='';
+  document.getElementById('search-results-view').classList.add('hidden');
+  document.getElementById('category-view').classList.remove('hidden');
+  loadForums();
+};
+
+let searchTimer=null;
+window.onSearchInput=()=>{clearTimeout(searchTimer);searchTimer=setTimeout(runSearch,400);};
+
+async function runSearch(){
+  const q=document.getElementById('search-query').value.trim();
+  const author=document.getElementById('filter-author').value.trim();
+  const from=document.getElementById('filter-from').value;
+  const to=document.getElementById('filter-to').value;
+  const within=document.getElementById('filter-within').value;
+  const cat=document.getElementById('filter-cat').value;
+  const isFiltering=q||author||from||to||within||cat;
+  if(!isFiltering){
+    document.getElementById('search-results-view').classList.add('hidden');
+    document.getElementById('category-view').classList.remove('hidden');
+    loadForums();return;
+  }
+  document.getElementById('search-results-view').classList.remove('hidden');
+  document.getElementById('category-view').classList.add('hidden');
+  document.getElementById('search-results-list').innerHTML='<div class="forum-empty">searching...</div>';
+
+  let query=sb.from('posts').select('*, replies(count)');
+  if(q) query=query.ilike('title','%'+q+'%');
+  if(author) query=query.ilike('author_name','%'+author+'%');
+  if(cat) query=query.eq('category',cat);
+  if(from) query=query.gte('created_at',new Date(from).toISOString());
+  if(to) query=query.lte('created_at',new Date(to+'T23:59:59').toISOString());
+  if(within){const d=new Date(Date.now()-parseInt(within)*864e5);query=query.gte('created_at',d.toISOString());}
+
+  const sort=document.getElementById('sort-select').value;
+  query=query.order('created_at',{ascending:sort!=='newest'?false:false});
+
+  const{data:posts}=await query.limit(50);
+  const list=document.getElementById('search-results-list');
+  if(!posts||!posts.length){list.innerHTML='<div class="forum-empty">no threads found :(</div>';return;}
+  let sorted=posts.map(p=>{p.reply_count=p.replies?.[0]?.count||0;return p;});
+  if(sort==='replies') sorted.sort((a,b)=>b.reply_count-a.reply_count);
+  const count=posts.length;
+  document.getElementById('search-results-title').textContent=`${count} result${count===1?'':'s'}`;
+  list.innerHTML=sorted.map(p=>threadRow(p)).join('');
+}
+
+// apply author filter from outside (post count click)
+window.searchByAuthorName=name=>{
+  showPage('forums');
+  setTimeout(()=>{
+    document.getElementById('filter-author').value=name;
+    document.getElementById('filter-panel').classList.add('open');
+    runSearch();
+  },200);
+};
+
+window.searchByCurrentUser=()=>{
+  if(!currentUser)return;
+  const uname=currentUser.user_metadata?.username||currentUser.email.split('@')[0];
+  searchByAuthorName(uname);
+};
+
+// ─── user popover ─────────────────────────────────────────────
 const popEl=document.getElementById('user-popover');
 let popTimer=null;
 const profCache={};
-let popoverCurrentAuthorId=null;
-let popoverCurrentAuthorName=null;
+window.currentPopId=null;
+window.currentPopName=null;
 
 async function fetchProfile(aid,aname){
   if(profCache[aid])return profCache[aid];
@@ -1164,16 +1134,15 @@ async function fetchProfile(aid,aname){
     sb.from('posts').select('*',{count:'exact',head:true}).eq('author_id',aid),
     sb.from('replies').select('*',{count:'exact',head:true}).eq('author_id',aid),
   ]);
-  const r={username:prof?.username||aname||'unknown',display_name:prof?.display_name||'',about_me:prof?.about_me||'',joined:prof?.created_at?fmtDate(prof.created_at):'?',posts:(pc||0)+(rc||0),id:aid};
+  const r={id:aid,username:prof?.username||aname||'unknown',display_name:prof?.display_name||aname||'unknown',about_me:prof?.about_me||'',joined:prof?.created_at?fmtDate(prof.created_at):'?',posts:(pc||0)+(rc||0)};
   profCache[aid]=r;return r;
 }
 
 window.showPopover=async(el,aid,aname)=>{
   clearTimeout(popTimer);
-  popoverCurrentAuthorId=aid;
-  popoverCurrentAuthorName=aname;
+  window.currentPopId=aid;window.currentPopName=aname;
   document.getElementById('pop-name').textContent=aname||'...';
-  document.getElementById('pop-displayname').textContent='';
+  document.getElementById('pop-dn').textContent='';
   document.getElementById('pop-posts').textContent='...';
   document.getElementById('pop-joined').textContent='...';
   const rect=el.getBoundingClientRect();
@@ -1182,213 +1151,145 @@ window.showPopover=async(el,aid,aname)=>{
   popEl.classList.add('visible');
   const p=await fetchProfile(aid,aname);
   document.getElementById('pop-name').textContent=p.username;
-  document.getElementById('pop-displayname').textContent=p.display_name?`"${p.display_name}"`:'';
+  document.getElementById('pop-dn').textContent=p.display_name!==p.username?p.display_name:'';
   document.getElementById('pop-posts').textContent=p.posts;
   document.getElementById('pop-joined').textContent=p.joined;
 };
-window.hidePopover=()=>{popTimer=setTimeout(()=>popEl.classList.remove('visible'),220);};
+window.hidePopover=()=>{popTimer=setTimeout(()=>popEl.classList.remove('visible'),200);};
 popEl.addEventListener('mouseenter',()=>clearTimeout(popTimer));
 popEl.addEventListener('mouseleave',()=>popEl.classList.remove('visible'));
 
-window.openProfileFromPopover=()=>{
+window.searchByAuthorFromPop=()=>{
   popEl.classList.remove('visible');
-  if(popoverCurrentAuthorId) openProfileModal(popoverCurrentAuthorId,popoverCurrentAuthorName);
+  searchByAuthorName(window.currentPopName);
 };
 
-window.searchByPopover=()=>{
-  popEl.classList.remove('visible');
-  filterByAuthor(popoverCurrentAuthorName);
-};
-
-// ── profile modal ─────────────────────────────────────────────
-let profileModalAuthorName=null;
-
+// ─── profile modal ────────────────────────────────────────────
 window.openProfileModal=async(aid,aname)=>{
-  profileModalAuthorName=aname;
-  document.getElementById('pm-username').textContent='loading...';
-  document.getElementById('pm-displayname').textContent='';
-  document.getElementById('pm-posts').textContent='...';
-  document.getElementById('pm-joined').textContent='...';
-  document.getElementById('pm-about').textContent='';
-  document.getElementById('modal-profile').classList.add('open');
+  popEl.classList.remove('visible');
+  openModal('modal-profile');
+  document.getElementById('profile-modal-body').innerHTML='<div class="forum-empty">loading profile...</div>';
   const p=await fetchProfile(aid,aname);
-  profileModalAuthorName=p.username;
-  document.getElementById('pm-username').textContent=p.username;
-  document.getElementById('pm-displayname').textContent=p.display_name?`"${p.display_name}"`:'';
-  document.getElementById('pm-posts').textContent=p.posts;
-  document.getElementById('pm-joined').textContent=p.joined;
-  document.getElementById('pm-about').textContent=p.about_me||'(nothing here yet :3)';
-};
-
-window.closeProfileModal=()=>document.getElementById('modal-profile').classList.remove('open');
-document.getElementById('modal-profile').addEventListener('click',e=>{if(e.target===e.currentTarget)closeProfileModal();});
-
-window.searchByProfile=()=>{
-  closeProfileModal();
-  filterByAuthor(profileModalAuthorName);
-};
-
-window.searchByMe=()=>{
-  const uname=currentUser?.user_metadata?.username||currentUser?.email?.split('@')[0];
-  if(uname) filterByAuthor(uname);
-};
-
-function filterByAuthor(name){
-  showPage('forums');
-  setTimeout(()=>{
-    document.getElementById('filter-author').value=name;
-    onSearchChange();
-  },100);
-}
-
-// ── forums ────────────────────────────────────────────────────
-const CATS={general:'cat-general',tech:'cat-tech',gaming:'cat-gaming',other:'cat-other'};
-const INIT_LIMIT=3;
-const EXPANDED_LIMIT=5;
-let allPosts=[];
-let expandedCats={};
-let searchDebounce=null;
-let activeThreadId=null;
-let realtimeChannel=null;
-
-function threadRow(p,inThread=false){
-  const init=esc((p.author_name||'?')[0].toUpperCase());
-  const aid=esc(p.author_id||'');
-  const an=esc(p.author_name||'anon');
-  const isOwn=currentUser&&p.author_id===currentUser.id;
-  const actions=isOwn?`<div class="thread-actions">
-    <button class="thread-action-btn" onclick="event.stopPropagation();openEditPost(${p.id},'${esc(p.title)}','${esc(p.content)}')">edit</button>
-    <button class="thread-action-btn del" onclick="event.stopPropagation();deletePost(${p.id})">delete</button>
-  </div>`:'';
-  return`<div class="forum-thread clickable" onclick="openThread(${p.id})">
-    <div class="thread-initial" onmouseenter="showPopover(this,'${aid}','${an}')" onmouseleave="hidePopover()" onclick="event.stopPropagation()">${init}</div>
-    <div class="thread-info">
-      <div class="thread-title-text">${esc(p.title)}</div>
-      <div class="thread-meta">by <span class="author-link" onmouseenter="showPopover(this,'${aid}','${an}')" onmouseleave="hidePopover()" onclick="event.stopPropagation();openProfileModal('${aid}','${an}')">${an}</span> · ${timeAgo(p.created_at)}</div>
+  document.getElementById('profile-modal-body').innerHTML=`
+    <div class="profile-modal-header">
+      <div class="profile-modal-initial">${(p.display_name||'?')[0].toUpperCase()}</div>
+      <div class="profile-modal-names">
+        <div class="profile-modal-display">${esc(p.display_name)}</div>
+        <div class="profile-modal-username">@${esc(p.username)}</div>
+      </div>
     </div>
-    <div class="thread-stats"><strong>${p.reply_count||0}</strong>replies</div>
-    ${actions}
+    <div class="profile-modal-stats">
+      <div class="profile-modal-stat">
+        <div class="sv" onclick="searchByAuthorName('${esc(p.username)}');closeModal('modal-profile');">${p.posts}</div>
+        <div class="sl">posts</div>
+      </div>
+      <div class="profile-modal-stat">
+        <div class="sv" style="cursor:default;">${p.joined}</div>
+        <div class="sl">joined</div>
+      </div>
+    </div>
+    ${p.about_me?`<div class="section-divider"></div><div class="card-title" style="margin-bottom:.4rem;">About</div><div class="profile-modal-about">${esc(p.about_me)}</div>`:''}`;
+};
+
+// ─── forums list ──────────────────────────────────────────────
+const CATS={general:'cat-general',tech:'cat-tech',gaming:'cat-gaming',other:'cat-other'};
+const LIMIT=3;
+const CAT_EXPANDED=5;
+
+function threadRow(p,inExpandable=false){
+  const aid=esc(p.author_id||'');const an=esc(p.author_name||'anon');
+  const init=(p.author_name||'?')[0].toUpperCase();
+  const canEdit=currentUser&&currentUser.id===p.author_id;
+  const editBtns=canEdit?`
+    <div class="thread-actions">
+      <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openEditPost(${p.id},'${esc(p.title)}','${esc(p.content).replace(/'/g,"\\'")}')">✏️</button>
+      <button class="btn btn-red btn-sm" onclick="event.stopPropagation();deletePost(${p.id})">🗑️</button>
+    </div>`:'';
+  return`<div class="forum-thread">
+    <div class="thread-clickable" onclick="openThread(${p.id})">
+      <div class="thread-initial" onmouseenter="showPopover(this,'${aid}','${an}')" onmouseleave="hidePopover()" onclick="event.stopPropagation()">${init}</div>
+      <div class="thread-info">
+        <div class="thread-title-text">${esc(p.title)}</div>
+        <div class="thread-meta">by <span class="author-link" onmouseenter="showPopover(this,'${aid}','${an}')" onmouseleave="hidePopover()" onclick="event.stopPropagation();openProfileModal('${aid}','${an}')">${an}</span> · ${timeAgo(p.created_at)}</div>
+      </div>
+    </div>
+    <div class="thread-right">
+      <div class="thread-stats"><strong>${p.reply_count||0}</strong>replies</div>
+      ${editBtns}
+    </div>
   </div>`;
 }
 
-async function fetchAllPosts(){
-  const{data,error}=await sb.from('posts').select('*, replies(count)').order('created_at',{ascending:false});
-  if(error)return[];
-  return(data||[]).map(p=>({...p,reply_count:p.replies?.[0]?.count||0}));
-}
-
 window.loadForums=async()=>{
+  const q=document.getElementById('search-query').value.trim();
+  const hasFilters=q||document.getElementById('filter-author').value.trim()||document.getElementById('filter-from').value||document.getElementById('filter-to').value||document.getElementById('filter-within').value||document.getElementById('filter-cat').value;
+  if(hasFilters){runSearch();return;}
+
   Object.values(CATS).forEach(id=>{document.getElementById(id).innerHTML='<div class="forum-empty">loading...</div>';});
-  allPosts=await fetchAllPosts();
-  renderCategories();
-  onSearchChange();
-};
-
-function sortPosts(posts){
   const sort=document.getElementById('sort-select').value;
-  if(sort==='replies')return[...posts].sort((a,b)=>(b.reply_count||0)-(a.reply_count||0));
-  if(sort==='newest')return[...posts].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
-  if(sort==='oldest')return[...posts].sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
-  return posts;
-}
-
-function renderCategories(){
-  const sorted=sortPosts(allPosts);
+  const{data:posts,error}=await sb.from('posts').select('*, replies(count)').order('created_at',{ascending:false});
+  if(error){Object.values(CATS).forEach(id=>{document.getElementById(id).innerHTML='<div class="forum-empty">couldn\'t load :(</div>';});return;}
   const grouped={general:[],tech:[],gaming:[],other:[]};
-  sorted.forEach(p=>{const c=grouped[p.category]?p.category:'other';grouped[c].push(p);});
+  posts.forEach(p=>{p.reply_count=p.replies?.[0]?.count||0;const c=grouped[p.category]?p.category:'other';grouped[c].push(p);});
+  if(sort==='replies') Object.values(grouped).forEach(arr=>arr.sort((a,b)=>b.reply_count-a.reply_count));
+
   Object.entries(grouped).forEach(([cat,list])=>{
     const el=document.getElementById(CATS[cat]);
     if(!list.length){el.innerHTML='<div class="forum-empty">no threads yet — be the first! 🦊</div>';return;}
-    const limit=expandedCats[cat]?EXPANDED_LIMIT:INIT_LIMIT;
-    const shown=list.slice(0,limit);
-    let html=`<div class="thread-list-scroll">${shown.map(p=>threadRow(p)).join('')}</div>`;
-    if(list.length>limit){
-      html+=`<button class="view-all-btn" onclick="expandCat('${cat}')">view all ${list.length} threads ↓</button>`;
-    } else if(expandedCats[cat]&&list.length>INIT_LIMIT){
-      html+=`<button class="view-all-btn" onclick="collapseCat('${cat}')">show less ↑</button>`;
+    const shown=list.slice(0,LIMIT);
+    const rest=list.slice(LIMIT);
+    let html=shown.map(p=>threadRow(p)).join('');
+    if(rest.length>0){
+      const expandedHtml=rest.slice(0,CAT_EXPANDED-LIMIT).map(p=>threadRow(p,true)).join('');
+      html+=`<div class="cat-expanded hidden" id="expanded-${cat}">${expandedHtml}</div>`;
+      if(list.length>CAT_EXPANDED) html+=`<button class="view-all-btn" id="viewall-${cat}" onclick="toggleExpand('${cat}',${list.length})">show more (${rest.length} more threads) ↓</button>`;
+      else html+=`<button class="view-all-btn" id="viewall-${cat}" onclick="toggleExpand('${cat}',${list.length})">show ${rest.length} more ↓</button>`;
     }
     el.innerHTML=html;
   });
-}
-
-window.expandCat=cat=>{expandedCats[cat]=true;renderCategories();};
-window.collapseCat=cat=>{expandedCats[cat]=false;renderCategories();};
-
-// ── search ────────────────────────────────────────────────────
-window.onSearchChange=()=>{
-  clearTimeout(searchDebounce);
-  searchDebounce=setTimeout(runSearch,250);
 };
 
-function isSearchActive(){
-  return document.getElementById('search-q').value.trim()||
-    document.getElementById('filter-author').value.trim()||
-    document.getElementById('filter-from').value||
-    document.getElementById('filter-to').value||
-    (document.getElementById('filter-ago-n').value&&document.getElementById('filter-ago-unit').value);
-}
-
-function runSearch(){
-  if(!isSearchActive()){
-    // just re-sort categories
-    document.getElementById('search-results-wrap').classList.add('hidden');
-    document.getElementById('forum-categories-wrap').classList.remove('hidden');
-    renderCategories();
-    return;
+window.toggleExpand=async(cat,total)=>{
+  const expanded=document.getElementById('expanded-'+cat);
+  const btn=document.getElementById('viewall-'+cat);
+  if(!expanded)return;
+  if(expanded.classList.contains('hidden')){
+    expanded.classList.remove('hidden');
+    // load all if there are more than CAT_EXPANDED
+    if(total>CAT_EXPANDED){
+      const{data:posts}=await sb.from('posts').select('*, replies(count)').eq('category',cat).order('created_at',{ascending:false});
+      if(posts){posts.forEach(p=>{p.reply_count=p.replies?.[0]?.count||0;});const sort=document.getElementById('sort-select').value;if(sort==='replies')posts.sort((a,b)=>b.reply_count-a.reply_count);expanded.innerHTML=posts.slice(LIMIT).map(p=>threadRow(p,true)).join('');}
+    }
+    btn.textContent='show less ↑';
+  } else {
+    expanded.classList.add('hidden');
+    btn.textContent=`show ${total-LIMIT} more ↓`;
   }
-  document.getElementById('search-results-wrap').classList.remove('hidden');
-  document.getElementById('forum-categories-wrap').classList.add('hidden');
-
-  const q=document.getElementById('search-q').value.trim().toLowerCase();
-  const author=document.getElementById('filter-author').value.trim().toLowerCase();
-  const from=document.getElementById('filter-from').value;
-  const to=document.getElementById('filter-to').value;
-  const agoN=parseInt(document.getElementById('filter-ago-n').value)||0;
-  const agoUnit=document.getElementById('filter-ago-unit').value;
-
-  let cutoff=null;
-  if(agoN&&agoUnit){
-    const ms={hours:36e5,days:864e5,weeks:6048e5,months:2592e6};
-    cutoff=new Date(Date.now()-agoN*(ms[agoUnit]||0));
-  }
-
-  let filtered=allPosts.filter(p=>{
-    if(q&&!p.title.toLowerCase().includes(q)&&!p.content.toLowerCase().includes(q))return false;
-    if(author&&!(p.author_name||'').toLowerCase().includes(author))return false;
-    const d=new Date(p.created_at);
-    if(from&&d<new Date(from))return false;
-    if(to&&d>new Date(to+'T23:59:59'))return false;
-    if(cutoff&&d<cutoff)return false;
-    return true;
-  });
-
-  filtered=sortPosts(filtered);
-  const header=document.getElementById('search-results-header');
-  const list=document.getElementById('search-results-list');
-  header.textContent=`${filtered.length} result${filtered.length===1?'':'s'}`;
-  if(!filtered.length){list.innerHTML='<div class="forum-empty">nothing found :3</div>';return;}
-  list.innerHTML=`<div class="thread-list-scroll" style="max-height:500px;">${filtered.map(p=>threadRow(p)).join('')}</div>`;
-}
-
-window.clearSearch=()=>{
-  ['search-q','filter-author','filter-from','filter-to','filter-ago-n'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('filter-ago-unit').value='';
-  document.getElementById('sort-select').value='replies';
-  document.getElementById('search-results-wrap').classList.add('hidden');
-  document.getElementById('forum-categories-wrap').classList.remove('hidden');
-  renderCategories();
 };
 
-// ── thread view ───────────────────────────────────────────────
+// ─── live updates for forums ──────────────────────────────────
+let forumsChannel=null;
+function subscribeForums(){
+  if(forumsChannel)return;
+  forumsChannel=sb.channel('forums-live')
+    .on('postgres_changes',{event:'*',schema:'public',table:'posts'},()=>loadForums())
+    .subscribe();
+}
+subscribeForums();
+
+// ─── thread view ──────────────────────────────────────────────
+let threadChannel=null;
+let currentThreadId=null;
+
 window.openThread=async(postId)=>{
-  activeThreadId=postId;
+  currentThreadId=postId;
   document.getElementById('forums-list-view').classList.add('hidden');
   document.getElementById('thread-view').classList.remove('hidden');
   document.getElementById('thread-post-area').innerHTML='<div class="forum-empty">loading...</div>';
   document.getElementById('replies-area').innerHTML='';
   document.getElementById('reply-compose-area').innerHTML='';
   await renderThread(postId);
-  subscribeToThread(postId);
+  subscribeThread(postId);
 };
 
 async function renderThread(postId){
@@ -1397,14 +1298,11 @@ async function renderThread(postId){
     sb.from('replies').select('*').eq('post_id',postId).order('created_at',{ascending:true}),
   ]);
   if(!post){document.getElementById('thread-post-area').innerHTML='<div class="forum-empty">post not found :(</div>';return;}
+
   const aid=esc(post.author_id||'');const an=esc(post.author_name||'anon');
-  const isOwn=currentUser&&post.author_id===currentUser.id;
-  // follow status
-  let isFollowing=false;
-  if(currentUser){
-    const{data:f}=await sb.from('post_follows').select('id').eq('user_id',currentUser.id).eq('post_id',postId).single();
-    isFollowing=!!f;
-  }
+  const canEditPost=currentUser&&currentUser.id===post.author_id;
+  const isFollowing=currentUser?await checkFollowing(postId):false;
+
   document.getElementById('thread-post-area').innerHTML=`
     <div class="thread-post-card">
       <div class="thread-post-title">${esc(post.title)}</div>
@@ -1414,83 +1312,85 @@ async function renderThread(postId){
         <span class="cat-badge">${esc(post.category)}</span>
       </div>
       <div class="thread-post-body">${esc(post.content)}</div>
-      <div class="post-actions">
-        ${currentUser?`<button class="follow-btn ${isFollowing?'following':''}" id="follow-btn" onclick="toggleFollow(${postId},${isFollowing})">${isFollowing?'✅ Following':'+ Follow Thread'}</button>`:''}
-        ${isOwn?`<button class="thread-action-btn" onclick="openEditPost(${post.id},'${esc(post.title)}','${esc(post.content)}')">edit</button><button class="thread-action-btn del" onclick="deletePost(${post.id},true)">delete</button>`:''}
-        <span class="live-indicator"><span class="live-dot"></span>live</span>
+      <div class="thread-post-actions">
+        ${currentUser?`<button class="btn btn-ghost btn-sm follow-btn" id="follow-btn" onclick="toggleFollow(${postId})">
+          ${isFollowing?'★ Following':'☆ Follow'}</button>`:''}
+        ${canEditPost?`<button class="btn btn-ghost btn-sm" onclick="openEditPost(${post.id},'${esc(post.title)}','${esc(post.content).replace(/'/g,"\\'")}')">✏️ Edit</button>
+          <button class="btn btn-red btn-sm" onclick="deletePost(${post.id},true)">🗑️ Delete</button>`:''}
       </div>
     </div>`;
 
   const ra=document.getElementById('replies-area');
-  ra.innerHTML=replies&&replies.length?replies.map(r=>replyHTML(r)).join(''):'<div class="forum-empty" style="padding:1rem 0;">no replies yet — jump in! 🦊</div>';
+  if(replies&&replies.length){
+    ra.innerHTML=`<div style="font-size:.8rem;color:rgba(232,254,242,.3);font-weight:700;padding:.2rem 0;"><span class="live-dot"></span>live</div>`+
+    replies.map(r=>{
+      const raid=esc(r.author_id||'');const ran=esc(r.author_name||'anon');
+      const canEdit=currentUser&&currentUser.id===r.author_id;
+      return`<div class="reply-card" id="reply-${r.id}">
+        <div class="reply-meta">
+          <span class="author-link" onmouseenter="showPopover(this,'${raid}','${ran}')" onmouseleave="hidePopover()" onclick="openProfileModal('${raid}','${ran}')">${ran}</span>
+          · ${fmtFull(r.created_at)}
+        </div>
+        <div class="reply-body">${esc(r.content)}</div>
+        ${canEdit?`<div class="reply-actions">
+          <button class="btn btn-ghost btn-sm" onclick="openEditReply(${r.id},'${esc(r.content).replace(/'/g,"\\'")}')">✏️</button>
+          <button class="btn btn-red btn-sm" onclick="deleteReply(${r.id})">🗑️</button>
+        </div>`:''}
+      </div>`;
+    }).join('');
+  } else {
+    ra.innerHTML='<div class="forum-empty" style="padding:.8rem 0;">no replies yet — jump in! 🦊</div>';
+  }
 
   const ca=document.getElementById('reply-compose-area');
-  ca.innerHTML=currentUser?`<div class="reply-compose">
-    <div class="reply-compose-title">💬 Leave a Reply</div>
-    <div class="form-group"><textarea id="reply-input" placeholder="write your reply..."></textarea></div>
-    <div id="reply-err" class="msg-err"></div>
-    <div style="display:flex;justify-content:flex-end;"><button class="btn btn-mint" id="reply-btn" onclick="submitReply(${postId})">Reply 🦊</button></div>
-  </div>`:`<div class="reply-compose"><div class="reply-login-note"><a onclick="showPage('account')">log in</a> to reply :3</div></div>`;
+  if(currentUser){
+    ca.innerHTML=`<div class="reply-compose">
+      <div class="reply-compose-title">💬 Leave a Reply</div>
+      <div class="form-group"><textarea id="reply-input" placeholder="write your reply..."></textarea></div>
+      <div id="reply-err" class="msg-err"></div>
+      <div style="display:flex;justify-content:flex-end;"><button class="btn btn-mint" id="reply-btn" onclick="submitReply(${postId})">Reply 🦊</button></div>
+    </div>`;
+  } else {
+    ca.innerHTML=`<div class="reply-compose"><div class="reply-login-note"><a onclick="showPage('account')">log in</a> to reply :3</div></div>`;
+  }
 }
 
-function replyHTML(r){
-  const raid=esc(r.author_id||'');const ran=esc(r.author_name||'anon');
-  const isOwn=currentUser&&r.author_id===currentUser.id;
-  return`<div class="reply-card" id="reply-${r.id}">
-    <div class="reply-meta">
-      <span><span class="author-link" onmouseenter="showPopover(this,'${raid}','${ran}')" onmouseleave="hidePopover()" onclick="openProfileModal('${raid}','${ran}')">${ran}</span> · ${fmtFull(r.created_at)}</span>
-      ${isOwn?`<span style="display:flex;gap:.4rem;"><button class="thread-action-btn" onclick="openEditReply(${r.id},'${esc(r.content)}')">edit</button><button class="thread-action-btn del" onclick="deleteReply(${r.id})">delete</button></span>`:''}
-    </div>
-    <div class="reply-body" id="reply-body-${r.id}">${esc(r.content)}</div>
-  </div>`;
-}
-
-function subscribeToThread(postId){
-  if(realtimeChannel)sb.removeChannel(realtimeChannel);
-  realtimeChannel=sb.channel('thread:'+postId)
-    .on('postgres_changes',{event:'INSERT',schema:'public',table:'replies',filter:`post_id=eq.${postId}`},payload=>{
-      const ra=document.getElementById('replies-area');
-      if(ra){
-        const empty=ra.querySelector('.forum-empty');if(empty)empty.remove();
-        ra.insertAdjacentHTML('beforeend',replyHTML(payload.new));
-      }
-      // update reply count in allPosts
-      const p=allPosts.find(x=>x.id===postId);if(p)p.reply_count=(p.reply_count||0)+1;
-    })
-    .on('postgres_changes',{event:'DELETE',schema:'public',table:'replies',filter:`post_id=eq.${postId}`},payload=>{
-      document.getElementById('reply-'+payload.old.id)?.remove();
-    })
-    .on('postgres_changes',{event:'UPDATE',schema:'public',table:'replies',filter:`post_id=eq.${postId}`},payload=>{
-      const bodyEl=document.getElementById('reply-body-'+payload.new.id);
-      if(bodyEl)bodyEl.textContent=payload.new.content;
-    })
+function subscribeThread(postId){
+  if(threadChannel){sb.removeChannel(threadChannel);threadChannel=null;}
+  threadChannel=sb.channel('thread-'+postId)
+    .on('postgres_changes',{event:'*',schema:'public',table:'replies',filter:`post_id=eq.${postId}`},
+    ()=>renderThread(postId))
     .subscribe();
 }
 
 window.backToForums=()=>{
-  activeThreadId=null;
-  if(realtimeChannel){sb.removeChannel(realtimeChannel);realtimeChannel=null;}
+  if(threadChannel){sb.removeChannel(threadChannel);threadChannel=null;}
+  currentThreadId=null;
   document.getElementById('forums-list-view').classList.remove('hidden');
   document.getElementById('thread-view').classList.add('hidden');
 };
 
-// ── follow thread ─────────────────────────────────────────────
-window.toggleFollow=async(postId,isFollowing)=>{
+// ─── follow post ──────────────────────────────────────────────
+async function checkFollowing(postId){
+  if(!currentUser)return false;
+  const{data}=await sb.from('post_follows').select('id').eq('user_id',currentUser.id).eq('post_id',postId).single();
+  return!!data;
+}
+
+window.toggleFollow=async(postId)=>{
   if(!currentUser)return;
+  const btn=document.getElementById('follow-btn');
+  const isFollowing=btn.textContent.includes('Following');
   if(isFollowing){
     await sb.from('post_follows').delete().eq('user_id',currentUser.id).eq('post_id',postId);
+    btn.textContent='☆ Follow';
   } else {
     await sb.from('post_follows').insert({user_id:currentUser.id,post_id:postId});
+    btn.textContent='★ Following';
   }
-  const btn=document.getElementById('follow-btn');
-  const now=!isFollowing;
-  btn.textContent=now?'✅ Following':'+ Follow Thread';
-  btn.classList.toggle('following',now);
-  btn.onclick=()=>toggleFollow(postId,now);
-  showToast(now?'following this thread 🔔':'unfollowed');
 };
 
-// ── submit reply ──────────────────────────────────────────────
+// ─── submit reply ─────────────────────────────────────────────
 window.submitReply=async(postId)=>{
   const content=document.getElementById('reply-input').value.trim();
   const errEl=document.getElementById('reply-err');errEl.style.display='none';
@@ -1504,93 +1404,78 @@ window.submitReply=async(postId)=>{
   showToast('replied! 🎉');
 };
 
-// ── edit / delete reply ───────────────────────────────────────
-window.openEditReply=async(id,content)=>{
-  const bodyEl=document.getElementById('reply-body-'+id);
-  if(!bodyEl)return;
-  bodyEl.innerHTML=`<div class="reply-edit-area">
-    <div class="form-group"><textarea id="edit-reply-${id}" style="min-height:70px;">${esc(content)}</textarea></div>
-    <div style="display:flex;gap:.5rem;justify-content:flex-end;">
-      <button class="btn btn-outline" style="padding:.3rem .8rem;font-size:.85rem;" onclick="cancelEditReply(${id},'${esc(content)}')">Cancel</button>
-      <button class="btn btn-mint" style="padding:.3rem .8rem;font-size:.85rem;" onclick="saveEditReply(${id})">Save</button>
-    </div>
-  </div>`;
+// ─── edit / delete post ───────────────────────────────────────
+window.openEditPost=(id,title,content)=>{
+  document.getElementById('edit-post-id').value=id;
+  document.getElementById('edit-post-title').value=title;
+  document.getElementById('edit-post-content').value=content;
+  openModal('modal-edit-post');
 };
 
-window.cancelEditReply=(id,content)=>{document.getElementById('reply-body-'+id).textContent=content;};
+window.saveEditPost=async()=>{
+  const id=document.getElementById('edit-post-id').value;
+  const title=document.getElementById('edit-post-title').value.trim();
+  const content=document.getElementById('edit-post-content').value.trim();
+  if(!title||!content)return showErr('edit-post-err','fill everything in');
+  const{error}=await sb.from('posts').update({title,content}).eq('id',id).eq('author_id',currentUser.id);
+  if(error)return showErr('edit-post-err',error.message);
+  closeModal('modal-edit-post');showToast('post updated!');
+  if(currentThreadId)renderThread(currentThreadId);else loadForums();
+};
 
-window.saveEditReply=async(id)=>{
-  const content=document.getElementById('edit-reply-'+id).value.trim();
-  if(!content)return;
-  await sb.from('replies').update({content}).eq('id',id);
-  document.getElementById('reply-body-'+id).textContent=content;
+window.deletePost=async(id,inThread=false)=>{
+  if(!confirm('delete this post and all its replies?'))return;
+  await sb.from('replies').delete().eq('post_id',id);
+  await sb.from('posts').delete().eq('id',id).eq('author_id',currentUser.id);
+  showToast('post deleted');
+  if(inThread)backToForums();
+  loadForums();
+};
+
+// ─── edit / delete reply ──────────────────────────────────────
+window.openEditReply=(id,content)=>{
+  document.getElementById('edit-reply-id').value=id;
+  document.getElementById('edit-reply-content').value=content;
+  openModal('modal-edit-reply');
+};
+
+window.saveEditReply=async()=>{
+  const id=document.getElementById('edit-reply-id').value;
+  const content=document.getElementById('edit-reply-content').value.trim();
+  if(!content)return showErr('edit-reply-err','write something');
+  const{error}=await sb.from('replies').update({content}).eq('id',id).eq('author_id',currentUser.id);
+  if(error)return showErr('edit-reply-err',error.message);
+  closeModal('modal-edit-reply');showToast('reply updated!');
+  if(currentThreadId)renderThread(currentThreadId);
 };
 
 window.deleteReply=async(id)=>{
   if(!confirm('delete this reply?'))return;
-  await sb.from('replies').delete().eq('id',id);
-  document.getElementById('reply-'+id)?.remove();
+  await sb.from('replies').delete().eq('id',id).eq('author_id',currentUser.id);
   showToast('reply deleted');
+  if(currentThreadId)renderThread(currentThreadId);
 };
 
-// ── new post ──────────────────────────────────────────────────
+// ─── new post modal ───────────────────────────────────────────
 window.openNewPostModal=()=>{
   if(!currentUser){showToast('log in first to post :3');showPage('account');return;}
-  openModal('modal-newpost');
+  openModal('modal-new-post');
 };
 
 window.submitPost=async()=>{
   const title=document.getElementById('post-title').value.trim();
   const content=document.getElementById('post-content').value.trim();
   const category=document.getElementById('post-category').value;
-  clearMsgs('post-err');
-  if(!title){showErr('post-err','give it a title!');return;}
-  if(!content){showErr('post-err','write something :3');return;}
+  const errEl=document.getElementById('post-err');errEl.style.display='none';
+  if(!title){errEl.textContent='give it a title!';errEl.style.display='block';return;}
+  if(!content){errEl.textContent='write something :3';errEl.style.display='block';return;}
   const btn=document.getElementById('post-submit-btn');btn.disabled=true;btn.textContent='posting...';
   const uname=currentUser.user_metadata?.username||currentUser.email.split('@')[0];
-  const{data,error}=await sb.from('posts').insert({title,content,category,author_name:uname,author_id:currentUser.id}).select().single();
+  const{error}=await sb.from('posts').insert({title,content,category,author_name:uname,author_id:currentUser.id});
   btn.disabled=false;btn.textContent='Post it 🦊';
-  if(error){showErr('post-err',error.message);return;}
-  document.getElementById('post-title').value='';
-  document.getElementById('post-content').value='';
-  closeModal('modal-newpost');
-  showToast('thread posted!! 🎉');
-  data.reply_count=0;
-  allPosts.unshift(data);
-  renderCategories();
-};
-
-// ── edit / delete post ────────────────────────────────────────
-window.openEditPost=(id,title,content)=>{
-  document.getElementById('edit-post-id').value=id;
-  document.getElementById('edit-post-title').value=title;
-  document.getElementById('edit-post-content').value=content;
-  openModal('modal-editpost');
-};
-
-window.submitEditPost=async()=>{
-  const id=document.getElementById('edit-post-id').value;
-  const title=document.getElementById('edit-post-title').value.trim();
-  const content=document.getElementById('edit-post-content').value.trim();
-  clearMsgs('editpost-err');
-  if(!title||!content){showErr('editpost-err','fill everything in');return;}
-  const{error}=await sb.from('posts').update({title,content}).eq('id',id);
-  if(error){showErr('editpost-err',error.message);return;}
-  closeModal('modal-editpost');
-  showToast('post updated! ✏️');
-  const p=allPosts.find(x=>x.id==id);if(p){p.title=title;p.content=content;}
-  renderCategories();
-  if(activeThreadId==id)renderThread(id);
-};
-
-window.deletePost=async(id,inThread=false)=>{
-  if(!confirm('delete this thread? all replies will be deleted too.'))return;
-  await sb.from('replies').delete().eq('post_id',id);
-  await sb.from('posts').delete().eq('id',id);
-  allPosts=allPosts.filter(p=>p.id!==id);
-  showToast('thread deleted');
-  if(inThread)backToForums();
-  else renderCategories();
+  if(error){errEl.textContent=error.message;errEl.style.display='block';return;}
+  document.getElementById('post-title').value='';document.getElementById('post-content').value='';
+  closeModal('modal-new-post');showToast('thread posted!! 🎉');
 };
 </script>
 </body>
