@@ -439,8 +439,8 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
   <main>
     <div class="back-btn" onclick="backToForums()">← Back to Forums</div>
     <div id="thread-post-area"></div>
+    <div id="reply-compose-area" style="margin-top:.6rem;margin-bottom:.6rem;"></div>
     <div class="replies-section" id="replies-area"></div>
-    <div id="reply-compose-area" style="margin-top:.6rem;"></div>
   </main>
   </div>
 </div>
@@ -514,7 +514,6 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
           <div class="card-title">⚙️ Account</div>
           <div class="settings-row">
             <div><div class="settings-label">Username</div><div class="settings-value" id="settings-username">—</div></div>
-            <button class="btn btn-outline btn-sm" onclick="openModal('modal-change-username')">Change</button>
           </div>
           <div class="settings-row">
             <div><div class="settings-label">Email</div><div class="settings-value" id="settings-email">—</div></div>
@@ -616,23 +615,6 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
     </div>
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="closeModal('modal-profile')">Close</button>
-    </div>
-  </div>
-</div>
-
-<!-- Change Username -->
-<div class="modal-overlay" id="modal-change-username">
-  <div class="modal">
-    <div class="modal-title">🔤 Change Username</div>
-    <p style="font-size:.88rem;color:rgba(232,254,242,.5);font-weight:700;margin-bottom:1rem;">requires your current password to confirm</p>
-    <div class="form-group"><label>New Username</label><input type="text" id="new-username" placeholder="coolname"></div>
-    <div class="form-group"><label>Current Password</label><input type="password" id="cu-password" placeholder="••••••••"></div>
-    <div id="mfa-cu-section" class="hidden"><div class="form-group"><label>Authenticator Code</label><input type="text" id="cu-mfa" placeholder="6-digit code" maxlength="6" inputmode="numeric"></div></div>
-    <div id="cu-err" class="msg-err"></div>
-    <div id="cu-ok" class="msg-ok"></div>
-    <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeModal('modal-change-username')">Cancel</button>
-      <button class="btn btn-mint" onclick="changeUsername()">Change Username</button>
     </div>
   </div>
 </div>
@@ -869,28 +851,6 @@ window.saveProfile=async()=>{
 };
 
 // ─── change username ──────────────────────────────────────────
-window.changeUsername=async()=>{
-  const newu=document.getElementById('new-username').value.trim();
-  const pw=document.getElementById('cu-password').value;
-  if(!newu||!pw)return showErr('cu-err','fill everything in');
-  if(!/^[a-zA-Z0-9_\-]+$/.test(newu))return showErr('cu-err','letters, numbers, _ and - only');
-  const{error:authErr}=await sb.auth.signInWithPassword({email:currentUser.email,password:pw});
-  if(authErr)return showErr('cu-err','wrong password');
-  const oldUname=currentUser.user_metadata?.username||currentUser.email.split('@')[0];
-  // update auth metadata
-  const{error}=await sb.auth.updateUser({data:{username:newu}});
-  if(error)return showErr('cu-err',error.message);
-  // update profile
-  await sb.from('profiles').update({username:newu}).eq('id',currentUser.id);
-  // update all posts and replies so author names stay accurate
-  await sb.from('posts').update({author_name:newu}).eq('author_id',currentUser.id);
-  await sb.from('replies').update({author_name:newu}).eq('author_id',currentUser.id);
-  showOk('cu-ok','username changed! all your posts have been updated.');
-  document.getElementById('settings-username').textContent=newu;
-  document.getElementById('acct-username').textContent='@'+newu;
-  document.getElementById('nav-username').textContent='@'+newu;
-};
-
 // ─── change email ─────────────────────────────────────────────
 window.changeEmail=async()=>{
   const newEmail=document.getElementById('new-email').value.trim();
@@ -925,12 +885,12 @@ async function checkMfaStatus(){
     mfaFactorId=verified.id;
     document.getElementById('mfa-status').textContent='enabled ✅';
     document.getElementById('mfa-toggle-btn').textContent='Disable';
-    ['mfa-cu-section','mfa-cp-section','mfa-del-section'].forEach(id=>document.getElementById(id).classList.remove('hidden'));
+    ['mfa-cp-section','mfa-del-section'].forEach(id=>document.getElementById(id).classList.remove('hidden'));
   } else {
     mfaFactorId=null;
     document.getElementById('mfa-status').textContent='disabled';
     document.getElementById('mfa-toggle-btn').textContent='Enable';
-    ['mfa-cu-section','mfa-cp-section','mfa-del-section'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+    ['mfa-cp-section','mfa-del-section'].forEach(id=>document.getElementById(id).classList.add('hidden'));
   }
 }
 
@@ -1338,21 +1298,35 @@ async function renderThread(postId){
   const ra=document.getElementById('replies-area');
   if(replies&&replies.length){
     ra.innerHTML=`<div style="font-size:.78rem;color:rgba(232,254,242,.25);font-weight:700;padding:.2rem 0 .4rem;display:flex;align-items:center;gap:.4rem;"><span class="live-dot"></span>live · ${replies.length} repl${replies.length===1?'y':'ies'}, newest first</div>`+
-    replies.map(r=>{
-      const raid=esc(r.author_id||'');const ran=esc(r.author_name||'anon');
-      const canEdit=currentUser&&currentUser.id===r.author_id;
-      return`<div class="reply-card" id="reply-${r.id}">
-        <div class="reply-meta">
-          <span class="author-link" onmouseenter="showPopover(this,'${raid}','${ran}')" onmouseleave="hidePopover()" onclick="openProfileModal('${raid}','${ran}')">${ran}</span>
-          · ${fmtFull(r.created_at)}
-        </div>
-        <div class="reply-body">${esc(r.content)}</div>
-        ${canEdit?`<div class="reply-actions">
-          <button class="btn btn-ghost btn-sm" onclick="openEditReply(${r.id},'${esc(r.content).replace(/'/g,"\\'")}')">✏️</button>
-          <button class="btn btn-red btn-sm" onclick="deleteReply(${r.id})">🗑️</button>
-        </div>`:''}
-      </div>`;
-    }).join('');
+      replies.map(replyHTML).join('');
+  } else {
+    ra.innerHTML='<div class="forum-empty" style="padding:.8rem 0;">no replies yet — jump in! 🦊</div>';
+  }
+}
+
+function replyHTML(r){
+  const raid=esc(r.author_id||'');const ran=esc(r.author_name||'anon');
+  const canEdit=currentUser&&currentUser.id===r.author_id;
+  return`<div class="reply-card" id="reply-${r.id}">
+    <div class="reply-meta">
+      <span class="author-link" onmouseenter="showPopover(this,'${raid}','${ran}')" onmouseleave="hidePopover()" onclick="openProfileModal('${raid}','${ran}')">${ran}</span>
+      · ${fmtFull(r.created_at)}
+    </div>
+    <div class="reply-body">${esc(r.content)}</div>
+    ${canEdit?`<div class="reply-actions">
+      <button class="btn btn-ghost btn-sm" onclick="openEditReply(${r.id},'${esc(r.content).replace(/'/g,"\\'")}')">✏️</button>
+      <button class="btn btn-red btn-sm" onclick="deleteReply(${r.id})">🗑️</button>
+    </div>`:''}
+  </div>`;
+}
+
+async function refreshReplies(postId){
+  const ra=document.getElementById('replies-area');
+  if(!ra)return;
+  const{data:replies}=await sb.from('replies').select('*').eq('post_id',postId).order('created_at',{ascending:false});
+  if(replies&&replies.length){
+    ra.innerHTML=`<div style="font-size:.78rem;color:rgba(232,254,242,.25);font-weight:700;padding:.2rem 0 .4rem;display:flex;align-items:center;gap:.4rem;"><span class="live-dot"></span>live · ${replies.length} repl${replies.length===1?'y':'ies'}, newest first</div>`+
+      replies.map(replyHTML).join('');
   } else {
     ra.innerHTML='<div class="forum-empty" style="padding:.8rem 0;">no replies yet — jump in! 🦊</div>';
   }
@@ -1360,33 +1334,14 @@ async function renderThread(postId){
 
 function subscribeThread(postId){
   if(threadChannel){sb.removeChannel(threadChannel);threadChannel=null;}
-  threadChannel=sb.channel('thread-'+postId)
-    .on('postgres_changes',{event:'*',schema:'public',table:'replies',filter:`post_id=eq.${postId}`},
-    async()=>{
-      // only re-fetch and re-render replies, don't touch the compose box or post
-      const{data:replies}=await sb.from('replies').select('*').eq('post_id',postId).order('created_at',{ascending:false});
-      const ra=document.getElementById('replies-area');
-      if(!ra)return;
-      if(replies&&replies.length){
-        ra.innerHTML=`<div style="font-size:.78rem;color:rgba(232,254,242,.25);font-weight:700;padding:.2rem 0 .4rem;display:flex;align-items:center;gap:.4rem;"><span class="live-dot"></span>live · ${replies.length} repl${replies.length===1?'y':'ies'}, newest first</div>`+
-        replies.map(r=>{
-          const raid=esc(r.author_id||'');const ran=esc(r.author_name||'anon');
-          const canEdit=currentUser&&currentUser.id===r.author_id;
-          return`<div class="reply-card" id="reply-${r.id}">
-            <div class="reply-meta">
-              <span class="author-link" onmouseenter="showPopover(this,'${raid}','${ran}')" onmouseleave="hidePopover()" onclick="openProfileModal('${raid}','${ran}')">${ran}</span>
-              · ${fmtFull(r.created_at)}
-            </div>
-            <div class="reply-body">${esc(r.content)}</div>
-            ${canEdit?`<div class="reply-actions">
-              <button class="btn btn-ghost btn-sm" onclick="openEditReply(${r.id},'${esc(r.content).replace(/'/g,"\\'")}')">✏️</button>
-              <button class="btn btn-red btn-sm" onclick="deleteReply(${r.id})">🗑️</button>
-            </div>`:''}
-          </div>`;
-        }).join('');
-      } else {
-        ra.innerHTML='<div class="forum-empty" style="padding:.8rem 0;">no replies yet — jump in! 🦊</div>';
-      }
+  // no filter — listen to all reply changes, check post_id client-side
+  // this works around realtime filter limitations on free-tier
+  threadChannel=sb.channel('replies-live')
+    .on('postgres_changes',{event:'*',schema:'public',table:'replies'},
+    payload=>{
+      // only refresh if it's for the thread we're viewing
+      const pid=payload?.new?.post_id||payload?.old?.post_id;
+      if(String(pid)===String(postId)) refreshReplies(postId);
     })
     .subscribe();
 }
@@ -1428,8 +1383,10 @@ window.submitReply=async(postId)=>{
   const{error}=await sb.from('replies').insert({post_id:postId,content,author_name:uname,author_id:currentUser.id});
   btn.disabled=false;btn.textContent='Reply 🦊';
   if(error){errEl.textContent=error.message;errEl.style.display='block';return;}
-  document.getElementById('reply-input').value=''; // clear box — realtime subscription updates the list
+  document.getElementById('reply-input').value='';
   showToast('replied! 🎉');
+  // immediately refresh — don't wait for realtime
+  refreshReplies(postId);
 };
 
 // ─── edit / delete post ───────────────────────────────────────
@@ -1474,14 +1431,14 @@ window.saveEditReply=async()=>{
   const{error}=await sb.from('replies').update({content}).eq('id',id).eq('author_id',currentUser.id);
   if(error)return showErr('edit-reply-err',error.message);
   closeModal('modal-edit-reply');showToast('reply updated!');
-  if(currentThreadId)renderThread(currentThreadId);
+  if(currentThreadId)refreshReplies(currentThreadId);
 };
 
 window.deleteReply=async(id)=>{
   if(!confirm('delete this reply?'))return;
   await sb.from('replies').delete().eq('id',id).eq('author_id',currentUser.id);
   showToast('reply deleted');
-  if(currentThreadId)renderThread(currentThreadId);
+  if(currentThreadId)refreshReplies(currentThreadId);
 };
 
 // ─── new post modal ───────────────────────────────────────────
