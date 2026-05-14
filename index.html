@@ -934,24 +934,31 @@ window.deleteAccount=async()=>{
   const pw=document.getElementById('delete-password').value;
   if(confirmText!=='DELETE')return showErr('delete-err','type DELETE exactly');
   if(!pw)return showErr('delete-err','enter your password');
-  // get session token FIRST before anything else
-  const{data:{session}}=await sb.auth.getSession();
-  if(!session)return showErr('delete-err','session expired, please log out and back in');
-  // re-auth to verify password
+  // re-auth first to verify password
   const{error:authErr}=await sb.auth.signInWithPassword({email:currentUser.email,password:pw});
   if(authErr)return showErr('delete-err','wrong password');
-  // delete data
+  // get fresh session token AFTER re-auth
+  const{data:{session}}=await sb.auth.getSession();
+  if(!session)return showErr('delete-err','session expired, please log out and back in');
+  console.log('got session token, calling edge function...');
+  // delete data first
   await sb.from('replies').delete().eq('author_id',currentUser.id);
   await sb.from('posts').delete().eq('author_id',currentUser.id);
   await sb.from('profiles').delete().eq('id',currentUser.id);
-  // call edge function with the token we grabbed before re-auth changed it
+  // call edge function to delete auth user
+  console.log('calling:', 'https://lmupyrjmsupdvxcewbhy.supabase.co/functions/v1/delete-user');
   const res=await fetch('https://lmupyrjmsupdvxcewbhy.supabase.co/functions/v1/delete-user',{
     method:'POST',
-    headers:{Authorization:'Bearer '+session.access_token}
+    headers:{
+      'Authorization':'Bearer '+session.access_token,
+      'Content-Type':'application/json',
+    }
   });
+  console.log('edge function response status:', res.status);
   if(!res.ok){
     const txt=await res.text();
-    return showErr('delete-err','edge function error: '+txt+' (is the function deployed?)');
+    console.error('edge function error:', txt);
+    return showErr('delete-err','edge function error: '+txt);
   }
   await sb.auth.signOut();
   showToast('account deleted. take care 🌿');
