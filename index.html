@@ -543,6 +543,33 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
         <div class="mod-panel hidden" id="mod-panel">
           <div class="mod-title">🛡️ Avatar Mod Queue</div>
           <div id="mod-list"><div class="forum-empty">no pending avatars :3</div></div>
+          <div class="mod-title" style="margin-top:1.2rem;">🔨 Ban a User</div>
+          <div style="display:flex;flex-direction:column;gap:.6rem;">
+            <div class="form-group" style="margin-bottom:0;">
+              <label>Username</label>
+              <input type="text" id="ban-username" placeholder="username to ban">
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label>Reason</label>
+              <input type="text" id="ban-reason" placeholder="reason for ban">
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label>Duration</label>
+              <select id="ban-duration">
+                <option value="1">1 hour</option>
+                <option value="24">1 day</option>
+                <option value="72">3 days</option>
+                <option value="168">1 week</option>
+                <option value="720">1 month</option>
+                <option value="999999">Permanent</option>
+              </select>
+            </div>
+            <div id="ban-err" class="msg-err"></div>
+            <div id="ban-ok" class="msg-ok"></div>
+            <button class="btn btn-red" onclick="banUser()">🔨 Ban User</button>
+          </div>
+          <div class="mod-title" style="margin-top:1.2rem;">📋 Active Bans</div>
+          <div id="ban-list"><div class="forum-empty">loading...</div></div>
         </div>
 
         <!-- Account settings -->
@@ -600,6 +627,23 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
 </div>
 
 <!-- ══════════ MODALS ══════════ -->
+
+<!-- Ban Notice Modal -->
+<div class="modal-overlay" id="modal-ban-notice">
+  <div class="modal" style="border-color:rgba(248,113,113,.3);">
+    <div class="modal-title" style="color:var(--red);">🔨 You are banned</div>
+    <p style="font-size:.95rem;font-weight:700;color:rgba(232,254,242,.7);line-height:1.8;margin-bottom:1rem;">
+      Your account has been banned for:<br>
+      <strong style="color:var(--red);" id="ban-notice-reason">—</strong>
+    </p>
+    <p style="font-size:.9rem;font-weight:700;color:rgba(232,254,242,.5);">
+      Your ban will expire in: <strong style="color:var(--gold);" id="ban-notice-countdown">—</strong>
+    </p>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-ban-notice')">Close</button>
+    </div>
+  </div>
+</div>
 
 <!-- New Post -->
 <div class="modal-overlay" id="modal-new-post">
@@ -844,6 +888,87 @@ window.modAvatar=async(userId,status)=>{
   if(!remaining) document.getElementById('mod-list').innerHTML='<div class="forum-empty">no pending avatars :3</div>';
 };
 
+// ─── ban system ───────────────────────────────────────────────
+window.banUser=async()=>{
+  const username=document.getElementById('ban-username').value.trim();
+  const reason=document.getElementById('ban-reason').value.trim();
+  const hours=parseInt(document.getElementById('ban-duration').value);
+  document.getElementById('ban-err').style.display='none';
+  document.getElementById('ban-ok').style.display='none';
+  if(!username)return showErr('ban-err','enter a username');
+  if(!reason)return showErr('ban-err','enter a reason');
+  // find user by username
+  const{data:prof}=await sb.from('profiles').select('id,username').eq('username',username).single();
+  if(!prof)return showErr('ban-err','user not found');
+  if(prof.username.toLowerCase()==='mintofox')return showErr('ban-err','nice try :3');
+  const bannedUntil=new Date(Date.now()+hours*3600000).toISOString();
+  await sb.from('profiles').update({banned_until:bannedUntil,ban_reason:reason}).eq('id',prof.id);
+  // send ban notification
+  const isPerm=hours===999999;
+  const durationText=isPerm?'This ban is permanent.':`Your ban will expire in ${formatBanDuration(hours)}.`;
+  await sb.from('notifications').insert({
+    user_id:prof.id,
+    type:'ban',
+    actor_name:'the moderation team',
+    content:`${reason}\n\n${durationText}`,
+  });
+  delete profCache[prof.id];
+  showOk('ban-ok',`${username} has been banned!`);
+  document.getElementById('ban-username').value='';
+  document.getElementById('ban-reason').value='';
+  loadBanList();
+};
+
+function formatBanDuration(hours){
+  if(hours>=999999)return'permanent';
+  if(hours>=720)return`${Math.round(hours/720)} month(s)`;
+  if(hours>=168)return`${Math.round(hours/168)} week(s)`;
+  if(hours>=24)return`${Math.round(hours/24)} day(s)`;
+  return`${hours} hour(s)`;
+}
+
+function formatCountdown(until){
+  const diff=new Date(until)-Date.now();
+  if(diff<=0)return'expired';
+  const d=Math.floor(diff/86400000);
+  const h=Math.floor((diff%86400000)/3600000);
+  const m=Math.floor((diff%3600000)/60000);
+  if(d>0)return`${d}d ${h}h`;
+  if(h>0)return`${h}h ${m}m`;
+  return`${m}m`;
+}
+
+async function loadBanList(){
+  const el=document.getElementById('ban-list');
+  if(!el)return;
+  const{data}=await sb.from('profiles').select('id,username,banned_until,ban_reason').not('banned_until','is',null).gt('banned_until',new Date().toISOString());
+  if(!data||!data.length){el.innerHTML='<div class="forum-empty">no active bans :3</div>';return;}
+  el.innerHTML=data.map(p=>`
+    <div class="mod-item" id="ban-item-${p.id}">
+      <div class="mod-info">
+        <div class="mod-username">${esc(p.username)}</div>
+        <div class="mod-url">${esc(p.ban_reason||'')} · expires in ${formatCountdown(p.banned_until)}</div>
+      </div>
+      <div class="mod-actions">
+        <button class="btn btn-mint btn-sm" onclick="unbanUser('${p.id}','${esc(p.username)}')">✅ Unban</button>
+      </div>
+    </div>`).join('');
+}
+
+window.unbanUser=async(userId,username)=>{
+  await sb.from('profiles').update({banned_until:null,ban_reason:null}).eq('id',userId);
+  delete profCache[userId];
+  document.getElementById('ban-item-'+userId)?.remove();
+  showToast(`${username} unbanned!`);
+  await sb.from('notifications').insert({
+    user_id:userId,
+    type:'unban',
+    actor_name:'the moderation team',
+    content:'Your ban has been lifted. Welcome back :3',
+  });
+  loadBanList();
+};
+
 window.switchTab=tab=>{
   ['login','register','reset'].forEach(t=>{
     document.getElementById('tab-'+t).classList.toggle('active',t===tab);
@@ -900,10 +1025,17 @@ async function applyLoggedIn(user){
   // store profile in cache immediately so avatars show on forum without needing popover click
   profCache[user.id]={id:user.id,username:uname,about_me:prof?.about_me||'',joined:prof?.created_at?fmtDate(prof.created_at):'?',posts:0,avatar_url:prof?.avatar_url||null,avatar_status:prof?.avatar_status||'none',_counted:false};
 
+  // check if user is banned
+  window.currentUserBan=null;
+  if(prof?.banned_until&&new Date(prof.banned_until)>new Date()){
+    window.currentUserBan={until:prof.banned_until,reason:prof.ban_reason||'no reason given'};
+  }
+
   // show mod panel if MintoFox
   if(uname.toLowerCase()==='mintofox'){
     document.getElementById('mod-panel').classList.remove('hidden');
     loadModQueue();
+    loadBanList();
   }
   if(prof?.created_at) document.getElementById('acct-joined').textContent=fmtDate(prof.created_at);
 
@@ -1143,6 +1275,10 @@ function renderNotifications(items){
 function notifText(n){
   if(n.type==='reply_to_post') return `<span>${esc(n.actor_name)}</span> replied to your post`;
   if(n.type==='reply_to_followed') return `<span>${esc(n.actor_name)}</span> replied to a post you're following`;
+  if(n.type==='mod_delete_post') return `<span>The moderation team</span> has deleted your post.<br><small style="color:rgba(232,254,242,.4);white-space:pre-wrap;">${esc(n.content||'')}</small>`;
+  if(n.type==='mod_delete_reply') return `<span>The moderation team</span> has deleted your reply.<br><small style="color:rgba(232,254,242,.4);white-space:pre-wrap;">${esc(n.content||'')}</small>`;
+  if(n.type==='ban') return `<span style="color:var(--red);">🔨 Your account has been banned.</span><br><small style="color:rgba(232,254,242,.4);white-space:pre-wrap;">${esc(n.content||'')}</small>`;
+  if(n.type==='unban') return `<span style="color:var(--mint-light);">✅ Your ban has been lifted.</span> Welcome back :3`;
   return 'new notification';
 }
 
@@ -1324,15 +1460,18 @@ function threadRow(p,inExpandable=false){
   const aid=esc(p.author_id||'');const an=esc(p.author_name||'anon');
   const init=(p.author_name||'?')[0].toUpperCase();
   const canEdit=currentUser&&currentUser.id===p.author_id;
+  const isMod=currentUser&&(currentUser.user_metadata?.username||'').toLowerCase()==='mintofox';
+  const canDelete=canEdit||isMod;
   const prof=profCache[p.author_id];
   const showAvs=window.showAvatarsPref!==false;
   const avatarInner=showAvs&&prof?.avatar_status==='approved'&&prof?.avatar_url
     ?`<img src="${esc(prof.avatar_url)}" alt="${an}" style="width:100%;height:100%;object-fit:cover;border-radius:7px;" onerror="this.parentElement.textContent='${init}'">`
     :init;
-  const editBtns=canEdit?`
+  const editBtns=canDelete?`
     <div class="thread-actions">
-      <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openThread(${p.id}).then(()=>openEditPost())">✏️</button>
-      <button class="btn btn-red btn-sm" onclick="event.stopPropagation();deletePost(${p.id},false)">🗑️</button>
+      ${canEdit?`<button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openThread(${p.id}).then(()=>openEditPost())">✏️</button>`:''}
+      <button class="btn btn-red btn-sm" onclick="event.stopPropagation();deletePost(${p.id},false,true)">🗑️</button>
+      ${isMod&&!canEdit?`<button class="btn btn-outline btn-sm" onclick="event.stopPropagation();deletePost(${p.id},false,false)" style="font-size:.7rem;">🗑️ silent</button>`:''}
     </div>`:'';
   return`<div class="forum-thread">
     <div class="thread-clickable" onclick="openThread(${p.id})">
@@ -1447,15 +1586,24 @@ async function renderThread(postId){
 
   const aid=esc(post.author_id||'');const an=esc(post.author_name||'anon');
   const canEditPost=currentUser&&currentUser.id===post.author_id;
+  const isMod=currentUser&&(currentUser.user_metadata?.username||'').toLowerCase()==='mintofox';
   const isFollowing=currentUser?await checkFollowing(postId):false;
 
   const composeHTML=currentUser
-    ?`<div class="reply-compose">
-        <div class="reply-compose-title">💬 Leave a Reply</div>
-        <div class="form-group"><textarea id="reply-input" placeholder="write your reply..."></textarea></div>
-        <div id="reply-err" class="msg-err"></div>
-        <div style="display:flex;justify-content:flex-end;"><button class="btn btn-mint" id="reply-btn" onclick="submitReply(${postId})">Reply 🦊</button></div>
-      </div>`
+    ?window.currentUserBan
+      ?`<div class="reply-compose" style="border-color:rgba(248,113,113,.3);background:rgba(248,113,113,.05);">
+          <div class="reply-compose-title" style="color:var(--red);">🔨 You are banned</div>
+          <p style="font-size:.88rem;font-weight:700;color:rgba(232,254,242,.6);line-height:1.7;">
+            Your account has been banned for: <strong style="color:var(--red);">${esc(window.currentUserBan.reason)}</strong><br>
+            Your ban will expire in <strong style="color:var(--gold);">${formatCountdown(window.currentUserBan.until)}</strong>
+          </p>
+        </div>`
+      :`<div class="reply-compose">
+          <div class="reply-compose-title">💬 Leave a Reply</div>
+          <div class="form-group"><textarea id="reply-input" placeholder="write your reply..."></textarea></div>
+          <div id="reply-err" class="msg-err"></div>
+          <div style="display:flex;justify-content:flex-end;"><button class="btn btn-mint" id="reply-btn" onclick="submitReply(${postId})">Reply 🦊</button></div>
+        </div>`
     :`<div class="reply-compose"><div class="reply-login-note"><a onclick="showPage('account')">log in</a> to reply :3</div></div>`;
 
   const repliesHTML=replies&&replies.length
@@ -1474,8 +1622,9 @@ async function renderThread(postId){
       <div class="thread-post-body">${esc(post.content)}</div>
       <div class="thread-post-actions">
         ${currentUser?`<button class="btn btn-ghost btn-sm follow-btn" id="follow-btn" onclick="toggleFollow(${postId})">${isFollowing?'★ Following':'☆ Follow'}</button>`:''}
-        ${canEditPost?`<button class="btn btn-ghost btn-sm" onclick="openEditPost()">✏️ Edit</button>
-          <button class="btn btn-red btn-sm" onclick="deletePost(${post.id},true)">🗑️ Delete</button>`:''}
+        ${canEditPost?`<button class="btn btn-ghost btn-sm" onclick="openEditPost()">✏️ Edit</button>`:''}
+        ${canEditPost||isMod?`<button class="btn btn-red btn-sm" onclick="deletePost(${post.id},true,true)">🗑️ Delete</button>`:''}
+        ${isMod&&!canEditPost?`<button class="btn btn-outline btn-sm" onclick="deletePost(${post.id},true,false)" style="font-size:.75rem;">🗑️ Silent</button>`:''}
       </div>
     </div>
     <div style="margin-top:.6rem;margin-bottom:.6rem;">${composeHTML}</div>
@@ -1486,6 +1635,7 @@ function replyHTML(r){
   const raid=esc(r.author_id||'');const ran=esc(r.author_name||'anon');
   const init=(r.author_name||'?')[0].toUpperCase();
   const canEdit=currentUser&&currentUser.id===r.author_id;
+  const isMod=currentUser&&(currentUser.user_metadata?.username||'').toLowerCase()==='mintofox';
   const prof=profCache[r.author_id];
   const showAvs=window.showAvatarsPref!==false;
   const avatarInner=showAvs&&prof?.avatar_status==='approved'&&prof?.avatar_url
@@ -1498,9 +1648,10 @@ function replyHTML(r){
       · ${fmtFull(r.created_at)}
     </div>
     <div class="reply-body">${esc(r.content)}</div>
-    ${canEdit?`<div class="reply-actions">
-      <button class="btn btn-ghost btn-sm" onclick="openEditReply(${r.id},'${esc(r.content).replace(/'/g,"\\'")}')">✏️</button>
-      <button class="btn btn-red btn-sm" onclick="deleteReply(${r.id})">🗑️</button>
+    ${canEdit||isMod?`<div class="reply-actions">
+      ${canEdit?`<button class="btn btn-ghost btn-sm" onclick="openEditReply(${r.id},'${esc(r.content).replace(/'/g,"\\'")}')">✏️</button>`:''}
+      <button class="btn btn-red btn-sm" onclick="deleteReply(${r.id},true)">🗑️</button>
+      ${isMod&&!canEdit?`<button class="btn btn-outline btn-sm" onclick="deleteReply(${r.id},false)" style="font-size:.7rem;">🗑️ silent</button>`:''}
     </div>`:''}
   </div>`;
 }
@@ -1519,20 +1670,24 @@ async function refreshReplies(postId){
 
 function subscribeThread(postId){
   if(threadChannel){sb.removeChannel(threadChannel);threadChannel=null;}
-  // no filter — listen to all reply changes, check post_id client-side
-  // this works around realtime filter limitations on free-tier
+  if(window._threadPollInterval) clearInterval(window._threadPollInterval);
   threadChannel=sb.channel('replies-live')
     .on('postgres_changes',{event:'*',schema:'public',table:'replies'},
     payload=>{
-      // only refresh if it's for the thread we're viewing
       const pid=payload?.new?.post_id||payload?.old?.post_id;
       if(String(pid)===String(postId)) refreshReplies(postId);
     })
     .subscribe();
+  // poll every 10s as fallback for missed realtime events (especially deletes)
+  window._threadPollInterval=setInterval(()=>{
+    if(currentThreadId===postId) refreshReplies(postId);
+    else clearInterval(window._threadPollInterval);
+  },10000);
 }
 
 window.backToForums=()=>{
   if(threadChannel){sb.removeChannel(threadChannel);threadChannel=null;}
+  if(window._threadPollInterval){clearInterval(window._threadPollInterval);window._threadPollInterval=null;}
   currentThreadId=null;
   document.getElementById('forums-list-view').classList.remove('hidden');
   document.getElementById('thread-view').classList.add('hidden');
@@ -1594,10 +1749,28 @@ window.saveEditPost=async()=>{
   if(currentThreadId)renderThread(currentThreadId);else loadForums();
 };
 
-window.deletePost=async(id,inThread=false)=>{
+window.deletePost=async(id,inThread=false,notify=true)=>{
   if(!confirm('delete this post and all its replies?'))return;
+  // fetch post data before deleting so we can notify
+  const{data:post}=await sb.from('posts').select('*').eq('id',id).single();
+  if(!post)return;
+  const isMod=currentUser&&(currentUser.user_metadata?.username||'').toLowerCase()==='mintofox';
+  // mods can delete any post, owners can only delete their own
+  const canDelete=currentUser.id===post.author_id||isMod;
+  if(!canDelete)return showToast('you can\'t delete that :3');
   await sb.from('replies').delete().eq('post_id',id);
-  await sb.from('posts').delete().eq('id',id).eq('author_id',currentUser.id);
+  await sb.from('posts').delete().eq('id',id);
+  // send notification to post author if not deleting own post and notify=true
+  if(notify&&isMod&&currentUser.id!==post.author_id){
+    await sb.from('notifications').insert({
+      user_id:post.author_id,
+      type:'mod_delete_post',
+      post_id:null,
+      reply_id:null,
+      actor_name:'the moderation team',
+      content:`Title: ${post.title}\n\nContent: ${post.content}`,
+    });
+  }
   showToast('post deleted');
   if(inThread)backToForums();
   loadForums();
@@ -1620,9 +1793,30 @@ window.saveEditReply=async()=>{
   if(currentThreadId)refreshReplies(currentThreadId);
 };
 
-window.deleteReply=async(id)=>{
+window.deleteReply=async(id,notify=true)=>{
   if(!confirm('delete this reply?'))return;
-  await sb.from('replies').delete().eq('id',id).eq('author_id',currentUser.id);
+  const card=document.getElementById('reply-'+id);
+  if(card) card.style.opacity='0.3';
+  // fetch reply before deleting
+  const{data:reply}=await sb.from('replies').select('*').eq('id',id).single();
+  if(!reply){if(card)card.style.opacity='1';return;}
+  const isMod=currentUser&&(currentUser.user_metadata?.username||'').toLowerCase()==='mintofox';
+  const canDelete=currentUser.id===reply.author_id||isMod;
+  if(!canDelete){if(card)card.style.opacity='1';showToast('you can\'t delete that :3');return;}
+  const{error}=await sb.from('replies').delete().eq('id',id);
+  if(error){if(card)card.style.opacity='1';showToast('could not delete reply :(');return;}
+  if(card)card.remove();
+  // notify if mod deleting someone else's reply
+  if(notify&&isMod&&currentUser.id!==reply.author_id){
+    await sb.from('notifications').insert({
+      user_id:reply.author_id,
+      type:'mod_delete_reply',
+      post_id:reply.post_id,
+      reply_id:null,
+      actor_name:'the moderation team',
+      content:`Content: ${reply.content}`,
+    });
+  }
   showToast('reply deleted');
   if(currentThreadId)refreshReplies(currentThreadId);
 };
@@ -1630,6 +1824,13 @@ window.deleteReply=async(id)=>{
 // ─── new post modal ───────────────────────────────────────────
 window.openNewPostModal=()=>{
   if(!currentUser){showToast('log in first to post :3');showPage('account');return;}
+  if(window.currentUserBan){
+    // show ban modal instead
+    openModal('modal-ban-notice');
+    document.getElementById('ban-notice-reason').textContent=window.currentUserBan.reason;
+    document.getElementById('ban-notice-countdown').textContent=formatCountdown(window.currentUserBan.until);
+    return;
+  }
   openModal('modal-new-post');
 };
 
