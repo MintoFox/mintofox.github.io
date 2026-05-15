@@ -121,7 +121,22 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex
 .forum-thread:last-child{border-bottom:none;}
 .forum-thread:hover{background:rgba(79,201,126,.04);}
 .thread-clickable{cursor:pointer;flex:1;display:flex;align-items:center;gap:.9rem;min-width:0;}
-.thread-initial{width:36px;height:36px;border-radius:9px;background:rgba(79,201,126,.15);border:1.5px solid rgba(79,201,126,.2);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;color:var(--mint-light);flex-shrink:0;}
+.thread-initial{width:36px;height:36px;border-radius:9px;background:rgba(79,201,126,.15);border:1.5px solid rgba(79,201,126,.2);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;color:var(--mint-light);flex-shrink:0;overflow:hidden;}
+.thread-initial img{width:100%;height:100%;object-fit:cover;border-radius:7px;}
+.avatar-sm{width:36px;height:36px;border-radius:9px;object-fit:cover;flex-shrink:0;}
+.mod-panel{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);border:1.5px solid rgba(245,200,66,.2);border-radius:16px;padding:1.4rem 1.6rem;box-shadow:0 4px 16px var(--shadow);}
+.mod-title{font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--gold);margin-bottom:1rem;}
+.mod-item{display:flex;align-items:center;gap:1rem;padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.mod-item:last-child{border-bottom:none;}
+.mod-avatar{width:56px;height:56px;border-radius:10px;object-fit:cover;border:2px solid rgba(79,201,126,.3);}
+.mod-info{flex:1;min-width:0;}
+.mod-username{font-weight:800;font-size:.9rem;color:var(--text);}
+.mod-url{font-size:.75rem;color:rgba(232,254,242,.35);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px;}
+.mod-actions{display:flex;gap:.4rem;flex-shrink:0;}
+.avatar-status{display:inline-block;font-size:.75rem;font-weight:800;padding:.15rem .6rem;border-radius:100px;}
+.status-pending{background:rgba(245,200,66,.15);border:1px solid rgba(245,200,66,.3);color:var(--gold);}
+.status-approved{background:rgba(79,201,126,.15);border:1px solid rgba(79,201,126,.3);color:var(--mint-light);}
+.status-rejected{background:rgba(248,113,113,.15);border:1px solid rgba(248,113,113,.3);color:var(--red);}
 .thread-info{flex:1;min-width:0;}
 .thread-title-text{font-weight:800;font-size:.92rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .thread-meta{font-size:.77rem;color:rgba(232,254,242,.4);margin-top:.12rem;}
@@ -177,7 +192,8 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex
 /* PROFILE MODAL */
 .profile-modal-body{display:flex;flex-direction:column;gap:1rem;max-height:75vh;overflow-y:auto;}
 .profile-modal-header{display:flex;align-items:center;gap:1.2rem;padding-bottom:1rem;border-bottom:1px solid rgba(79,201,126,.15);}
-.profile-modal-initial{width:64px;height:64px;border-radius:16px;background:rgba(79,201,126,.15);border:2px solid rgba(79,201,126,.3);display:flex;align-items:center;justify-content:center;font-family:'Fredoka One',cursive;font-size:1.8rem;color:var(--mint-light);flex-shrink:0;}
+.profile-modal-initial{width:64px;height:64px;border-radius:16px;background:rgba(79,201,126,.15);border:2px solid rgba(79,201,126,.3);display:flex;align-items:center;justify-content:center;font-family:'Fredoka One',cursive;font-size:1.8rem;color:var(--mint-light);flex-shrink:0;overflow:hidden;}
+.profile-modal-initial img{width:100%;height:100%;object-fit:cover;}
 .profile-modal-names{flex:1;}
 .profile-modal-display{font-family:'Fredoka One',cursive;font-size:1.5rem;color:var(--text);}
 .profile-modal-username{font-size:.85rem;color:rgba(232,254,242,.45);font-weight:700;}
@@ -228,7 +244,8 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex
 .account-grid{display:grid;grid-template-columns:240px 1fr;gap:1.5rem;align-items:start;}
 .account-sidebar{display:flex;flex-direction:column;gap:1rem;}
 .account-profile-card{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.25);border-radius:18px;padding:1.6rem 1.4rem;text-align:center;box-shadow:0 4px 20px var(--shadow);}
-.account-initial{width:72px;height:72px;border-radius:16px;background:rgba(79,201,126,.15);border:2px solid rgba(79,201,126,.3);display:flex;align-items:center;justify-content:center;font-family:'Fredoka One',cursive;font-size:2rem;color:var(--mint-light);margin:0 auto .9rem;}
+.account-initial{width:72px;height:72px;border-radius:16px;background:rgba(79,201,126,.15);border:2px solid rgba(79,201,126,.3);display:flex;align-items:center;justify-content:center;font-family:'Fredoka One',cursive;font-size:2rem;color:var(--mint-light);margin:0 auto .9rem;overflow:hidden;}
+.account-initial img{width:100%;height:100%;object-fit:cover;}
 .account-display-name{font-family:'Fredoka One',cursive;font-size:1.5rem;color:var(--text);margin-bottom:.15rem;}
 .account-username{font-size:.82rem;color:rgba(232,254,242,.4);font-weight:700;margin-bottom:.9rem;}
 .account-stats{display:flex;gap:.8rem;justify-content:center;border-top:1px solid rgba(79,201,126,.15);padding-top:.9rem;}
@@ -502,9 +519,30 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
         <!-- Profile settings -->
         <div class="settings-card">
           <div class="card-title">👤 Profile</div>
+          <div class="form-group">
+            <button class="btn btn-outline" onclick="toggleAvatarInstructions()">🖼️ Change Profile Picture</button>
+            <div id="avatar-instructions" class="hidden" style="margin-top:.9rem;background:rgba(0,0,0,.2);border:1.5px solid rgba(79,201,126,.15);border-radius:12px;padding:1rem 1.2rem;">
+              <p style="font-size:.88rem;font-weight:700;color:rgba(232,254,242,.7);line-height:1.8;margin-bottom:.8rem;">
+                Profile pictures are hosted by <a href="https://catbox.moe" target="_blank" rel="noopener" style="color:var(--mint);">catbox.moe</a>.<br>
+                Please go to <a href="https://catbox.moe" target="_blank" rel="noopener" style="color:var(--mint);">https://catbox.moe/</a> and upload a <strong style="color:var(--mint-light);">GIF, PNG, JPG, or WEBP</strong> image, then paste the link below.<br>
+                <span style="font-size:.78rem;color:rgba(232,254,242,.35);">All avatars require approval before they appear. Only catbox.moe links are accepted.</span>
+              </p>
+              <div style="display:flex;gap:.6rem;align-items:center;">
+                <input type="text" id="edit-avatar-url" placeholder="https://files.catbox.moe/abc123.gif" style="flex:1;">
+                <button class="btn btn-mint" onclick="submitAvatar()">Submit</button>
+              </div>
+              <div id="avatar-status-msg" style="margin-top:.5rem;font-size:.8rem;font-weight:700;"></div>
+            </div>
+          </div>
           <div class="form-group"><label>About Me</label><textarea id="edit-about-me" placeholder="tell the world who you are :3"></textarea></div>
           <div id="profile-save-msg" class="msg-ok"></div>
           <button class="btn btn-mint" onclick="saveProfile()">Save Profile</button>
+        </div>
+
+        <!-- Mod panel — only visible to MintoFox -->
+        <div class="mod-panel hidden" id="mod-panel">
+          <div class="mod-title">🛡️ Avatar Mod Queue</div>
+          <div id="mod-list"><div class="forum-empty">no pending avatars :3</div></div>
         </div>
 
         <!-- Account settings -->
@@ -529,7 +567,7 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
 
         <!-- Notifications settings -->
         <div class="settings-card">
-          <div class="card-title">🔔 Notifications</div>
+          <div class="card-title">🔔 Notifications &amp; Privacy</div>
           <div class="settings-row">
             <div class="settings-label">Replies to my posts</div>
             <div class="toggle on" id="toggle-notif-replies" onclick="this.classList.toggle('on')"></div>
@@ -538,6 +576,15 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
             <div class="settings-label">Replies to followed posts</div>
             <div class="toggle on" id="toggle-notif-follows" onclick="this.classList.toggle('on')"></div>
           </div>
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Show profile pictures</div>
+              <div class="settings-value">disable if you feel unsafe loading external images</div>
+            </div>
+            <div class="toggle on" id="toggle-show-avatars" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div id="prefs-save-msg" class="msg-ok" style="margin-top:.5rem;"></div>
+          <button class="btn btn-mint" style="margin-top:.6rem;" onclick="savePrefs()">Save Preferences</button>
         </div>
 
         <!-- Danger zone -->
@@ -730,7 +777,73 @@ window.showPage=name=>{
   if(name==='forums'){backToForums();loadForums();}
 };
 
-// ─── auth tab ─────────────────────────────────────────────────
+// ─── avatar helpers ───────────────────────────────────────────
+const ALLOWED_HOSTS=['https://files.catbox.moe/'];
+const ALLOWED_EXTS=['.gif','.png','.jpg','.jpeg','.webp'];
+
+function validateAvatarUrl(url){
+  if(!url)return false;
+  const lower=url.toLowerCase();
+  const hostOk=ALLOWED_HOSTS.some(h=>lower.startsWith(h));
+  const extOk=ALLOWED_EXTS.some(e=>lower.endsWith(e));
+  return hostOk&&extOk;
+}
+
+function avatarHTML(profile,size='sm'){
+  // size: 'sm' = 36px thread, 'md' = 64px modal, 'lg' = 72px account
+  if(profile?.avatar_status==='approved'&&profile?.avatar_url){
+    return`<img src="${esc(profile.avatar_url)}" alt="${esc(profile.username||'')}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" onerror="this.parentElement.innerHTML='${(profile.username||'?')[0].toUpperCase()}'">`;
+  }
+  return(profile?.username||'?')[0].toUpperCase();
+}
+
+window.submitAvatar=async()=>{
+  const url=document.getElementById('edit-avatar-url').value.trim();
+  const statusEl=document.getElementById('avatar-status-msg');
+  if(!url){statusEl.style.color='var(--red)';statusEl.textContent='enter a URL first';return;}
+  if(!validateAvatarUrl(url)){
+    statusEl.style.color='var(--red)';
+    statusEl.textContent='URL must be from files.catbox.moe and end in .gif .png .jpg or .webp';
+    return;
+  }
+  const{error}=await sb.from('profiles').update({avatar_url:url,avatar_status:'pending'}).eq('id',currentUser.id);
+  if(error){statusEl.style.color='var(--red)';statusEl.textContent=error.message;return;}
+  statusEl.style.color='var(--gold)';
+  statusEl.textContent='⏳ submitted for approval!';
+  // invalidate cache so popover refreshes
+  delete profCache[currentUser.id];
+};
+
+// ─── mod queue ────────────────────────────────────────────────
+window.loadModQueue=async()=>{
+  const{data}=await sb.from('profiles').select('id,username,avatar_url,avatar_status').eq('avatar_status','pending');
+  const el=document.getElementById('mod-list');
+  if(!data||!data.length){el.innerHTML='<div class="forum-empty">no pending avatars :3</div>';return;}
+  el.innerHTML=data.map(p=>`
+    <div class="mod-item" id="mod-item-${p.id}">
+      <img class="mod-avatar" src="${esc(p.avatar_url)}" alt="${esc(p.username)}" onerror="this.style.background='rgba(79,201,126,.15)'">
+      <div class="mod-info">
+        <div class="mod-username">${esc(p.username)}</div>
+        <div class="mod-url">${esc(p.avatar_url)}</div>
+      </div>
+      <div class="mod-actions">
+        <button class="btn btn-mint btn-sm" onclick="modAvatar('${p.id}','approved')">✅ Approve</button>
+        <button class="btn btn-red btn-sm" onclick="modAvatar('${p.id}','rejected')">❌ Reject</button>
+      </div>
+    </div>`).join('');
+};
+
+window.modAvatar=async(userId,status)=>{
+  const update={avatar_status:status};
+  if(status==='rejected') update.avatar_url=null;
+  await sb.from('profiles').update(update).eq('id',userId);
+  delete profCache[userId];
+  document.getElementById('mod-item-'+userId)?.remove();
+  showToast(status==='approved'?'avatar approved! ✅':'avatar rejected ❌');
+  const remaining=document.querySelectorAll('[id^="mod-item-"]').length;
+  if(!remaining) document.getElementById('mod-list').innerHTML='<div class="forum-empty">no pending avatars :3</div>';
+};
+
 window.switchTab=tab=>{
   ['login','register','reset'].forEach(t=>{
     document.getElementById('tab-'+t).classList.toggle('active',t===tab);
@@ -754,19 +867,52 @@ async function applyLoggedIn(user){
   // load profile
   const{data:prof}=await sb.from('profiles').select('*').eq('id',user.id).single();
   document.getElementById('acct-initial').textContent=uname[0].toUpperCase();
-  document.getElementById('acct-display-name').textContent=uname;
   document.getElementById('acct-username').textContent='@'+uname;
   document.getElementById('settings-username').textContent=uname;
   document.getElementById('settings-email').textContent=user.email;
   document.getElementById('edit-about-me').value=prof?.about_me||'';
+
+  // load preferences into toggles
+  const notifReplies=prof?.notif_replies!==false;
+  const notifFollows=prof?.notif_follows!==false;
+  const showAvatars=prof?.show_avatars!==false;
+  document.getElementById('toggle-notif-replies').classList.toggle('on',notifReplies);
+  document.getElementById('toggle-notif-follows').classList.toggle('on',notifFollows);
+  document.getElementById('toggle-show-avatars').classList.toggle('on',showAvatars);
+  // store globally so avatar rendering can check it
+  window.showAvatarsPref=showAvatars;
+
+  // show avatar status in instructions panel
+  const statusEl=document.getElementById('avatar-status-msg');
+  if(prof?.avatar_status==='pending'){statusEl.style.color='var(--gold)';statusEl.textContent='⏳ pending approval';}
+  else if(prof?.avatar_status==='approved'){statusEl.style.color='var(--mint-light)';statusEl.textContent='✅ approved';}
+  else if(prof?.avatar_status==='rejected'){statusEl.style.color='var(--red)';statusEl.textContent='❌ rejected — try a different image';}
+  if(prof?.avatar_url) document.getElementById('edit-avatar-url').value=prof.avatar_url;
+
+  // show avatar in account sidebar
+  const acctInitial=document.getElementById('acct-initial');
+  if(showAvatars&&prof?.avatar_status==='approved'&&prof?.avatar_url){
+    acctInitial.innerHTML=`<img src="${esc(prof.avatar_url)}" alt="${esc(uname)}" style="width:100%;height:100%;object-fit:cover;">`;
+  } else {
+    acctInitial.textContent=uname[0].toUpperCase();
+  }
+
+  // store profile in cache immediately so avatars show on forum without needing popover click
+  profCache[user.id]={id:user.id,username:uname,about_me:prof?.about_me||'',joined:prof?.created_at?fmtDate(prof.created_at):'?',posts:0,avatar_url:prof?.avatar_url||null,avatar_status:prof?.avatar_status||'none',_counted:false};
+
+  // show mod panel if MintoFox
+  if(uname.toLowerCase()==='mintofox'){
+    document.getElementById('mod-panel').classList.remove('hidden');
+    loadModQueue();
+  }
   if(prof?.created_at) document.getElementById('acct-joined').textContent=fmtDate(prof.created_at);
 
   // post count
-  const[{count:pc},{count:rc}]=await Promise.all([
+  const[{count:pc}]=await Promise.all([
     sb.from('posts').select('*',{count:'exact',head:true}).eq('author_id',user.id),
-    sb.from('replies').select('*',{count:'exact',head:true}).eq('author_id',user.id),
   ]);
-  document.getElementById('acct-posts').textContent=(pc||0)+(rc||0);
+  document.getElementById('acct-posts').textContent=pc||0;
+  if(profCache[user.id]){profCache[user.id].posts=pc||0;profCache[user.id]._counted=true;}
 
   document.getElementById('view-loggedout').classList.add('hidden');
   document.getElementById('view-loggedin').classList.remove('hidden');
@@ -842,10 +988,27 @@ window.doLogout=async()=>{await sb.auth.signOut();showToast('logged out, see ya 
 window.saveProfile=async()=>{
   if(!currentUser)return;
   const about=document.getElementById('edit-about-me').value.trim();
-  const{error}=await sb.from('profiles').upsert({id:currentUser.id,about_me:about},{onConflict:'id'});
+  const{error}=await sb.from('profiles').update({about_me:about}).eq('id',currentUser.id);
   if(error)return showErr('profile-save-msg',error.message);
+  if(profCache[currentUser.id]) profCache[currentUser.id].about_me=about;
   showOk('profile-save-msg','profile saved! 🦊');
-  setTimeout(()=>{const e=document.getElementById('profile-save-msg');e.style.display='none';},3000);
+  setTimeout(()=>{const e=document.getElementById('profile-save-msg');if(e)e.style.display='none';},3000);
+};
+
+window.savePrefs=async()=>{
+  if(!currentUser)return;
+  const notifReplies=document.getElementById('toggle-notif-replies').classList.contains('on');
+  const notifFollows=document.getElementById('toggle-notif-follows').classList.contains('on');
+  const showAvatars=document.getElementById('toggle-show-avatars').classList.contains('on');
+  const{error}=await sb.from('profiles').update({notif_replies:notifReplies,notif_follows:notifFollows,show_avatars:showAvatars}).eq('id',currentUser.id);
+  if(error)return showErr('prefs-save-msg',error.message);
+  window.showAvatarsPref=showAvatars;
+  showOk('prefs-save-msg','preferences saved!');
+  setTimeout(()=>{const e=document.getElementById('prefs-save-msg');if(e)e.style.display='none';},3000);
+};
+
+window.toggleAvatarInstructions=()=>{
+  document.getElementById('avatar-instructions').classList.toggle('hidden');
 };
 
 // ─── change username ──────────────────────────────────────────
@@ -1092,13 +1255,13 @@ window.currentPopId=null;
 window.currentPopName=null;
 
 async function fetchProfile(aid,aname){
-  if(profCache[aid])return profCache[aid];
-  const[{data:prof},{count:pc},{count:rc}]=await Promise.all([
+  // use cache only if it has a real post count (not from prefetch which stores -1)
+  if(profCache[aid]&&profCache[aid].posts>=0&&profCache[aid]._counted)return profCache[aid];
+  const[{data:prof},{count:pc}]=await Promise.all([
     sb.from('profiles').select('*').eq('id',aid).single(),
     sb.from('posts').select('*',{count:'exact',head:true}).eq('author_id',aid),
-    sb.from('replies').select('*',{count:'exact',head:true}).eq('author_id',aid),
   ]);
-  const r={id:aid,username:prof?.username||aname||'unknown',about_me:prof?.about_me||'',joined:prof?.created_at?fmtDate(prof.created_at):'?',posts:(pc||0)+(rc||0)};
+  const r={id:aid,username:prof?.username||aname||'unknown',about_me:prof?.about_me||'',joined:prof?.created_at?fmtDate(prof.created_at):'?',posts:pc||0,avatar_url:prof?.avatar_url||null,avatar_status:prof?.avatar_status||'none',_counted:true};
   profCache[aid]=r;return r;
 }
 
@@ -1132,9 +1295,12 @@ window.openProfileModal=async(aid,aname)=>{
   openModal('modal-profile');
   document.getElementById('profile-modal-body').innerHTML='<div class="forum-empty">loading profile...</div>';
   const p=await fetchProfile(aid,aname);
+  const avatarContent=p.avatar_status==='approved'&&p.avatar_url
+    ?`<img src="${esc(p.avatar_url)}" alt="${esc(p.username)}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.textContent='${(p.username||'?')[0].toUpperCase()}'">` 
+    :(p.username||'?')[0].toUpperCase();
   document.getElementById('profile-modal-body').innerHTML=`
     <div class="profile-modal-header">
-      <div class="profile-modal-initial">${(p.username||'?')[0].toUpperCase()}</div>
+      <div class="profile-modal-initial">${avatarContent}</div>
       <div class="profile-modal-names">
         <div class="profile-modal-display">${esc(p.username)}</div>
         <div class="profile-modal-username">joined ${esc(p.joined)}</div>
@@ -1158,6 +1324,11 @@ function threadRow(p,inExpandable=false){
   const aid=esc(p.author_id||'');const an=esc(p.author_name||'anon');
   const init=(p.author_name||'?')[0].toUpperCase();
   const canEdit=currentUser&&currentUser.id===p.author_id;
+  const prof=profCache[p.author_id];
+  const showAvs=window.showAvatarsPref!==false;
+  const avatarInner=showAvs&&prof?.avatar_status==='approved'&&prof?.avatar_url
+    ?`<img src="${esc(prof.avatar_url)}" alt="${an}" style="width:100%;height:100%;object-fit:cover;border-radius:7px;" onerror="this.parentElement.textContent='${init}'">`
+    :init;
   const editBtns=canEdit?`
     <div class="thread-actions">
       <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openThread(${p.id}).then(()=>openEditPost())">✏️</button>
@@ -1165,7 +1336,7 @@ function threadRow(p,inExpandable=false){
     </div>`:'';
   return`<div class="forum-thread">
     <div class="thread-clickable" onclick="openThread(${p.id})">
-      <div class="thread-initial" onmouseenter="showPopover(this,'${aid}','${an}')" onmouseleave="hidePopover()" onclick="event.stopPropagation()">${init}</div>
+      <div class="thread-initial" onmouseenter="showPopover(this,'${aid}','${an}')" onmouseleave="hidePopover()" onclick="event.stopPropagation()">${avatarInner}</div>
       <div class="thread-info">
         <div class="thread-title-text">${esc(p.title)}</div>
         <div class="thread-meta">by <span class="author-link" onmouseenter="showPopover(this,'${aid}','${an}')" onmouseleave="hidePopover()" onclick="event.stopPropagation();openProfileModal('${aid}','${an}')">${an}</span> · ${timeAgo(p.created_at)}</div>
@@ -1191,13 +1362,21 @@ window.loadForums=async()=>{
   posts.forEach(p=>{p.reply_count=p.replies?.[0]?.count||0;const c=grouped[p.category]?p.category:'other';grouped[c].push(p);});
   if(sort==='replies') Object.values(grouped).forEach(arr=>arr.sort((a,b)=>b.reply_count-a.reply_count));
 
+  // prefetch profiles for all unique authors so avatars show immediately
+  const uncachedIds=[...new Set(posts.map(p=>p.author_id).filter(id=>id&&!profCache[id]))];
+  if(uncachedIds.length){
+    const{data:profs}=await sb.from('profiles').select('id,username,about_me,created_at,avatar_url,avatar_status').in('id',uncachedIds);
+    if(profs) profs.forEach(p=>{
+      profCache[p.id]={id:p.id,username:p.username||'unknown',about_me:p.about_me||'',joined:p.created_at?fmtDate(p.created_at):'?',posts:0,avatar_url:p.avatar_url||null,avatar_status:p.avatar_status||'none',_counted:false};
+    });
+  }
+
   Object.entries(grouped).forEach(([cat,list])=>{
     const el=document.getElementById(CATS[cat]);
     if(!list.length){el.innerHTML='<div class="forum-empty">no threads yet — be the first! 🦊</div>';return;}
     if(list.length<=LIMIT){
       el.innerHTML=list.map(p=>threadRow(p)).join('');return;
     }
-    // first 3 shown normally, rest hidden in scrollable container
     const shownHtml=list.slice(0,LIMIT).map(p=>threadRow(p)).join('');
     const expandedHtml=list.slice(LIMIT,CAT_EXPANDED).map(p=>threadRow(p,true)).join('');
     const remaining=list.length-LIMIT;
@@ -1305,9 +1484,16 @@ async function renderThread(postId){
 
 function replyHTML(r){
   const raid=esc(r.author_id||'');const ran=esc(r.author_name||'anon');
+  const init=(r.author_name||'?')[0].toUpperCase();
   const canEdit=currentUser&&currentUser.id===r.author_id;
+  const prof=profCache[r.author_id];
+  const showAvs=window.showAvatarsPref!==false;
+  const avatarInner=showAvs&&prof?.avatar_status==='approved'&&prof?.avatar_url
+    ?`<img src="${esc(prof.avatar_url)}" alt="${ran}" style="width:100%;height:100%;object-fit:cover;border-radius:7px;" onerror="this.parentElement.textContent='${init}'">`
+    :init;
   return`<div class="reply-card" id="reply-${r.id}">
-    <div class="reply-meta">
+    <div class="reply-meta" style="display:flex;align-items:center;gap:.5rem;">
+      <div class="thread-initial" style="width:28px;height:28px;border-radius:7px;font-size:.8rem;" onmouseenter="showPopover(this,'${raid}','${ran}')" onmouseleave="hidePopover()" onclick="openProfileModal('${raid}','${ran}')">${avatarInner}</div>
       <span class="author-link" onmouseenter="showPopover(this,'${raid}','${ran}')" onmouseleave="hidePopover()" onclick="openProfileModal('${raid}','${ran}')">${ran}</span>
       · ${fmtFull(r.created_at)}
     </div>
