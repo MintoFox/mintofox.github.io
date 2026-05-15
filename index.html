@@ -145,8 +145,8 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex
 .thread-right{display:flex;align-items:center;gap:.6rem;flex-shrink:0;}
 .thread-stats{text-align:right;font-size:.77rem;color:rgba(232,254,242,.4);}
 .thread-stats strong{display:block;font-size:.95rem;color:var(--text);}
-.thread-actions{display:flex;gap:.3rem;opacity:0;transition:opacity .15s;}
-.forum-thread:hover .thread-actions{opacity:1;}
+.thread-actions{display:flex;gap:.3rem;}
+.reply-actions{position:absolute;top:.8rem;right:.9rem;display:flex;gap:.3rem;}
 .forum-empty{padding:2rem;text-align:center;color:rgba(232,254,242,.3);font-weight:700;font-size:.92rem;}
 
 /* EXPANDED CATEGORY SCROLL WINDOW */
@@ -170,8 +170,7 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex
 .reply-card{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.12);border-radius:13px;padding:1.1rem 1.4rem;box-shadow:0 2px 10px var(--shadow);position:relative;}
 .reply-meta{font-size:.78rem;color:rgba(232,254,242,.4);font-weight:700;margin-bottom:.45rem;display:flex;align-items:center;gap:.5rem;}
 .reply-body{font-size:.93rem;line-height:1.65;color:rgba(232,254,242,.85);font-weight:700;white-space:pre-wrap;}
-.reply-actions{position:absolute;top:.8rem;right:.9rem;display:flex;gap:.3rem;opacity:0;transition:opacity .15s;}
-.reply-card:hover .reply-actions{opacity:1;}
+.reply-actions{position:absolute;top:.8rem;right:.9rem;display:flex;gap:.3rem;}
 .reply-compose{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:13px;padding:1.2rem 1.4rem;margin-top:.5rem;}
 .reply-compose-title{font-family:'Fredoka One',cursive;font-size:.95rem;color:var(--mint-light);margin-bottom:.7rem;}
 .reply-login-note{text-align:center;font-size:.88rem;color:rgba(232,254,242,.35);font-weight:700;padding:.4rem;}
@@ -268,19 +267,21 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex
 .toast{position:fixed;bottom:2rem;right:2rem;background:var(--card);border:1.5px solid rgba(79,201,126,.3);border-radius:12px;padding:.75rem 1.2rem;font-weight:800;font-size:.88rem;color:var(--mint-light);box-shadow:0 8px 24px rgba(0,0,0,.4);z-index:1000;transform:translateY(80px);opacity:0;transition:transform .3s,opacity .3s;pointer-events:none;}
 .toast.show{transform:translateY(0);opacity:1;}
 /* BAN SCREEN */
-.ban-screen{position:fixed;inset:0;z-index:9999;background:rgba(10,20,15,.97);display:flex;align-items:center;justify-content:center;padding:2rem;animation:fadeIn .3s ease both;}
-.ban-screen-inner{max-width:480px;width:100%;text-align:center;}
-.ban-screen-icon{font-size:4rem;margin-bottom:1rem;}
-.ban-screen-title{font-family:'Fredoka One',cursive;font-size:2.2rem;margin-bottom:.8rem;}
-.ban-screen-body{font-size:1rem;font-weight:700;color:rgba(232,254,242,.65);line-height:1.8;margin-bottom:1rem;}
-.ban-screen-expire{font-size:.9rem;font-weight:700;color:var(--gold);margin-bottom:1.5rem;}
+/* ban screen replaced by ban-banner */
 /* REPORT */
-.report-btn{background:none;border:none;cursor:pointer;color:rgba(232,254,242,.25);font-size:.75rem;font-weight:800;padding:.2rem .5rem;border-radius:6px;transition:color .15s,background .15s;font-family:'Nunito',sans-serif;}
-.report-btn:hover{color:var(--red);background:rgba(248,113,113,.1);}
-.report-item{padding:.8rem 0;border-bottom:1px solid rgba(79,201,126,.08);display:flex;flex-direction:column;gap:.4rem;}
+.report-btn{background:rgba(248,113,113,.08);border:1.5px solid rgba(248,113,113,.2);color:var(--red);font-size:.8rem;font-weight:800;padding:.3rem .7rem;border-radius:8px;cursor:pointer;font-family:'Nunito',sans-serif;transition:filter .2s,transform .15s;display:inline-flex;align-items:center;gap:.3rem;}
+.report-btn:hover{filter:brightness(1.15);transform:translateY(-1px);}
+.report-item{padding:.8rem 0;border-bottom:1px solid rgba(79,201,126,.08);display:flex;flex-direction:column;gap:.5rem;}
 .report-item:last-child{border-bottom:none;}
 .report-meta{font-size:.78rem;color:rgba(232,254,242,.4);font-weight:700;}
-.report-reason-text{font-size:.88rem;font-weight:700;color:var(--text);}
+.report-reason-text{font-size:.9rem;font-weight:700;color:var(--text);}
+.report-actions{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.2rem;}
+/* BAN BANNER */
+.ban-banner{background:linear-gradient(135deg,#2a0a0a 0%,#1a0505 100%);border-bottom:2px solid rgba(248,113,113,.4);padding:.7rem 2rem;display:none;align-items:center;gap:1rem;position:sticky;top:70px;z-index:99;}
+.ban-banner.show{display:flex;}
+.ban-banner-text{flex:1;font-size:.88rem;font-weight:700;color:rgba(232,254,242,.8);line-height:1.5;}
+.ban-banner-text strong{color:var(--red);}
+.ban-banner-countdown{font-family:'Fredoka One',cursive;font-size:.95rem;color:var(--gold);white-space:nowrap;}
 /* USER SEARCH PAGE */
 .user-search-bar{display:flex;gap:.7rem;margin-bottom:1.2rem;}
 .user-search-bar input{flex:1;padding:.65rem 1rem;background:rgba(0,0,0,.3);border:1.5px solid rgba(79,201,126,.2);border-radius:10px;color:var(--text);font-family:'Nunito',sans-serif;font-size:.92rem;font-weight:700;outline:none;transition:border-color .2s;}
@@ -336,7 +337,14 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
   </div>
 </nav>
 
-<!-- NOTIFICATIONS PANEL -->
+<!-- BAN BANNER - always visible when banned -->
+<div class="ban-banner" id="ban-banner">
+  <span style="font-size:1.3rem;">🔨</span>
+  <div class="ban-banner-text">
+    Your account has been banned for: <strong id="ban-banner-reason">—</strong>
+  </div>
+  <div class="ban-banner-countdown" id="ban-banner-countdown"></div>
+</div>
 <div class="notif-panel" id="notif-panel">
   <div class="notif-header">
     <div class="notif-header-title">🔔 Notifications</div>
@@ -676,23 +684,6 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
   </div>
 </div>
 
-<!-- Ban Notice Modal -->
-<div class="modal-overlay" id="modal-ban-notice">
-  <div class="modal" style="border-color:rgba(248,113,113,.3);">
-    <div class="modal-title" style="color:var(--red);">🔨 You are banned</div>
-    <p style="font-size:.95rem;font-weight:700;color:rgba(232,254,242,.7);line-height:1.8;margin-bottom:1rem;">
-      Your account has been banned for:<br>
-      <strong style="color:var(--red);" id="ban-notice-reason">—</strong>
-    </p>
-    <p style="font-size:.9rem;font-weight:700;color:rgba(232,254,242,.5);">
-      Your ban will expire in: <strong style="color:var(--gold);" id="ban-notice-countdown">—</strong>
-    </p>
-    <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeModal('modal-ban-notice')">Close</button>
-    </div>
-  </div>
-</div>
-
 <!-- New Post -->
 <div class="modal-overlay" id="modal-new-post">
   <div class="modal">
@@ -860,6 +851,9 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
     <div class="modal-title">🚩 Report</div>
     <input type="hidden" id="report-post-id">
     <input type="hidden" id="report-reply-id">
+    <input type="hidden" id="report-user-id">
+    <input type="hidden" id="report-user-username">
+    <input type="hidden" id="report-type-hidden">
     <p id="report-label" style="font-size:.85rem;color:rgba(232,254,242,.45);font-weight:700;margin-bottom:1rem;"></p>
     <div class="form-group">
       <label>What's wrong with this?</label>
@@ -916,8 +910,8 @@ function validateAvatarUrl(url){
 }
 
 function avatarHTML(profile,size='sm'){
-  // size: 'sm' = 36px thread, 'md' = 64px modal, 'lg' = 72px account
-  if(profile?.avatar_status==='approved'&&profile?.avatar_url){
+  const showAvs=window.showAvatarsPref!==false;
+  if(showAvs&&profile?.avatar_status==='approved'&&profile?.avatar_url){
     return`<img src="${esc(profile.avatar_url)}" alt="${esc(profile.username||'')}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" onerror="this.parentElement.innerHTML='${(profile.username||'?')[0].toUpperCase()}'">`;
   }
   return(profile?.username||'?')[0].toUpperCase();
@@ -970,11 +964,30 @@ window.modAvatar=async(userId,status)=>{
   if(!remaining) document.getElementById('mod-list').innerHTML='<div class="forum-empty">no pending avatars :3</div>';
 };
 
+window.modRemoveAvatar=async(userId)=>{
+  if(!confirm('remove this user\'s profile picture?'))return;
+  await sb.from('profiles').update({avatar_url:null,avatar_status:'none'}).eq('id',userId);
+  delete profCache[userId];
+  closeModal('modal-profile');
+  showToast('profile picture removed!');
+};
+
+window.modClearAboutMe=async(userId)=>{
+  if(!confirm('clear this user\'s about me?'))return;
+  await sb.from('profiles').update({about_me:null}).eq('id',userId);
+  delete profCache[userId];
+  closeModal('modal-profile');
+  showToast('about me cleared!');
+};
+
 // ─── reports ──────────────────────────────────────────────────
-window.openReport=(postId,replyId,label)=>{
+window.openReport=(postId,replyId,reportedUserId,type,label,targetUserId,targetUsername)=>{
   if(!currentUser){showToast('log in to report :3');return;}
   document.getElementById('report-post-id').value=postId||'';
   document.getElementById('report-reply-id').value=replyId||'';
+  document.getElementById('report-user-id').value=reportedUserId||targetUserId||'';
+  document.getElementById('report-user-username').value=targetUsername||'';
+  document.getElementById('report-type-hidden').value=type||'post';
   document.getElementById('report-label').textContent=`Reporting: ${label}`;
   document.getElementById('report-reason').value='';
   document.getElementById('report-err').style.display='none';
@@ -985,6 +998,9 @@ window.openReport=(postId,replyId,label)=>{
 window.submitReport=async()=>{
   const postId=document.getElementById('report-post-id').value||null;
   const replyId=document.getElementById('report-reply-id').value||null;
+  const reportedUserId=document.getElementById('report-user-id').value||null;
+  const reportedUsername=document.getElementById('report-user-username').value||null;
+  const type=document.getElementById('report-type-hidden').value||'post';
   const reason=document.getElementById('report-reason').value.trim();
   if(!reason)return showErr('report-err','describe the issue first');
   const uname=currentUser.user_metadata?.username||currentUser.email.split('@')[0];
@@ -993,11 +1009,14 @@ window.submitReport=async()=>{
     reporter_name:uname,
     post_id:postId?parseInt(postId):null,
     reply_id:replyId?parseInt(replyId):null,
+    reported_user_id:reportedUserId||null,
+    reported_username:reportedUsername||null,
+    report_type:type,
     reason,
   });
   if(error)return showErr('report-err',error.message);
-  showOk('report-ok','reported! the mod team will look into it 🦊');
-  setTimeout(()=>closeModal('modal-report'),1500);
+  showOk('report-ok','report submitted! MintoFox will review it. neither you nor the reported user will receive personal updates on this report :3');
+  setTimeout(()=>closeModal('modal-report'),3000);
 };
 
 window.loadReports=async()=>{
@@ -1005,22 +1024,58 @@ window.loadReports=async()=>{
   if(!el)return;
   const{data}=await sb.from('reports').select('*').eq('resolved',false).order('created_at',{ascending:false});
   if(!data||!data.length){el.innerHTML='<div class="forum-empty">no open reports :3</div>';return;}
-  el.innerHTML=data.map(r=>`
-    <div class="report-item" id="report-item-${r.id}">
-      <div class="report-meta">🚩 by <strong>${esc(r.reporter_name||'?')}</strong> · ${timeAgo(r.created_at)}</div>
-      <div class="report-reason-text">${esc(r.reason)}</div>
+  const threads=data.filter(r=>r.report_type==='post'||(!r.report_type&&r.post_id&&!r.reply_id));
+  const replies=data.filter(r=>r.report_type==='reply'||(!r.report_type&&r.reply_id));
+  const profiles=data.filter(r=>r.report_type==='profile');
+  function reportCard(r){
+    const isThread=r.report_type==='post'||(!r.report_type&&r.post_id&&!r.reply_id);
+    const isReply=r.report_type==='reply'||(!r.report_type&&r.reply_id);
+    const isProfile=r.report_type==='profile';
+    return`<div class="report-item" id="report-item-${r.id}">
       <div class="report-meta">
-        ${r.post_id?`<span class="author-link" onclick="showPage('forums');setTimeout(()=>openThread(${r.post_id}).then(()=>{${r.reply_id?`setTimeout(()=>{const el=document.getElementById('reply-${r.reply_id}');if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.style.outline='2px solid var(--mint)';setTimeout(()=>el.style.outline='',2000);}},500)`:''}},300)" style="cursor:pointer;">→ view thread${r.reply_id?' (goes to reply)':''}</span>`:''}
-        ${r.reply_id&&!r.post_id?`reply #${r.reply_id}`:''}
+        🚩 <strong style="color:var(--mint-light);">Reporter:</strong> ${esc(r.reporter_name||'?')}
+        ${r.reported_username?` · <strong style="color:var(--red);">Reported:</strong> ${esc(r.reported_username)}`:''}
+        · ${timeAgo(r.created_at)}
       </div>
-      <button class="btn btn-ghost btn-sm" style="margin-top:.3rem;" onclick="resolveReport(${r.id})">✅ Mark Resolved</button>
-    </div>`).join('');
+      <div class="report-reason-text">${esc(r.reason)}</div>
+      <div class="report-actions">
+        ${isThread&&r.post_id?`<button class="btn btn-ghost btn-sm" onclick="viewReport(${r.post_id},null)">→ View Thread</button>`:''}
+        ${isReply&&r.post_id?`<button class="btn btn-ghost btn-sm" onclick="viewReport(${r.post_id},${r.reply_id||'null'})">→ View Reply</button>`:''}
+        ${(isThread||isReply)&&r.reported_user_id?`<button class="btn btn-ghost btn-sm" onclick="openProfileModal('${esc(r.reported_user_id)}','${esc(r.reported_username||'')}')">👤 Profile</button>`:''}
+        ${isProfile&&r.reported_user_id?`<button class="btn btn-ghost btn-sm" onclick="openProfileModal('${esc(r.reported_user_id)}','${esc(r.reported_username||'')}')">👤 View Profile</button>`:''}
+        ${isThread&&r.post_id?`<button class="btn btn-red btn-sm" onclick="deletePost(${r.post_id},false)">🗑️ Delete</button>`:''}
+        ${isReply&&r.reply_id?`<button class="btn btn-red btn-sm" onclick="deleteReply(${r.reply_id})">🗑️ Delete</button>`:''}
+        <button class="btn btn-mint btn-sm" onclick="resolveReport(${r.id})">✅ Resolve</button>
+      </div>
+    </div>`;
+  }
+  let html='';
+  if(threads.length) html+=`<div class="mod-title" style="font-size:.9rem;margin:.4rem 0;">📝 Thread Reports (${threads.length})</div>`+threads.map(reportCard).join('');
+  if(replies.length) html+=`<div class="mod-title" style="font-size:.9rem;margin:.8rem 0 .4rem;">💬 Reply Reports (${replies.length})</div>`+replies.map(reportCard).join('');
+  if(profiles.length) html+=`<div class="mod-title" style="font-size:.9rem;margin:.8rem 0 .4rem;">👤 Profile Reports (${profiles.length})</div>`+profiles.map(reportCard).join('');
+  el.innerHTML=html||'<div class="forum-empty">no open reports :3</div>';
 };
 
 window.resolveReport=async(id)=>{
   await sb.from('reports').update({resolved:true}).eq('id',id);
   document.getElementById('report-item-'+id)?.remove();
   showToast('report resolved!');
+};
+
+window.viewReport=async(postId,replyId)=>{
+  showPage('forums');
+  await new Promise(r=>setTimeout(r,300));
+  await openThread(postId);
+  if(replyId&&replyId!=='null'){
+    await new Promise(r=>setTimeout(r,600));
+    const el=document.getElementById('reply-'+replyId);
+    if(el){
+      el.scrollIntoView({behavior:'smooth',block:'center'});
+      el.style.outline='2px solid var(--mint)';
+      el.style.borderRadius='14px';
+      setTimeout(()=>{el.style.outline='';el.style.borderRadius='';},2500);
+    }
+  }
 };
 
 // ─── ban system ───────────────────────────────────────────────
@@ -1115,36 +1170,6 @@ window.unbanUser=async(userId,username)=>{
 };
 
 // ─── reports ──────────────────────────────────────────────────
-window.openReport=(postId,replyId,label)=>{
-  if(!currentUser){showToast('log in to report :3');return;}
-  document.getElementById('report-post-id').value=postId||'';
-  document.getElementById('report-reply-id').value=replyId||'';
-  document.getElementById('report-label').textContent=`Reporting: ${label}`;
-  document.getElementById('report-reason').value='';
-  document.getElementById('report-err').style.display='none';
-  document.getElementById('report-ok').style.display='none';
-  openModal('modal-report');
-};
-
-window.submitReport=async()=>{
-  const postId=document.getElementById('report-post-id').value||null;
-  const replyId=document.getElementById('report-reply-id').value||null;
-  const reason=document.getElementById('report-reason').value.trim();
-  if(!reason)return showErr('report-err','describe the issue first');
-  const uname=currentUser.user_metadata?.username||currentUser.email.split('@')[0];
-  const{error}=await sb.from('reports').insert({
-    reporter_id:currentUser.id,
-    reporter_name:uname,
-    post_id:postId?parseInt(postId):null,
-    reply_id:replyId?parseInt(replyId):null,
-    reason,
-  });
-  if(error)return showErr('report-err',error.message);
-  showOk('report-ok','report submitted! the mod team will review it :3');
-  setTimeout(()=>closeModal('modal-report'),2000);
-};
-
-// ─── mod reports queue ────────────────────────────────────────
 // ─── user search page ─────────────────────────────────────────
 let userSearchTimer=null;
 window.onUserSearch=()=>{clearTimeout(userSearchTimer);userSearchTimer=setTimeout(runUserSearch,350);};
@@ -1242,6 +1267,7 @@ async function applyLoggedIn(user){
   if(prof?.banned_until&&new Date(prof.banned_until)>new Date()){
     window.currentUserBan={until:prof.banned_until,reason:prof.ban_reason||'no reason given'};
   }
+  updateBanBanner();
 
   // show mod panel if MintoFox
   if(uname.toLowerCase()==='mintofox'){
@@ -1276,8 +1302,30 @@ function applyLoggedOut(){
   document.getElementById('view-loggedin').classList.add('hidden');
 }
 
-sb.auth.getSession().then(({data:{session}})=>{if(session?.user)applyLoggedIn(session.user);});
-sb.auth.onAuthStateChange((_,session)=>{if(session?.user)applyLoggedIn(session.user);else applyLoggedOut();});
+let justSignedIn=false;
+
+sb.auth.getSession().then(({data:{session}})=>{
+  if(session?.user) applyLoggedIn(session.user);
+});
+
+sb.auth.onAuthStateChange(async(event,session)=>{
+  if(session?.user){
+    if(event==='SIGNED_IN'&&justSignedIn){
+      justSignedIn=false;
+      const{data:aalData}=await sb.auth.mfa.getAuthenticatorAssuranceLevel();
+      if(aalData?.nextLevel==='aal2'&&aalData?.currentLevel==='aal1'){
+        document.getElementById('mfa-section').classList.remove('hidden');
+        const btn=document.getElementById('login-btn');
+        if(btn){btn.disabled=false;btn.textContent='Verify';btn.onclick=()=>doMfaVerify();}
+        showErr('auth-err','enter your authenticator code to continue');
+        return;
+      }
+    }
+    applyLoggedIn(session.user);
+  } else {
+    applyLoggedOut();
+  }
+});
 
 // ─── login ────────────────────────────────────────────────────
 window.doLogin=async()=>{
@@ -1286,16 +1334,28 @@ window.doLogin=async()=>{
   const pw=document.getElementById('login-password').value;
   if(!email||!pw)return showErr('auth-err','fill everything in :3');
   const btn=document.getElementById('login-btn');btn.disabled=true;btn.textContent='logging in...';
-  const{data,error}=await sb.auth.signInWithPassword({email,password:pw});
-  if(error){btn.disabled=false;btn.textContent='Log In';return showErr('auth-err',error.message);}
-  // check if MFA required
-  if(data?.session===null&&data?.user===null){
-    // MFA challenge needed — show code input
-    document.getElementById('mfa-section').classList.remove('hidden');
-    btn.disabled=false;btn.textContent='Log In';
-    showErr('auth-err','enter your authenticator code');return;
-  }
+  justSignedIn=true;
+  const{error}=await sb.auth.signInWithPassword({email,password:pw});
   btn.disabled=false;btn.textContent='Log In';
+  if(error){justSignedIn=false;return showErr('auth-err',error.message);}
+};
+
+window.doMfaVerify=async()=>{
+  const code=document.getElementById('login-mfa').value.trim();
+  if(!code||code.length!==6)return showErr('auth-err','enter the 6-digit code');
+  const btn=document.getElementById('login-btn');btn.disabled=true;btn.textContent='verifying...';
+  const{data:factors}=await sb.auth.mfa.listFactors();
+  const totp=factors?.totp?.find(f=>f.status==='verified');
+  if(!totp){btn.disabled=false;btn.textContent='Verify';return showErr('auth-err','no 2FA factor found');}
+  const{data:challenge,error:chalErr}=await sb.auth.mfa.challenge({factorId:totp.id});
+  if(chalErr){btn.disabled=false;btn.textContent='Verify';return showErr('auth-err',chalErr.message);}
+  const{error:verErr}=await sb.auth.mfa.verify({factorId:totp.id,challengeId:challenge.id,code});
+  if(verErr){btn.disabled=false;btn.textContent='Verify';return showErr('auth-err','wrong code, try again');}
+  // success — reset button, onAuthStateChange will now call applyLoggedIn
+  btn.onclick=()=>doLogin();
+  btn.textContent='Log In';
+  btn.disabled=false;
+  document.getElementById('mfa-section').classList.add('hidden');
   showToast('welcome back!! 🦊');
 };
 
@@ -1502,8 +1562,8 @@ function renderNotifications(items){
 function notifText(n){
   if(n.type==='reply_to_post') return `<span>${esc(n.actor_name)}</span> replied to your post`;
   if(n.type==='reply_to_followed') return `<span>${esc(n.actor_name)}</span> replied to a post you're following`;
-  if(n.type==='mod_delete_post') return `<span>The moderation team</span> has deleted your post.<br><small style="color:rgba(232,254,242,.4);white-space:pre-wrap;">${esc(n.content||'')}</small>`;
-  if(n.type==='mod_delete_reply') return `<span>The moderation team</span> has deleted your reply.<br><small style="color:rgba(232,254,242,.4);white-space:pre-wrap;">${esc(n.content||'')}</small>`;
+  if(n.type==='mod_delete_post') return `<span>MintoFox</span> has deleted your post.<br><small style="color:rgba(232,254,242,.4);white-space:pre-wrap;">${esc(n.content||'')}</small>`;
+  if(n.type==='mod_delete_reply') return `<span>MintoFox</span> has deleted your reply.<br><small style="color:rgba(232,254,242,.4);white-space:pre-wrap;">${esc(n.content||'')}</small>`;
   return 'new notification';
 }
 
@@ -1525,17 +1585,22 @@ window.markAllRead=async()=>{
 
 function subscribeNotifications(){
   if(notifSubscription)return;
-  notifSubscription=sb.channel('notifs-global')
+  // use unique channel name per user to avoid conflicts
+  notifSubscription=sb.channel('notifs-'+currentUser.id+'-'+Date.now())
     .on('postgres_changes',{event:'INSERT',schema:'public',table:'notifications'},
     payload=>{
       const n=payload.new;
-      // only handle if it's for the current user
       if(n.user_id!==currentUser.id)return;
       loadNotifications();
       if(n.type==='ban') showBanScreen(n.content);
       if(n.type==='unban') showUnbanScreen();
     })
-    .subscribe();
+    .subscribe((status)=>{
+      console.log('notif subscription status:',status);
+    });
+  // poll every 15s as fallback in case realtime misses inserts
+  if(window._notifPollInterval) clearInterval(window._notifPollInterval);
+  window._notifPollInterval=setInterval(loadNotifications,15000);
 }
 
 // subscribe to profile changes so ban takes effect instantly
@@ -1551,11 +1616,11 @@ function subscribeProfileChanges(){
       const wasBanned=!!window.currentUserBan;
       if(isBanned&&!wasBanned){
         window.currentUserBan={until:prof.banned_until,reason:prof.ban_reason||'no reason given'};
-        // instantly update compose area if in a thread
+        updateBanBanner();
         if(currentThreadId) refreshComposeArea(currentThreadId);
       } else if(!isBanned&&wasBanned){
         window.currentUserBan=null;
-        // instantly restore compose area
+        updateBanBanner();
         if(currentThreadId) refreshComposeArea(currentThreadId);
       }
     })
@@ -1589,51 +1654,29 @@ function refreshComposeArea(postId){
   }
 }
 
-// ─── fullscreen overlays ──────────────────────────────────────
-function showBanScreen(content){
-  removeBanScreen();
-  const parts=content||'';
-  const div=document.createElement('div');
-  div.className='ban-screen';div.id='ban-screen-overlay';
-  div.innerHTML=`<div class="ban-screen-inner">
-    <div class="ban-screen-icon">🔨</div>
-    <div class="ban-screen-title" style="color:var(--red);">You've been banned</div>
-    <div class="ban-screen-body" style="white-space:pre-wrap;">${esc(parts)}</div>
-    <button class="btn btn-outline" onclick="document.getElementById('ban-screen-overlay').remove()">Got it</button>
-  </div>`;
-  document.body.appendChild(div);
+// ─── ban banner ───────────────────────────────────────────────
+function updateBanBanner(){
+  const banner=document.getElementById('ban-banner');
+  if(!banner)return;
+  if(window.currentUserBan){
+    document.getElementById('ban-banner-reason').textContent=window.currentUserBan.reason||'no reason given';
+    const until=window.currentUserBan.until;
+    const isPerm=!until||new Date(until)>new Date('9000-01-01');
+    document.getElementById('ban-banner-countdown').textContent=isPerm?'Permanent':('Expires: '+formatCountdown(until));
+    banner.classList.add('show');
+    // close any open modals that allow posting
+    closeModal('modal-new-post');
+  } else {
+    banner.classList.remove('show');
+  }
 }
+// keep countdown ticking
+setInterval(()=>{if(window.currentUserBan)updateBanBanner();},60000);
 
-function showUnbanScreen(){
-  removeBanScreen();
-  const div=document.createElement('div');
-  div.className='ban-screen';div.id='ban-screen-overlay';
-  div.innerHTML=`<div class="ban-screen-inner">
-    <div class="ban-screen-icon">✅</div>
-    <div class="ban-screen-title" style="color:var(--mint-light);">You've been unbanned!</div>
-    <div class="ban-screen-body">Welcome back! Please follow the community rules :3</div>
-    <button class="btn btn-mint" onclick="document.getElementById('ban-screen-overlay').remove()">Let's go! 🦊</button>
-  </div>`;
-  document.body.appendChild(div);
-}
-
-function showModDeleteScreen(n){
-  const div=document.createElement('div');
-  div.className='ban-screen';div.id='mod-delete-overlay';
-  div.style.zIndex='9998';
-  div.innerHTML=`<div class="ban-screen-inner">
-    <div class="ban-screen-icon">🗑️</div>
-    <div class="ban-screen-title" style="color:var(--gold);">Content Removed</div>
-    <div class="ban-screen-body">The moderation team has removed your ${n.type==='mod_delete_post'?'post':'reply'}.</div>
-    <div class="ban-screen-body" style="background:rgba(0,0,0,.2);border-radius:12px;padding:1rem;text-align:left;font-size:.85rem;white-space:pre-wrap;">${esc(n.content||'')}</div>
-    <button class="btn btn-outline" style="margin-top:1rem;" onclick="this.closest('.ban-screen').remove()">Got it</button>
-  </div>`;
-  document.body.appendChild(div);
-}
-
-function removeBanScreen(){
-  document.getElementById('ban-screen-overlay')?.remove();
-}
+function showBanScreen(content){updateBanBanner();}
+function showUnbanScreen(){updateBanBanner();}
+function removeBanScreen(){}
+function showModDeleteScreen(n){}
 
 window.toggleNotifPanel=()=>{
   const p=document.getElementById('notif-panel');
@@ -1765,12 +1808,13 @@ window.openProfileModal=async(aid,aname)=>{
   const p=await fetchProfile(aid,aname);
   const isMod=currentUser&&(currentUser.user_metadata?.username||'').toLowerCase()==='mintofox';
   const isOwnProfile=currentUser&&currentUser.id===aid;
-  const avatarContent=p.avatar_status==='approved'&&p.avatar_url
+  const showAvs=window.showAvatarsPref!==false;
+  const avatarContent=showAvs&&p.avatar_status==='approved'&&p.avatar_url
     ?`<img src="${esc(p.avatar_url)}" alt="${esc(p.username)}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.textContent='${(p.username||'?')[0].toUpperCase()}'">` 
     :(p.username||'?')[0].toUpperCase();
-  // check if this user is currently banned
-  const{data:targetProf}=await sb.from('profiles').select('banned_until,ban_reason').eq('id',aid).single();
+  const{data:targetProf}=await sb.from('profiles').select('banned_until,ban_reason,avatar_url,avatar_status').eq('id',aid).single();
   const isBanned=targetProf?.banned_until&&new Date(targetProf.banned_until)>new Date();
+  const hasAvatar=targetProf?.avatar_url&&targetProf?.avatar_status==='approved';
   const modActions=isMod&&!isOwnProfile?`
     <div style="border-top:1px solid rgba(79,201,126,.1);padding-top:.8rem;margin-top:.5rem;display:flex;gap:.5rem;flex-wrap:wrap;">
       ${isBanned
@@ -1778,8 +1822,12 @@ window.openProfileModal=async(aid,aname)=>{
            <div style="font-size:.78rem;color:var(--red);font-weight:700;align-self:center;">Banned · expires ${formatCountdown(targetProf.banned_until)}</div>`
         :`<button class="btn btn-red btn-sm" onclick="openBanModal('${aid}','${esc(p.username)}')">🔨 Ban</button>`
       }
+      ${hasAvatar?`<button class="btn btn-outline btn-sm" onclick="modRemoveAvatar('${aid}')">🖼️ Remove PFP</button>`:''}
+      ${p.about_me?`<button class="btn btn-outline btn-sm" onclick="modClearAboutMe('${aid}')">✏️ Clear About Me</button>`:''}
     </div>`:'';
-  document.getElementById('profile-modal-body').innerHTML=`
+  const reportBtn=currentUser&&!isOwnProfile&&!isMod
+    ?`<button class="report-btn" style="margin-top:.6rem;" onclick="openReport(null,null,'${aid}','profile','${esc(p.username)}','${aid}','${esc(p.username)}')">🚩 Report Profile</button>`
+    :'';  document.getElementById('profile-modal-body').innerHTML=`
     <div class="profile-modal-header">
       <div class="profile-modal-initial">${avatarContent}</div>
       <div class="profile-modal-names">
@@ -1794,7 +1842,8 @@ window.openProfileModal=async(aid,aname)=>{
       </div>
     </div>
     ${p.about_me?`<div class="section-divider"></div><div class="card-title" style="margin-bottom:.4rem;">About</div><div class="profile-modal-about">${esc(p.about_me)}</div>`:''}
-    ${modActions}`;
+    ${modActions}
+    ${reportBtn}`;
 };
 
 // ─── forums list ──────────────────────────────────────────────
@@ -1828,9 +1877,8 @@ function threadRow(p,inExpandable=false){
       <div class="thread-stats"><strong>${p.reply_count||0}</strong>replies</div>
       <div class="thread-actions" style="opacity:1;">
         ${canEdit?`<button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openThread(${p.id}).then(()=>openEditPost())">✏️</button>`:''}
-        ${canDelete?`<button class="btn btn-red btn-sm" onclick="event.stopPropagation();deletePost(${p.id},false,true)">🗑️</button>`:''}
-        ${isMod&&!isOwner?`<button class="btn btn-outline btn-sm" onclick="event.stopPropagation();deletePost(${p.id},false,false)" style="font-size:.7rem;">🗑️ silent</button>`:''}
-        ${canReport?`<button class="report-btn" onclick="event.stopPropagation();openReport(${p.id},null,'post: ${esc(p.title).replace(/'/g,"\\'")}')">🚩</button>`:''}
+        ${canDelete?`<button class="btn btn-red btn-sm" onclick="event.stopPropagation();deletePost(${p.id},false)">🗑️</button>`:''}
+        ${canReport?`<button class="report-btn" onclick="event.stopPropagation();openReport(${p.id},null,null,'post','${esc(p.title).replace(/'/g,"\\'")}','${esc(p.author_id)}','${esc(p.author_name||'')}')">🚩 Report</button>`:''}
       </div>
     </div>
   </div>`;
@@ -1973,9 +2021,8 @@ async function renderThread(postId){
       <div class="thread-post-actions">
         ${currentUser?`<button class="btn btn-ghost btn-sm follow-btn" id="follow-btn" onclick="toggleFollow(${postId})">${isFollowing?'★ Following':'☆ Follow'}</button>`:''}
         ${canEditPost?`<button class="btn btn-ghost btn-sm" onclick="openEditPost()">✏️ Edit</button>`:''}
-        ${canDeletePost?`<button class="btn btn-red btn-sm" onclick="deletePost(${post.id},true,true)">🗑️ Delete</button>`:''}
-        ${isMod&&!canEditPost?`<button class="btn btn-outline btn-sm" onclick="deletePost(${post.id},true,false)" style="font-size:.75rem;">🗑️ Silent</button>`:''}
-        ${canReportPost?`<button class="report-btn" onclick="openReport(${post.id},null,'post: ${esc(post.title).replace(/'/g,"\\'")}')">🚩 Report</button>`:''}
+        ${canDeletePost?`<button class="btn btn-red btn-sm" onclick="deletePost(${post.id},true)">🗑️ Delete</button>`:''}
+        ${canReportPost?`<button class="report-btn" onclick="openReport(${post.id},null,null,'post','${esc(post.title).replace(/'/g,"\\'")}','${esc(post.author_id)}','${esc(post.author_name||'')}')">🚩 Report</button>`:''}
       </div>
     </div>
     <div style="margin-top:.6rem;margin-bottom:.6rem;">${composeHTML}</div>
@@ -2004,9 +2051,8 @@ function replyHTML(r){
     <div class="reply-body">${esc(r.content)}</div>
     ${canEdit||canDelete||canReport?`<div class="reply-actions">
       ${canEdit?`<button class="btn btn-ghost btn-sm" onclick="openEditReply(${r.id},'${esc(r.content).replace(/'/g,"\\'")}')">✏️</button>`:''}
-      ${canDelete?`<button class="btn btn-red btn-sm" onclick="deleteReply(${r.id},true)">🗑️</button>`:''}
-      ${isMod&&!canEdit?`<button class="btn btn-outline btn-sm" onclick="deleteReply(${r.id},false)" style="font-size:.7rem;">🗑️ silent</button>`:''}
-      ${canReport?`<button class="report-btn" onclick="openReport(null,${r.id},'reply by ${ran}')">🚩</button>`:''}
+      ${canDelete?`<button class="btn btn-red btn-sm" onclick="deleteReply(${r.id})">🗑️</button>`:''}
+      ${canReport?`<button class="report-btn" onclick="openReport(${currentThreadId},${r.id},null,'reply','reply by ${ran}','${raid}','${ran}')">🚩</button>`:''}
     </div>`:''}
   </div>`;
 }
@@ -2104,25 +2150,23 @@ window.saveEditPost=async()=>{
   if(currentThreadId)renderThread(currentThreadId);else loadForums();
 };
 
-window.deletePost=async(id,inThread=false,notify=true)=>{
+window.deletePost=async(id,inThread=false)=>{
   if(!confirm('delete this post and all its replies?'))return;
-  // fetch post data before deleting so we can notify
   const{data:post}=await sb.from('posts').select('*').eq('id',id).single();
   if(!post)return;
   const isMod=currentUser&&(currentUser.user_metadata?.username||'').toLowerCase()==='mintofox';
-  // mods can delete any post, owners can only delete their own
   const canDelete=currentUser.id===post.author_id||isMod;
   if(!canDelete)return showToast('you can\'t delete that :3');
   await sb.from('replies').delete().eq('post_id',id);
   await sb.from('posts').delete().eq('id',id);
-  // send notification to post author if not deleting own post and notify=true
-  if(notify&&isMod&&currentUser.id!==post.author_id){
+  // always notify if mod deleting someone else's post
+  if(isMod&&currentUser.id!==post.author_id){
     await sb.from('notifications').insert({
       user_id:post.author_id,
       type:'mod_delete_post',
       post_id:null,
       reply_id:null,
-      actor_name:'the moderation team',
+      actor_name:'MintoFox',
       content:`Title: ${post.title}\n\nContent: ${post.content}`,
     });
   }
@@ -2148,11 +2192,10 @@ window.saveEditReply=async()=>{
   if(currentThreadId)refreshReplies(currentThreadId);
 };
 
-window.deleteReply=async(id,notify=true)=>{
+window.deleteReply=async(id)=>{
   if(!confirm('delete this reply?'))return;
   const card=document.getElementById('reply-'+id);
   if(card) card.style.opacity='0.3';
-  // fetch reply before deleting
   const{data:reply}=await sb.from('replies').select('*').eq('id',id).single();
   if(!reply){if(card)card.style.opacity='1';return;}
   const isMod=currentUser&&(currentUser.user_metadata?.username||'').toLowerCase()==='mintofox';
@@ -2161,14 +2204,14 @@ window.deleteReply=async(id,notify=true)=>{
   const{error}=await sb.from('replies').delete().eq('id',id);
   if(error){if(card)card.style.opacity='1';showToast('could not delete reply :(');return;}
   if(card)card.remove();
-  // notify if mod deleting someone else's reply
-  if(notify&&isMod&&currentUser.id!==reply.author_id){
+  // always notify if mod deleting someone else's reply
+  if(isMod&&currentUser.id!==reply.author_id){
     await sb.from('notifications').insert({
       user_id:reply.author_id,
       type:'mod_delete_reply',
       post_id:reply.post_id,
       reply_id:null,
-      actor_name:'the moderation team',
+      actor_name:'MintoFox',
       content:`Content: ${reply.content}`,
     });
   }
@@ -2178,18 +2221,13 @@ window.deleteReply=async(id,notify=true)=>{
 
 // ─── new post modal ───────────────────────────────────────────
 window.openNewPostModal=()=>{
-  if(!currentUser){showToast('log in first to post :3');showPage('account');return;}
-  if(window.currentUserBan){
-    // show ban modal instead
-    openModal('modal-ban-notice');
-    document.getElementById('ban-notice-reason').textContent=window.currentUserBan.reason;
-    document.getElementById('ban-notice-countdown').textContent=formatCountdown(window.currentUserBan.until);
-    return;
-  }
+  if(!currentUser){showToast('log in first to post :<');showPage('account');return;}
+  if(window.currentUserBan){showToast('you are banned and cannot post :<');return;}
   openModal('modal-new-post');
 };
 
 window.submitPost=async()=>{
+  if(window.currentUserBan){closeModal('modal-new-post');showToast('you are banned :<');return;}
   const title=document.getElementById('post-title').value.trim();
   const content=document.getElementById('post-content').value.trim();
   const category=document.getElementById('post-category').value;
