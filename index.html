@@ -557,7 +557,10 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
         <div class="settings-card">
           <div class="card-title">👤 Profile</div>
           <div class="form-group">
-            <button class="btn btn-outline" onclick="toggleAvatarInstructions()">🖼️ Change Profile Picture</button>
+            <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;">
+              <button class="btn btn-outline" onclick="toggleAvatarInstructions()">🖼️ Change Profile Picture</button>
+              <button class="btn btn-red btn-sm" id="remove-pfp-btn" onclick="removeOwnAvatar()" style="display:none;">🗑️ Remove Profile Picture</button>
+            </div>
             <div id="avatar-instructions" class="hidden" style="margin-top:.9rem;background:rgba(0,0,0,.2);border:1.5px solid rgba(79,201,126,.15);border-radius:12px;padding:1rem 1.2rem;">
               <p style="font-size:.88rem;font-weight:700;color:rgba(232,254,242,.7);line-height:1.8;margin-bottom:.8rem;">
                 Profile pictures are hosted by <a href="https://catbox.moe" target="_blank" rel="noopener" style="color:var(--mint);">catbox.moe</a>.<br>
@@ -989,6 +992,19 @@ window.modRemoveAvatar=async(userId)=>{
   showToast('profile picture removed!');
 };
 
+window.removeOwnAvatar=async()=>{
+  if(!confirm('remove your profile picture?'))return;
+  await sb.from('profiles').update({avatar_url:null,avatar_status:'none'}).eq('id',currentUser.id);
+  delete profCache[currentUser.id];
+  document.getElementById('edit-avatar-url').value='';
+  document.getElementById('avatar-status-msg').textContent='';
+  document.getElementById('remove-pfp-btn').style.display='none';
+  // reset avatar display in sidebar
+  const uname=currentUser.user_metadata?.username||currentUser.email.split('@')[0];
+  document.getElementById('acct-initial').textContent=uname[0].toUpperCase();
+  showToast('profile picture removed!');
+};
+
 window.modClearAboutMe=async(userId)=>{
   if(!confirm('clear this user\'s about me?'))return;
   await sb.from('profiles').update({about_me:null}).eq('id',userId);
@@ -1267,6 +1283,9 @@ async function applyLoggedIn(user){
   else if(prof?.avatar_status==='approved'){statusEl.style.color='var(--mint-light)';statusEl.textContent='✅ approved';}
   else if(prof?.avatar_status==='rejected'){statusEl.style.color='var(--red)';statusEl.textContent='❌ rejected — try a different image';}
   if(prof?.avatar_url) document.getElementById('edit-avatar-url').value=prof.avatar_url;
+  // show remove button only if they have an avatar
+  const removePfpBtn=document.getElementById('remove-pfp-btn');
+  if(removePfpBtn) removePfpBtn.style.display=(prof?.avatar_url&&prof?.avatar_status==='approved')?'inline-flex':'none';
 
   // show avatar in account sidebar
   const acctInitial=document.getElementById('acct-initial');
