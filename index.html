@@ -327,6 +327,7 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
     <li><a id="nav-forums" onclick="showPage('forums')">Forums</a></li>
     <li><a id="nav-users" onclick="showPage('users')">Users</a></li>
     <li><a id="nav-account" onclick="showPage('account')">Account</a></li>
+    <li><a id="nav-support" onclick="showPage('support')">Support</a></li>
   </ul>
   <div class="nav-right">
     <div class="notif-btn hidden" id="notif-btn" onclick="toggleNotifPanel()">
@@ -845,6 +846,22 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
 </main>
 </div>
 
+<!-- SUPPORT PAGE -->
+<div id="page-support" class="page">
+<main style="align-items:center;justify-content:center;min-height:60vh;">
+  <div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.5rem;padding:3rem 1rem;">
+    <h1 style="font-family:'Fredoka One',cursive;font-size:3rem;color:var(--text);">Need help?</h1>
+    <a href="mailto:mintofox@proton.me?subject=MintoFox.net%20Support%20Request%20-%20"
+      style="background:var(--mint-dark);color:#fff;font-family:'Fredoka One',cursive;font-size:1.3rem;padding:1rem 2.5rem;border-radius:100px;text-decoration:none;border:2px solid rgba(79,201,126,.4);transition:filter .2s,transform .15s;display:inline-block;"
+      onmouseover="this.style.filter='brightness(1.15)';this.style.transform='translateY(-2px)'"
+      onmouseout="this.style.filter='';this.style.transform=''">
+      Send an email to me for support!
+    </a>
+    <p style="font-size:.85rem;font-weight:700;color:rgba(232,254,242,.4);margin-top:.5rem;">please keep <strong style="color:rgba(232,254,242,.65);">MintoFox.net Support Request -</strong> in the subject line so i know it's a support request!</p>
+  </div>
+</main>
+</div>
+
 <!-- REPORT MODAL -->
 <div class="modal-overlay" id="modal-report">
   <div class="modal">
@@ -869,7 +886,7 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
 </div>
 
 <div class="toast" id="toast"></div>
-<footer>this was made by ai, i do not take any credit of the development of this website. i am open for anything wanting to recreate the website, just contact me!</footer>
+<footer>this was made by ai, i do not take any credit of the development of this website.</footer>
 
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
@@ -1372,7 +1389,7 @@ window.doRegister=async()=>{
   const{error}=await sb.auth.signUp({email,password:pw,options:{data:{username:uname}}});
   btn.disabled=false;btn.textContent='Create Account';
   if(error)return showErr('auth-err',error.message);
-  showOk('auth-ok','account created! check your email to confirm, then log in :3');
+  showOk('auth-ok','account created! check your email to confirm — the link expires in 15 minutes :3');
 };
 
 // ─── reset request ────────────────────────────────────────────
