@@ -419,11 +419,12 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
           <span class="search-icon">🔍</span>
           <input type="text" id="search-query" placeholder="search threads..." oninput="onSearchInput()">
         </div>
-        <select id="sort-select" onchange="loadForums()" style="padding:.65rem .9rem;background:rgba(0,0,0,.3);border:1.5px solid rgba(79,201,126,.2);border-radius:10px;color:var(--text);font-family:'Rubik',sans-serif;font-weight:800;font-size:.85rem;outline:none;cursor:pointer;">
+        <select id="sort-select" style="padding:.65rem .9rem;background:rgba(0,0,0,.3);border:1.5px solid rgba(79,201,126,.2);border-radius:10px;color:var(--text);font-family:'Rubik',sans-serif;font-weight:800;font-size:.85rem;outline:none;cursor:pointer;">
           <option value="activity">Latest Activity</option>
           <option value="replies">Most Replies</option>
           <option value="newest">Newest First</option>
         </select>
+        <button class="btn btn-ghost" onclick="window.loadForums()" style="font-size:.85rem;">↻ Refresh</button>
         <button class="filter-toggle" onclick="toggleFilters()">⚙️ Filters</button>
       </div>
       <div class="filter-panel" id="filter-panel">
@@ -582,11 +583,20 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
 
         <!-- Mod panel — only visible to MintoFox -->
         <div class="mod-panel hidden" id="mod-panel">
-          <div class="mod-title">🛡️ Avatar Mod Queue</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem;">
+            <div class="mod-title" style="margin-bottom:0;">🛡️ Avatar Mod Queue</div>
+            <button class="btn btn-ghost btn-sm" onclick="window.loadModQueue()">↻</button>
+          </div>
           <div id="mod-list"><div class="forum-empty">no pending avatars :3</div></div>
-          <div class="mod-title" style="margin-top:1.2rem;">🚩 Reports</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:1.2rem;margin-bottom:.8rem;">
+            <div class="mod-title" style="margin-bottom:0;">🚩 Reports</div>
+            <button class="btn btn-ghost btn-sm" onclick="window.loadReports()">↻</button>
+          </div>
           <div id="report-list"><div class="forum-empty">loading...</div></div>
-          <div class="mod-title" style="margin-top:1.2rem;">📋 Active Bans</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:1.2rem;margin-bottom:.8rem;">
+            <div class="mod-title" style="margin-bottom:0;">📋 Active Bans</div>
+            <button class="btn btn-ghost btn-sm" onclick="window.loadBanList()">↻</button>
+          </div>
           <div id="ban-list"><div class="forum-empty">loading...</div></div>
         </div>
 
@@ -850,6 +860,7 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
 <main>
   <div class="page-header">
     <h2 class="page-title">👥 Users</h2>
+    <button class="btn btn-ghost" onclick="window.loadAllUsers()">↻ Refresh</button>
   </div>
   <div class="user-search-bar">
     <input type="text" id="user-search-input" placeholder="search by username..." oninput="onUserSearch()">
@@ -1998,14 +2009,7 @@ window.toggleExpand=async(cat,total)=>{
 };
 
 // ─── live updates for forums ──────────────────────────────────
-let forumsChannel=null;
-function subscribeForums(){
-  if(forumsChannel)return;
-  forumsChannel=sb.channel('forums-live')
-    .on('postgres_changes',{event:'*',schema:'public',table:'posts'},()=>loadForums())
-    .subscribe();
-}
-subscribeForums();
+// forums list updates manually via refresh button — no live reloading of post order
 
 // ─── thread view ──────────────────────────────────────────────
 let threadChannel=null;
@@ -2226,7 +2230,6 @@ window.deletePost=async(id,inThread=false)=>{
   }
   showToast('post deleted');
   if(inThread)backToForums();
-  loadForums();
 };
 
 // ─── edit / delete reply ──────────────────────────────────────
