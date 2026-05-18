@@ -376,7 +376,7 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
         <li><span class="social-platform">Steam:</span><span>MintoFox</span></li>
         <li><span class="social-platform">YouTube:</span><span>MintoFox</span></li>
         <li><span class="social-platform">TikTok:</span><span>mintofox</span></li>
-        <li><span class="social-platform">Bluesky:</span><span>mintofox.net</span></li>
+        <li><span class="social-platform">Bluesky:</span><span>mintofox.bsky.social</span></li>
       </ul>
     </div>
     <div style="display:flex;flex-direction:column;gap:1.5rem;">
@@ -420,6 +420,7 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
           <input type="text" id="search-query" placeholder="search threads..." oninput="onSearchInput()">
         </div>
         <select id="sort-select" onchange="loadForums()" style="padding:.65rem .9rem;background:rgba(0,0,0,.3);border:1.5px solid rgba(79,201,126,.2);border-radius:10px;color:var(--text);font-family:'Rubik',sans-serif;font-weight:800;font-size:.85rem;outline:none;cursor:pointer;">
+          <option value="activity">Latest Activity</option>
           <option value="replies">Most Replies</option>
           <option value="newest">Newest First</option>
         </select>
@@ -611,7 +612,15 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
 
         <!-- Notifications settings -->
         <div class="settings-card">
-          <div class="card-title">🔔 Notifications &amp; Privacy</div>
+          <div class="card-title">⚙️ Preferences</div>
+          <div class="settings-row">
+            <div><div class="settings-label">Default Forum Sort</div></div>
+            <select id="pref-default-sort" style="padding:.4rem .8rem;background:rgba(0,0,0,.3);border:1.5px solid rgba(79,201,126,.2);border-radius:8px;color:var(--text);font-family:'Rubik',sans-serif;font-weight:700;font-size:.85rem;outline:none;">
+              <option value="activity">Latest Activity</option>
+              <option value="replies">Most Replies</option>
+              <option value="newest">Newest First</option>
+            </select>
+          </div>
           <div class="settings-row">
             <div class="settings-label">Replies to my posts</div>
             <div class="toggle on" id="toggle-notif-replies" onclick="this.classList.toggle('on')"></div>
@@ -1272,10 +1281,12 @@ async function applyLoggedIn(user){
   const notifReplies=prof?.notif_replies!==false;
   const notifFollows=prof?.notif_follows!==false;
   const showAvatars=prof?.show_avatars!==false;
+  const defaultSort=prof?.default_sort||'activity';
   document.getElementById('toggle-notif-replies').classList.toggle('on',notifReplies);
   document.getElementById('toggle-notif-follows').classList.toggle('on',notifFollows);
   document.getElementById('toggle-show-avatars').classList.toggle('on',showAvatars);
-  // store globally so avatar rendering can check it
+  document.getElementById('pref-default-sort').value=defaultSort;
+  document.getElementById('sort-select').value=defaultSort;
   window.showAvatarsPref=showAvatars;
 
   // show avatar status in instructions panel
@@ -1443,9 +1454,12 @@ window.savePrefs=async()=>{
   const notifReplies=document.getElementById('toggle-notif-replies').classList.contains('on');
   const notifFollows=document.getElementById('toggle-notif-follows').classList.contains('on');
   const showAvatars=document.getElementById('toggle-show-avatars').classList.contains('on');
-  const{error}=await sb.from('profiles').update({notif_replies:notifReplies,notif_follows:notifFollows,show_avatars:showAvatars}).eq('id',currentUser.id);
+  const defaultSort=document.getElementById('pref-default-sort').value;
+  const{error}=await sb.from('profiles').update({notif_replies:notifReplies,notif_follows:notifFollows,show_avatars:showAvatars,default_sort:defaultSort}).eq('id',currentUser.id);
   if(error)return showErr('prefs-save-msg',error.message);
   window.showAvatarsPref=showAvatars;
+  // apply sort immediately
+  document.getElementById('sort-select').value=defaultSort;
   showOk('prefs-save-msg','preferences saved!');
   setTimeout(()=>{const e=document.getElementById('prefs-save-msg');if(e)e.style.display='none';},3000);
 };
@@ -1767,13 +1781,14 @@ async function runSearch(){
   if(within){const d=new Date(Date.now()-parseInt(within)*864e5);query=query.gte('created_at',d.toISOString());}
 
   const sort=document.getElementById('sort-select').value;
-  query=query.order('created_at',{ascending:sort!=='newest'?false:false});
+  query=query.order('created_at',{ascending:false});
 
   const{data:posts}=await query.limit(50);
   const list=document.getElementById('search-results-list');
   if(!posts||!posts.length){list.innerHTML='<div class="forum-empty">no threads found :(</div>';return;}
   let sorted=posts.map(p=>{p.reply_count=p.replies?.[0]?.count||0;return p;});
   if(sort==='replies') sorted.sort((a,b)=>b.reply_count-a.reply_count);
+  else if(sort==='activity') sorted.sort((a,b)=>new Date(b.last_reply_at||b.created_at)-new Date(a.last_reply_at||a.created_at));
   const count=posts.length;
   document.getElementById('search-results-title').textContent=`${count} result${count===1?'':'s'}`;
   list.innerHTML=sorted.map(p=>threadRow(p)).join('');
@@ -1933,6 +1948,8 @@ window.loadForums=async()=>{
   const grouped={general:[],tech:[],gaming:[],other:[]};
   posts.forEach(p=>{p.reply_count=p.replies?.[0]?.count||0;const c=grouped[p.category]?p.category:'other';grouped[c].push(p);});
   if(sort==='replies') Object.values(grouped).forEach(arr=>arr.sort((a,b)=>b.reply_count-a.reply_count));
+  else if(sort==='activity') Object.values(grouped).forEach(arr=>arr.sort((a,b)=>new Date(b.last_reply_at||b.created_at)-new Date(a.last_reply_at||a.created_at)));
+  // newest is already the default from the query
 
   // prefetch profiles for all unique authors so avatars show immediately
   const uncachedIds=[...new Set(posts.map(p=>p.author_id).filter(id=>id&&!profCache[id]))];
