@@ -1,0 +1,2311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mintofox.net</title>
+<link rel="icon" type="image/gif" href="minto_pfp.gif">
+<style>
+@font-face {
+  font-family: 'Rubik';
+  src: url('Rubik-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+</style>
+<style>
+:root{--mint:#4fc97e;--mint-dark:#2e7d52;--mint-panel:#2a6b4a;--mint-light:#a8f0c6;--bg:#0f2319;--card:#1f5238;--card-dark:#163826;--text:#e8fef2;--gold:#f5c842;--pink:#f78fb3;--purple:#b39ddb;--red:#f87171;--shadow:rgba(0,0,0,0.4);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Rubik',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse 60% 40% at 20% 80%,rgba(79,201,126,.12) 0%,transparent 60%),radial-gradient(ellipse 50% 60% at 85% 15%,rgba(79,201,126,.08) 0%,transparent 55%);}
+
+/* NAV */
+nav{display:flex;align-items:center;padding:0 2rem;height:70px;background:rgba(15,35,25,.95);backdrop-filter:blur(12px);border-bottom:2px solid rgba(79,201,126,.2);position:sticky;top:0;z-index:100;}
+.nav-brand{display:flex;align-items:center;gap:.6rem;font-family:'Rubik',sans-serif;font-size:1.3rem;color:var(--mint-light);margin-right:auto;cursor:pointer;text-decoration:none;}
+.nav-logo{width:40px;height:40px;border-radius:10px;overflow:hidden;border:2px solid rgba(79,201,126,.5);flex-shrink:0;}
+.nav-logo img{width:100%;height:100%;object-fit:cover;}
+.nav-links{display:flex;list-style:none;}
+.nav-links a{display:block;padding:.5rem 1.2rem;color:var(--text);text-decoration:none;font-weight:700;font-size:1rem;border-radius:8px;transition:background .2s,color .2s;position:relative;cursor:pointer;}
+.nav-links a.active{color:var(--mint-light);background:rgba(79,201,126,.12);}
+.nav-links a.active::after{content:'';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);width:60%;height:2px;background:var(--mint);border-radius:2px;}
+.nav-links a:hover:not(.active){color:var(--mint-light);background:rgba(79,201,126,.07);}
+.nav-right{display:flex;align-items:center;gap:.8rem;margin-left:1rem;}
+.nav-user{font-size:.9rem;color:rgba(232,254,242,.6);cursor:pointer;font-weight:700;}
+.nav-user:hover{color:var(--mint-light);}
+.notif-btn{position:relative;width:36px;height:36px;border-radius:50%;background:rgba(79,201,126,.08);border:1.5px solid rgba(79,201,126,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:background .2s;}
+.notif-btn:hover{background:rgba(79,201,126,.15);}
+.notif-badge{position:absolute;top:-3px;right:-3px;background:#f87171;border-radius:50%;width:16px;height:16px;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;color:#fff;display:none;}
+.notif-badge.show{display:flex;}
+
+/* PAGES */
+.page{display:none;}
+.page.active{display:block;animation:fadeIn .3s ease both;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;display:flex;flex-direction:column;gap:1.5rem;}
+
+/* GENERIC CARD */
+.card{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:18px;padding:1.6rem 1.8rem;box-shadow:0 4px 20px var(--shadow);}
+.card-title{font-family:'Rubik',sans-serif;font-size:1.15rem;color:var(--mint-light);margin-bottom:1rem;}
+
+/* BUTTONS */
+.btn{padding:.5rem 1.2rem;border-radius:10px;font-family:'Rubik',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;border:none;transition:filter .2s,transform .15s;display:inline-flex;align-items:center;gap:.4rem;}
+.btn:hover{filter:brightness(1.1);transform:translateY(-1px);}
+.btn:active{transform:translateY(0);}
+.btn-mint{background:var(--mint);color:#0f2319;}
+.btn-outline{background:transparent;color:var(--mint-light);border:1.5px solid rgba(79,201,126,.4);}
+.btn-ghost{background:rgba(79,201,126,.08);color:var(--mint-light);border:1.5px solid rgba(79,201,126,.15);}
+.btn-red{background:rgba(248,113,113,.12);color:var(--red);border:1.5px solid rgba(248,113,113,.25);}
+.btn-red:hover{background:rgba(248,113,113,.2);}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+.btn-full{width:100%;justify-content:center;padding:.75rem;font-size:1rem;border-radius:12px;margin-top:.4rem;}
+.btn-sm{padding:.3rem .8rem;font-size:.8rem;border-radius:8px;}
+
+/* FORMS */
+.form-group{margin-bottom:.9rem;}
+.form-group label{display:block;font-weight:700;font-size:.82rem;color:var(--mint-light);margin-bottom:.35rem;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:.65rem 1rem;background:rgba(0,0,0,.3);border:1.5px solid rgba(79,201,126,.2);border-radius:10px;color:var(--text);font-family:'Rubik',sans-serif;font-size:.92rem;font-weight:700;outline:none;transition:border-color .2s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:rgba(79,201,126,.5);}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(232,254,242,.25);}
+.form-group select option{background:#1f5238;}
+.form-group textarea{resize:vertical;min-height:90px;line-height:1.6;}
+.msg-err{background:rgba(248,113,113,.12);border:1.5px solid rgba(248,113,113,.3);color:var(--red);border-radius:10px;padding:.65rem 1rem;font-size:.85rem;font-weight:700;margin-bottom:.8rem;display:none;}
+.msg-ok{background:rgba(79,201,126,.12);border:1.5px solid rgba(79,201,126,.3);color:var(--mint-light);border-radius:10px;padding:.65rem 1rem;font-size:.85rem;font-weight:700;margin-bottom:.8rem;display:none;}
+
+/* HOME */
+.hero-card{background:linear-gradient(135deg,var(--mint-panel) 0%,#1e4d38 100%);border:1.5px solid rgba(79,201,126,.3);border-radius:20px;padding:2rem 2.5rem;display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start;box-shadow:0 8px 32px var(--shadow);}
+.avatar-img{width:200px;height:200px;border-radius:18px;object-fit:cover;border:3px solid rgba(79,201,126,.5);box-shadow:0 4px 20px rgba(0,0,0,.4);}
+.hero-info{display:flex;flex-direction:column;gap:.8rem;padding-top:.3rem;}
+.hero-name{font-family:'Rubik',sans-serif;font-size:3.8rem;line-height:1;color:var(--text);}
+.hero-bio{font-size:1.05rem;line-height:1.65;color:rgba(232,254,242,.88);font-weight:700;max-width:700px;}
+.fluffy-badge{display:inline-block;background:rgba(79,201,126,.18);border:1.5px solid rgba(79,201,126,.4);color:var(--mint-light);font-weight:700;font-size:.9rem;padding:.3rem .9rem;border-radius:100px;width:fit-content;}
+.lower-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.social-list{list-style:none;display:flex;flex-direction:column;gap:.55rem;}
+.social-list li{display:flex;align-items:center;gap:.6rem;font-size:.95rem;font-weight:700;}
+.social-platform{color:var(--mint);min-width:90px;font-weight:700;}
+.community-card{background:linear-gradient(135deg,#111 0%,#1a1a1a 100%);border:1.5px solid rgba(255,255,255,.08);border-radius:18px;padding:1.6rem 1.8rem;display:flex;flex-direction:column;gap:1rem;box-shadow:0 4px 20px var(--shadow);}
+.community-card .card-title{color:#888;}
+.fluxer-banner{background:#1a1a1a;border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:1.3rem 1.6rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;text-decoration:none;transition:border-color .2s,background .2s;}
+.fluxer-banner:hover{border-color:rgba(255,255,255,.25);background:#222;}
+.fluxer-name{font-family:'Rubik',sans-serif;font-size:1.9rem;color:#fff;}
+.fluxer-logo{width:60px;height:60px;border-radius:50%;background:#333;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.fluxer-logo img{width:38px;height:38px;}
+.tags{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.8rem;}
+.tag{padding:.3rem .9rem;border-radius:100px;font-size:.82rem;font-weight:700;border:1.5px solid;}
+.tag-mint{background:rgba(79,201,126,.1);border-color:rgba(79,201,126,.35);color:var(--mint-light);}
+.tag-pink{background:rgba(247,143,179,.1);border-color:rgba(247,143,179,.35);color:var(--pink);}
+.tag-purple{background:rgba(179,157,219,.1);border-color:rgba(179,157,219,.35);color:var(--purple);}
+.tag-gold{background:rgba(245,200,66,.1);border-color:rgba(245,200,66,.35);color:var(--gold);}
+
+/* FORUMS */
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;}
+.page-title{font-family:'Rubik',sans-serif;font-size:2.2rem;color:var(--mint-light);}
+
+/* SEARCH BAR */
+.search-bar{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:16px;padding:1.2rem 1.4rem;box-shadow:0 4px 16px var(--shadow);}
+.search-row{display:flex;gap:.7rem;align-items:center;margin-bottom:.8rem;}
+.search-input-wrap{flex:1;position:relative;}
+.search-input-wrap input{padding:.65rem 1rem .65rem 2.4rem;background:rgba(0,0,0,.3);border:1.5px solid rgba(79,201,126,.2);border-radius:10px;color:var(--text);font-family:'Rubik',sans-serif;font-size:.92rem;font-weight:700;outline:none;width:100%;transition:border-color .2s;}
+.search-input-wrap input:focus{border-color:rgba(79,201,126,.5);}
+.search-input-wrap input::placeholder{color:rgba(232,254,242,.25);}
+.search-icon{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);font-size:.9rem;opacity:.5;}
+.filter-toggle{background:rgba(79,201,126,.08);border:1.5px solid rgba(79,201,126,.2);color:var(--mint-light);border-radius:10px;padding:.6rem 1rem;font-family:'Rubik',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;transition:background .2s;white-space:nowrap;}
+.filter-toggle:hover{background:rgba(79,201,126,.15);}
+.filter-panel{display:none;border-top:1px solid rgba(79,201,126,.15);padding-top:.9rem;margin-top:.1rem;}
+.filter-panel.open{display:block;animation:fadeIn .2s ease both;}
+.filter-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem;align-items:end;}
+.filter-group label{display:block;font-weight:700;font-size:.78rem;color:rgba(232,254,242,.5);margin-bottom:.3rem;}
+.filter-group input,.filter-group select{padding:.5rem .8rem;background:rgba(0,0,0,.3);border:1.5px solid rgba(79,201,126,.15);border-radius:8px;color:var(--text);font-family:'Rubik',sans-serif;font-size:.82rem;font-weight:700;outline:none;width:100%;}
+.filter-group input:focus,.filter-group select:focus{border-color:rgba(79,201,126,.4);}
+.filter-actions{display:flex;gap:.5rem;margin-top:.8rem;justify-content:flex-end;}
+
+/* FORUM CATEGORIES */
+.forum-categories{display:flex;flex-direction:column;gap:1rem;}
+.forum-category{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:16px;overflow:hidden;box-shadow:0 4px 16px var(--shadow);}
+.category-header{padding:.9rem 1.4rem;background:rgba(79,201,126,.08);border-bottom:1px solid rgba(79,201,126,.15);display:flex;align-items:center;gap:.6rem;}
+.category-header h3{font-family:'Rubik',sans-serif;font-size:1.05rem;color:var(--mint-light);}
+.forum-thread{padding:.9rem 1.4rem;border-bottom:1px solid rgba(79,201,126,.07);display:flex;align-items:center;gap:.9rem;transition:background .15s;}
+.forum-thread:last-child{border-bottom:none;}
+.forum-thread:hover{background:rgba(79,201,126,.04);}
+.thread-clickable{cursor:pointer;flex:1;display:flex;align-items:center;gap:.9rem;min-width:0;}
+.thread-initial{width:36px;height:36px;border-radius:9px;background:rgba(79,201,126,.15);border:1.5px solid rgba(79,201,126,.2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;color:var(--mint-light);flex-shrink:0;overflow:hidden;}
+.thread-initial img{width:100%;height:100%;object-fit:cover;border-radius:7px;}
+.avatar-sm{width:36px;height:36px;border-radius:9px;object-fit:cover;flex-shrink:0;}
+.mod-panel{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);border:1.5px solid rgba(245,200,66,.2);border-radius:16px;padding:1.4rem 1.6rem;box-shadow:0 4px 16px var(--shadow);}
+.mod-title{font-family:'Rubik',sans-serif;font-size:1.1rem;color:var(--gold);margin-bottom:1rem;}
+.mod-item{display:flex;align-items:center;gap:1rem;padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.mod-item:last-child{border-bottom:none;}
+.mod-avatar{width:56px;height:56px;border-radius:10px;object-fit:cover;border:2px solid rgba(79,201,126,.3);}
+.mod-info{flex:1;min-width:0;}
+.mod-username{font-weight:700;font-size:.9rem;color:var(--text);}
+.mod-url{font-size:.75rem;color:rgba(232,254,242,.35);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px;}
+.mod-actions{display:flex;gap:.4rem;flex-shrink:0;}
+.avatar-status{display:inline-block;font-size:.75rem;font-weight:700;padding:.15rem .6rem;border-radius:100px;}
+.status-pending{background:rgba(245,200,66,.15);border:1px solid rgba(245,200,66,.3);color:var(--gold);}
+.status-approved{background:rgba(79,201,126,.15);border:1px solid rgba(79,201,126,.3);color:var(--mint-light);}
+.status-rejected{background:rgba(248,113,113,.15);border:1px solid rgba(248,113,113,.3);color:var(--red);}
+.thread-info{flex:1;min-width:0;}
+.thread-title-text{font-weight:700;font-size:.92rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.thread-meta{font-size:.77rem;color:rgba(232,254,242,.4);margin-top:.12rem;}
+.author-link{color:var(--mint);font-weight:700;cursor:pointer;}
+.author-link:hover{text-decoration:underline;}
+.thread-right{display:flex;align-items:center;gap:.6rem;flex-shrink:0;}
+.thread-stats{text-align:right;font-size:.77rem;color:rgba(232,254,242,.4);}
+.thread-stats strong{display:block;font-size:.95rem;color:var(--text);}
+.thread-actions{display:flex;gap:.3rem;}
+.reply-actions{position:absolute;top:.8rem;right:.9rem;display:flex;gap:.3rem;}
+.forum-empty{padding:2rem;text-align:center;color:rgba(232,254,242,.3);font-weight:700;font-size:.92rem;}
+
+/* EXPANDED CATEGORY SCROLL WINDOW */
+.cat-expanded{max-height:360px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(79,201,126,.3) transparent;}
+.cat-expanded::-webkit-scrollbar{width:5px;}
+.cat-expanded::-webkit-scrollbar-thumb{background:rgba(79,201,126,.3);border-radius:3px;}
+.view-all-btn{display:block;width:100%;padding:.75rem;background:rgba(79,201,126,.05);border:none;border-top:1px solid rgba(79,201,126,.1);color:var(--mint-light);font-family:'Rubik',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;text-align:center;transition:background .15s;}
+.view-all-btn:hover{background:rgba(79,201,126,.1);}
+
+/* THREAD VIEW */
+.back-btn{display:inline-flex;align-items:center;gap:.4rem;color:var(--mint-light);font-weight:700;cursor:pointer;font-size:.88rem;background:rgba(79,201,126,.08);border:1.5px solid rgba(79,201,126,.2);padding:.4rem .9rem;border-radius:8px;transition:background .15s;margin-bottom:1.2rem;}
+.back-btn:hover{background:rgba(79,201,126,.15);}
+.thread-post-card{background:linear-gradient(135deg,var(--mint-panel) 0%,#1e4d38 100%);border:1.5px solid rgba(79,201,126,.3);border-radius:16px;padding:1.7rem 1.9rem;box-shadow:0 4px 20px var(--shadow);margin-bottom:1rem;}
+.thread-post-title{font-family:'Rubik',sans-serif;font-size:1.8rem;color:var(--text);margin-bottom:.5rem;}
+.thread-post-meta{font-size:.8rem;color:rgba(232,254,242,.45);font-weight:700;margin-bottom:1.1rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
+.cat-badge{background:rgba(79,201,126,.15);border:1px solid rgba(79,201,126,.3);color:var(--mint-light);border-radius:100px;padding:.12rem .6rem;font-size:.72rem;font-weight:700;}
+.thread-post-body{font-size:1rem;line-height:1.75;color:rgba(232,254,242,.9);font-weight:700;white-space:pre-wrap;}
+.thread-post-actions{display:flex;gap:.5rem;margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(79,201,126,.15);}
+.follow-btn{display:flex;align-items:center;gap:.4rem;}
+.replies-section{display:flex;flex-direction:column;gap:.7rem;}
+.reply-card{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.12);border-radius:13px;padding:1.1rem 1.4rem;box-shadow:0 2px 10px var(--shadow);position:relative;}
+.reply-meta{font-size:.78rem;color:rgba(232,254,242,.4);font-weight:700;margin-bottom:.45rem;display:flex;align-items:center;gap:.5rem;}
+.reply-body{font-size:.93rem;line-height:1.65;color:rgba(232,254,242,.85);font-weight:700;white-space:pre-wrap;}
+.reply-actions{position:absolute;top:.8rem;right:.9rem;display:flex;gap:.3rem;}
+.reply-compose{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:13px;padding:1.2rem 1.4rem;margin-top:.5rem;}
+.reply-compose-title{font-family:'Rubik',sans-serif;font-size:.95rem;color:var(--mint-light);margin-bottom:.7rem;}
+.reply-login-note{text-align:center;font-size:.88rem;color:rgba(232,254,242,.35);font-weight:700;padding:.4rem;}
+.reply-login-note a{color:var(--mint);cursor:pointer;}
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--mint);margin-right:.3rem;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+/* USER POPOVER */
+.user-popover{position:fixed;z-index:600;background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.3);border-radius:14px;padding:1rem 1.2rem;box-shadow:0 8px 24px rgba(0,0,0,.55);min-width:190px;pointer-events:none;opacity:0;transition:opacity .15s;}
+.user-popover.visible{opacity:1;pointer-events:auto;}
+.pop-name{font-family:'Rubik',sans-serif;font-size:1.05rem;color:var(--text);margin-bottom:.15rem;}
+.pop-dn{font-size:.8rem;color:rgba(232,254,242,.45);font-weight:700;margin-bottom:.5rem;}
+.pop-stat{font-size:.78rem;color:rgba(232,254,242,.45);font-weight:700;line-height:1.8;}
+.pop-stat span{color:var(--mint-light);cursor:pointer;}
+.pop-stat span:hover{text-decoration:underline;}
+.pop-view{margin-top:.6rem;}
+
+/* PROFILE MODAL */
+.profile-modal-body{display:flex;flex-direction:column;gap:1rem;max-height:75vh;overflow-y:auto;}
+.profile-modal-header{display:flex;align-items:center;gap:1.2rem;padding-bottom:1rem;border-bottom:1px solid rgba(79,201,126,.15);}
+.profile-modal-initial{width:64px;height:64px;border-radius:16px;background:rgba(79,201,126,.15);border:2px solid rgba(79,201,126,.3);display:flex;align-items:center;justify-content:center;font-family:'Rubik',sans-serif;font-size:1.8rem;color:var(--mint-light);flex-shrink:0;overflow:hidden;}
+.profile-modal-initial img{width:100%;height:100%;object-fit:cover;}
+.profile-modal-names{flex:1;}
+.profile-modal-display{font-family:'Rubik',sans-serif;font-size:1.5rem;color:var(--text);}
+.profile-modal-username{font-size:.85rem;color:rgba(232,254,242,.45);font-weight:700;}
+.profile-modal-stats{display:flex;gap:1.2rem;}
+.profile-modal-stat{text-align:center;}
+.profile-modal-stat .sv{font-family:'Rubik',sans-serif;font-size:1.3rem;color:var(--mint-light);cursor:pointer;}
+.profile-modal-stat .sv:hover{text-decoration:underline;}
+.profile-modal-stat .sl{font-size:.72rem;color:rgba(232,254,242,.4);font-weight:700;}
+.profile-modal-about{font-size:.92rem;line-height:1.7;color:rgba(232,254,242,.75);font-weight:700;}
+
+/* NOTIFICATIONS PANEL */
+.notif-panel{position:fixed;top:75px;right:1.5rem;width:340px;background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.25);border-radius:16px;box-shadow:0 12px 32px rgba(0,0,0,.5);z-index:300;display:none;max-height:70vh;overflow:hidden;flex-direction:column;}
+.notif-panel.open{display:flex;animation:fadeIn .2s ease both;}
+.notif-header{padding:.9rem 1.2rem;border-bottom:1px solid rgba(79,201,126,.15);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.notif-header-title{font-family:'Rubik',sans-serif;font-size:1.1rem;color:var(--mint-light);}
+.notif-list{overflow-y:auto;flex:1;scrollbar-width:thin;scrollbar-color:rgba(79,201,126,.3) transparent;}
+.notif-item{padding:.8rem 1.2rem;border-bottom:1px solid rgba(79,201,126,.08);cursor:pointer;transition:background .15s;}
+.notif-item:hover{background:rgba(79,201,126,.05);}
+.notif-item.unread{background:rgba(79,201,126,.07);}
+.notif-text{font-size:.85rem;font-weight:700;color:var(--text);line-height:1.5;}
+.notif-text span{color:var(--mint);}
+.notif-time{font-size:.72rem;color:rgba(232,254,242,.35);margin-top:.2rem;font-weight:700;}
+.notif-empty{padding:2rem;text-align:center;color:rgba(232,254,242,.3);font-size:.88rem;font-weight:700;}
+
+/* MODALS */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;align-items:center;justify-content:center;padding:1rem;}
+.modal-overlay.open{display:flex;animation:fadeIn .2s ease both;}
+.modal{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.3);border-radius:20px;padding:1.8rem;width:100%;max-width:520px;box-shadow:0 16px 48px rgba(0,0,0,.6);max-height:90vh;overflow-y:auto;}
+.modal-wide{max-width:680px;}
+.modal-title{font-family:'Rubik',sans-serif;font-size:1.5rem;color:var(--mint-light);margin-bottom:1.1rem;}
+.modal-footer{display:flex;gap:.7rem;justify-content:flex-end;margin-top:1.1rem;padding-top:1rem;border-top:1px solid rgba(79,201,126,.1);}
+
+/* AUTH */
+.auth-container{max-width:440px;margin:2rem auto;padding:0 1rem;}
+.auth-card{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.25);border-radius:20px;padding:2.2rem 1.8rem;box-shadow:0 8px 32px var(--shadow);}
+.auth-logo{width:72px;height:72px;border-radius:16px;overflow:hidden;border:3px solid rgba(79,201,126,.4);margin:0 auto 1rem;box-shadow:0 4px 16px rgba(0,0,0,.4);}
+.auth-logo img{width:100%;height:100%;object-fit:cover;}
+.auth-title{font-family:'Rubik',sans-serif;font-size:1.9rem;text-align:center;color:var(--text);margin-bottom:.25rem;}
+.auth-subtitle{text-align:center;font-size:.88rem;color:rgba(232,254,242,.45);font-weight:700;margin-bottom:1.8rem;}
+.auth-tabs{display:flex;margin-bottom:1.6rem;background:rgba(0,0,0,.2);border-radius:10px;padding:3px;}
+.auth-tab{flex:1;text-align:center;padding:.45rem;border-radius:8px;font-weight:700;font-size:.85rem;cursor:pointer;transition:background .2s,color .2s;color:rgba(232,254,242,.45);}
+.auth-tab.active{background:var(--mint-panel);color:var(--mint-light);}
+.auth-footer{text-align:center;margin-top:1rem;font-size:.82rem;color:rgba(232,254,242,.35);font-weight:700;}
+.auth-footer a{color:var(--mint);cursor:pointer;}
+
+/* ACCOUNT PAGE */
+.account-page{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 4rem;}
+.account-grid{display:grid;grid-template-columns:240px 1fr;gap:1.5rem;align-items:start;}
+.account-sidebar{display:flex;flex-direction:column;gap:1rem;}
+.account-profile-card{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.25);border-radius:18px;padding:1.6rem 1.4rem;text-align:center;box-shadow:0 4px 20px var(--shadow);}
+.account-initial{width:72px;height:72px;border-radius:16px;background:rgba(79,201,126,.15);border:2px solid rgba(79,201,126,.3);display:flex;align-items:center;justify-content:center;font-family:'Rubik',sans-serif;font-size:2rem;color:var(--mint-light);margin:0 auto .9rem;overflow:hidden;}
+.account-initial img{width:100%;height:100%;object-fit:cover;}
+.account-display-name{display:none;}
+.account-username{font-family:'Rubik',sans-serif;font-size:1.5rem;color:var(--text);margin-bottom:.9rem;}
+.account-stats{display:flex;gap:.8rem;justify-content:center;border-top:1px solid rgba(79,201,126,.15);padding-top:.9rem;}
+.account-stat .sv{font-family:'Rubik',sans-serif;font-size:1.3rem;color:var(--mint-light);cursor:pointer;}
+.account-stat .sv:hover{text-decoration:underline;}
+.account-stat .sl{font-size:.72rem;color:rgba(232,254,242,.4);font-weight:700;}
+.account-main{display:flex;flex-direction:column;gap:1rem;}
+.settings-card{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:16px;padding:1.4rem 1.6rem;box-shadow:0 4px 16px var(--shadow);}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:.65rem 0;border-bottom:1px solid rgba(79,201,126,.07);}
+.settings-row:last-child{border-bottom:none;}
+.settings-label{font-weight:700;font-size:.9rem;}
+.settings-value{font-size:.85rem;color:rgba(232,254,242,.45);font-weight:700;}
+.toggle{width:42px;height:22px;border-radius:100px;background:rgba(79,201,126,.15);border:1.5px solid rgba(79,201,126,.25);position:relative;cursor:pointer;transition:background .2s;flex-shrink:0;}
+.toggle.on{background:var(--mint);border-color:var(--mint);}
+.toggle::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:left .2s;}
+.toggle.on::after{left:22px;}
+.danger-zone{background:rgba(248,113,113,.05);border:1.5px solid rgba(248,113,113,.2);border-radius:16px;padding:1.4rem 1.6rem;}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--card);border:1.5px solid rgba(79,201,126,.3);border-radius:12px;padding:.75rem 1.2rem;font-weight:700;font-size:.88rem;color:var(--mint-light);box-shadow:0 8px 24px rgba(0,0,0,.4);z-index:1000;transform:translateY(80px);opacity:0;transition:transform .3s,opacity .3s;pointer-events:none;}
+.toast.show{transform:translateY(0);opacity:1;}
+/* BAN SCREEN */
+/* ban screen replaced by ban-banner */
+/* REPORT */
+.report-btn{background:rgba(248,113,113,.08);border:1.5px solid rgba(248,113,113,.2);color:var(--red);font-size:.8rem;font-weight:700;padding:.3rem .7rem;border-radius:8px;cursor:pointer;font-family:'Rubik',sans-serif;transition:filter .2s,transform .15s;display:inline-flex;align-items:center;gap:.3rem;}
+.report-btn:hover{filter:brightness(1.15);transform:translateY(-1px);}
+.report-item{padding:.8rem 0;border-bottom:1px solid rgba(79,201,126,.08);display:flex;flex-direction:column;gap:.5rem;}
+.report-item:last-child{border-bottom:none;}
+.report-meta{font-size:.78rem;color:rgba(232,254,242,.4);font-weight:700;}
+.report-reason-text{font-size:.9rem;font-weight:700;color:var(--text);}
+.report-actions{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.2rem;}
+/* BAN BANNER */
+.ban-banner{background:linear-gradient(135deg,#2a0a0a 0%,#1a0505 100%);border-bottom:2px solid rgba(248,113,113,.4);padding:.7rem 2rem;display:none;align-items:center;gap:1rem;position:sticky;top:70px;z-index:99;}
+.ban-banner.show{display:flex;}
+.ban-banner-text{flex:1;font-size:.88rem;font-weight:700;color:rgba(232,254,242,.8);line-height:1.5;}
+.ban-banner-text strong{color:var(--red);}
+.ban-banner-countdown{font-family:'Rubik',sans-serif;font-size:.95rem;color:var(--gold);white-space:nowrap;}
+/* USER SEARCH PAGE */
+.user-search-bar{display:flex;gap:.7rem;margin-bottom:1.2rem;}
+.user-search-bar input{flex:1;padding:.65rem 1rem;background:rgba(0,0,0,.3);border:1.5px solid rgba(79,201,126,.2);border-radius:10px;color:var(--text);font-family:'Rubik',sans-serif;font-size:.92rem;font-weight:700;outline:none;transition:border-color .2s;}
+.user-search-bar input:focus{border-color:rgba(79,201,126,.5);}
+.user-search-bar input::placeholder{color:rgba(232,254,242,.25);}
+.user-card{background:linear-gradient(135deg,var(--card) 0%,var(--card-dark) 100%);border:1.5px solid rgba(79,201,126,.2);border-radius:14px;padding:1rem 1.3rem;display:flex;align-items:center;gap:1rem;cursor:pointer;transition:background .15s,border-color .15s;box-shadow:0 2px 10px var(--shadow);}
+.user-card:hover{background:rgba(79,201,126,.06);border-color:rgba(79,201,126,.35);}
+.user-card-initial{width:44px;height:44px;border-radius:11px;background:rgba(79,201,126,.15);border:1.5px solid rgba(79,201,126,.2);display:flex;align-items:center;justify-content:center;font-family:'Rubik',sans-serif;font-size:1.2rem;color:var(--mint-light);flex-shrink:0;overflow:hidden;}
+.user-card-initial img{width:100%;height:100%;object-fit:cover;}
+.user-card-info{flex:1;}
+.user-card-name{font-weight:700;font-size:.95rem;color:var(--text);}
+.user-card-meta{font-size:.78rem;color:rgba(232,254,242,.4);font-weight:700;margin-top:.1rem;}
+.user-grid{display:flex;flex-direction:column;gap:.7rem;}
+
+.hidden{display:none!important;}
+footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.25);font-weight:700;}
+
+/* DIVIDER */
+.section-divider{height:1px;background:rgba(79,201,126,.1);margin:.5rem 0;}
+
+@media(max-width:768px){
+  .hero-card{grid-template-columns:1fr;text-align:center;padding:1.5rem;}
+  .avatar-img{margin:0 auto;}
+  .fluffy-badge{margin:0 auto;}
+  .hero-name{font-size:2.6rem;}
+  .lower-grid,.account-grid{grid-template-columns:1fr;}
+  .filter-grid{grid-template-columns:1fr 1fr;}
+  nav{padding:0 1rem;}
+  .nav-links a{padding:.5rem .7rem;font-size:.88rem;}
+  .notif-panel{width:calc(100vw - 2rem);right:1rem;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand" onclick="window.showPage('home')">
+    <div class="nav-logo"><img src="minto_pfp.gif" alt="MintoFox"></div>
+    mintofox.net
+  </div>
+  <ul class="nav-links">
+    <li><a id="nav-home" class="active" onclick="window.showPage('home')">Home</a></li>
+    <li><a id="nav-forums" onclick="window.showPage('forums')">Forums</a></li>
+    <li><a id="nav-users" onclick="window.showPage('users')">Users</a></li>
+    <li><a id="nav-account" onclick="window.showPage('account')">Account</a></li>
+    <li><a id="nav-support" onclick="window.showPage('support')">Support</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="notif-btn hidden" id="notif-btn" onclick="window.toggleNotifPanel()">
+      🔔
+      <div class="notif-badge" id="notif-badge"></div>
+    </div>
+    <div class="nav-user" id="nav-username" onclick="window.showPage('account')">@guest</div>
+  </div>
+</nav>
+
+<!-- BAN BANNER - always visible when banned -->
+<div class="ban-banner" id="ban-banner">
+  <span style="font-size:1.3rem;">🔨</span>
+  <div class="ban-banner-text">
+    Your account has been banned for: <strong id="ban-banner-reason">—</strong>
+  </div>
+  <div class="ban-banner-countdown" id="ban-banner-countdown"></div>
+</div>
+<div class="notif-panel" id="notif-panel">
+  <div class="notif-header">
+    <div class="notif-header-title">🔔 Notifications</div>
+    <button class="btn btn-ghost btn-sm" onclick="markAllRead()">mark all read</button>
+  </div>
+  <div class="notif-list" id="notif-list"><div class="notif-empty">no notifications yet :3</div></div>
+</div>
+
+<!-- ══════════ HOME ══════════ -->
+<div id="page-home" class="page active">
+<main>
+  <div class="hero-card">
+    <img src="minto_pfp.gif" alt="MintoFox" class="avatar-img">
+    <div class="hero-info">
+      <h1 class="hero-name">MintoFox</h1>
+      <p class="hero-bio">a panromantic femboy furry fox that really likes computers, i like using linux (mainly arch or cachyos) sometimes but im forced to use windows a lot. i love when we actually have privacy on the internet. ...google... ew....</p>
+      <span class="fluffy-badge">am fluffy tho hehe :3</span>
+    </div>
+  </div>
+  <div class="lower-grid">
+    <div class="card">
+      <div class="card-title">🔗 Find me on</div>
+      <ul class="social-list">
+        <li><span class="social-platform">Stoat:</span><span>MintoFox#7491</span></li>
+        <li><span class="social-platform">Fluxer:</span><span>MintoFox#9084</span></li>
+        <li><span class="social-platform">VRChat:</span><span>MintoFox</span></li>
+        <li><span class="social-platform">Epic Games:</span><span>Minto Fox</span></li>
+        <li><span class="social-platform">Steam:</span><span>MintoFox</span></li>
+        <li><span class="social-platform">YouTube:</span><span>MintoFox</span></li>
+        <li><span class="social-platform">TikTok:</span><span>mintofox</span></li>
+        <li><span class="social-platform">Bluesky:</span><span>mintofox.bsky.social</span></li>
+      </ul>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1.5rem;">
+      <div class="community-card">
+        <div class="card-title">💬 Community</div>
+        <a class="fluxer-banner" href="https://fluxer.gg/AqmudXOJ" target="_blank" rel="noopener">
+          <span class="fluxer-name">Fluxer Community</span>
+          <div class="fluxer-logo"><img src="fluxer-symbol-white.svg" alt="Fluxer"></div>
+        </a>
+      </div>
+      <div class="card">
+        <div class="card-title">✨ Vibes</div>
+        <div class="tags">
+          <span class="tag tag-mint">🐧 Linux Enjoyer</span>
+          <span class="tag tag-gold">🦊 Furry</span>
+          <span class="tag tag-pink">💜 Panromantic</span>
+          <span class="tag tag-purple">🌸 Femboy</span>
+          <span class="tag tag-mint">🔒 Internet Privacy</span>
+          <span class="tag tag-pink">🥽 VRChat</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</div>
+
+<!-- ══════════ FORUMS ══════════ -->
+<div id="page-forums" class="page">
+  <div id="forums-list-view">
+  <main>
+    <div class="page-header">
+      <h2 class="page-title">💬 Forums</h2>
+      <button class="btn btn-mint" onclick="openNewPostModal()">+ New Thread</button>
+    </div>
+
+    <!-- Search bar -->
+    <div class="search-bar">
+      <div class="search-row">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-query" placeholder="search threads..." oninput="onSearchInput()">
+        </div>
+        <select id="sort-select" style="padding:.65rem .9rem;background:rgba(0,0,0,.3);border:1.5px solid rgba(79,201,126,.2);border-radius:10px;color:var(--text);font-family:'Rubik',sans-serif;font-weight:700;font-size:.85rem;outline:none;cursor:pointer;">
+          <option value="activity">Latest Activity</option>
+          <option value="replies">Most Replies</option>
+          <option value="newest">Newest First</option>
+        </select>
+        <button class="btn btn-ghost" onclick="window.loadForums()" style="font-size:.85rem;">↻ Refresh</button>
+        <button class="filter-toggle" onclick="toggleFilters()">⚙️ Filters</button>
+      </div>
+      <div class="filter-panel" id="filter-panel">
+        <div class="filter-grid">
+          <div class="filter-group">
+            <label>Author</label>
+            <input type="text" id="filter-author" placeholder="username...">
+          </div>
+          <div class="filter-group">
+            <label>From date</label>
+            <input type="date" id="filter-from">
+          </div>
+          <div class="filter-group">
+            <label>To date</label>
+            <input type="date" id="filter-to">
+          </div>
+          <div class="filter-group">
+            <label>Posted within</label>
+            <select id="filter-within">
+              <option value="">any time</option>
+              <option value="1">1 day ago</option>
+              <option value="2">2 days ago</option>
+              <option value="7">1 week ago</option>
+              <option value="14">2 weeks ago</option>
+              <option value="30">1 month ago</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Category</label>
+            <select id="filter-cat">
+              <option value="">all categories</option>
+              <option value="general">General</option>
+              <option value="tech">Tech</option>
+              <option value="gaming">Gaming</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="filter-actions">
+          <button class="btn btn-ghost btn-sm" onclick="clearFilters()">Clear</button>
+          <button class="btn btn-mint btn-sm" onclick="loadForums()">Apply</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- search results view -->
+    <div id="search-results-view" class="hidden">
+      <div class="forum-category" id="search-results-cat">
+        <div class="category-header"><span>🔍</span><h3 id="search-results-title">Results</h3></div>
+        <div id="search-results-list"></div>
+      </div>
+    </div>
+
+    <!-- normal category view -->
+    <div id="category-view">
+      <div class="forum-categories">
+        <div class="forum-category"><div class="category-header"><span>📢</span><h3>General</h3></div><div id="cat-general"><div class="forum-empty">loading...</div></div></div>
+        <div class="forum-category"><div class="category-header"><span>💻</span><h3>Tech</h3></div><div id="cat-tech"><div class="forum-empty">loading...</div></div></div>
+        <div class="forum-category"><div class="category-header"><span>🎮</span><h3>Gaming</h3></div><div id="cat-gaming"><div class="forum-empty">loading...</div></div></div>
+        <div class="forum-category"><div class="category-header"><span>✨</span><h3>Other</h3></div><div id="cat-other"><div class="forum-empty">loading...</div></div></div>
+      </div>
+    </div>
+  </main>
+  </div>
+
+  <!-- Thread view -->
+  <div id="thread-view" class="hidden">
+  <main>
+    <div class="back-btn" onclick="backToForums()">← Back to Forums</div>
+    <div id="thread-content"></div>
+  </main>
+  </div>
+</div>
+
+<!-- ══════════ ACCOUNT ══════════ -->
+<div id="page-account" class="page">
+  <!-- logged out -->
+  <div id="view-loggedout" class="auth-container">
+    <div class="auth-card">
+      <div class="auth-logo"><img src="minto_pfp.gif" alt="MintoFox"></div>
+      <div class="auth-title">mintofox.net</div>
+      <div class="auth-subtitle">log in or make an account :3</div>
+      <div class="auth-tabs">
+        <div class="auth-tab active" id="tab-login"    onclick="switchTab('login')">Log In</div>
+        <div class="auth-tab"        id="tab-register" onclick="switchTab('register')">Register</div>
+        <div class="auth-tab"        id="tab-reset"    onclick="switchTab('reset')">Reset PW</div>
+      </div>
+      <div id="auth-err" class="msg-err"></div>
+      <div id="auth-ok"  class="msg-ok"></div>
+      <div id="form-login">
+        <div class="form-group"><label>Email</label><input type="email" id="login-email" placeholder="you@example.com"></div>
+        <div class="form-group"><label>Password</label><input type="password" id="login-password" placeholder="••••••••"></div>
+        <div id="mfa-section" class="hidden">
+          <div class="form-group"><label>Authenticator Code</label><input type="text" id="login-mfa" placeholder="6-digit code" maxlength="6" inputmode="numeric"></div>
+        </div>
+        <button class="btn btn-mint btn-full" id="login-btn" onclick="doLogin()">Log In</button>
+        <div class="auth-footer">no account? <a onclick="switchTab('register')">register</a> · <a onclick="switchTab('reset')">forgot password?</a></div>
+      </div>
+      <div id="form-register" class="hidden">
+        <div class="form-group"><label>Username</label><input type="text" id="reg-username" placeholder="coolname"></div>
+        <div class="form-group"><label>Email</label><input type="email" id="reg-email" placeholder="you@example.com"></div>
+        <div class="form-group"><label>Password</label><input type="password" id="reg-password" placeholder="8+ characters"></div>
+        <button class="btn btn-mint btn-full" id="register-btn" onclick="doRegister()">Create Account</button>
+        <div class="auth-footer">already have one? <a onclick="switchTab('login')">log in</a></div>
+      </div>
+      <div id="form-reset" class="hidden">
+        <p style="font-size:.88rem;color:rgba(232,254,242,.5);font-weight:700;margin-bottom:.9rem;">enter your email and we'll send a reset link :3</p>
+        <div class="form-group"><label>Email</label><input type="email" id="reset-email" placeholder="you@example.com"></div>
+        <button class="btn btn-mint btn-full" id="reset-btn" onclick="doResetRequest()">Send Reset Link</button>
+        <div class="auth-footer">remembered it? <a onclick="switchTab('login')">log in</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- logged in -->
+  <div id="view-loggedin" class="account-page hidden">
+    <div class="account-grid">
+      <div class="account-sidebar">
+        <div class="account-profile-card">
+          <div class="account-initial" id="acct-initial">?</div>
+          <div class="account-display-name" id="acct-display-name"></div>
+          <div class="account-username" id="acct-username">—</div>
+          <div class="account-stats">
+            <div class="account-stat"><div class="sv" id="acct-posts" onclick="searchByCurrentUser()">—</div><div class="sl">posts</div></div>
+            <div class="account-stat"><div class="sv" id="acct-joined">—</div><div class="sl">joined</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="account-main">
+
+        <!-- Profile settings -->
+        <div class="settings-card">
+          <div class="card-title">👤 Profile</div>
+          <div class="form-group">
+            <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;">
+              <button class="btn btn-outline" onclick="toggleAvatarInstructions()">🖼️ Change Profile Picture</button>
+              <button class="btn btn-red btn-sm" id="remove-pfp-btn" onclick="removeOwnAvatar()" style="display:none;">🗑️ Remove Profile Picture</button>
+            </div>
+            <div id="avatar-instructions" class="hidden" style="margin-top:.9rem;background:rgba(0,0,0,.2);border:1.5px solid rgba(79,201,126,.15);border-radius:12px;padding:1rem 1.2rem;">
+              <p style="font-size:.88rem;font-weight:700;color:rgba(232,254,242,.7);line-height:1.8;margin-bottom:.8rem;">
+                Profile pictures are hosted by <a href="https://catbox.moe" target="_blank" rel="noopener" style="color:var(--mint);">catbox.moe</a>.<br>
+                Please go to <a href="https://catbox.moe" target="_blank" rel="noopener" style="color:var(--mint);">https://catbox.moe/</a> and upload a <strong style="color:var(--mint-light);">GIF, PNG, JPG, or WEBP</strong> image, then paste the link below.<br>
+                <span style="font-size:.78rem;color:rgba(232,254,242,.35);">All avatars require approval before they appear. Only catbox.moe links are accepted.</span>
+              </p>
+              <div style="display:flex;gap:.6rem;align-items:center;">
+                <input type="text" id="edit-avatar-url" placeholder="https://files.catbox.moe/abc123.gif" style="flex:1;">
+                <button class="btn btn-mint" onclick="submitAvatar()">Submit</button>
+              </div>
+              <div id="avatar-status-msg" style="margin-top:.5rem;font-size:.8rem;font-weight:700;"></div>
+            </div>
+          </div>
+          <div class="form-group"><label>About Me</label><textarea id="edit-about-me" placeholder="tell the world who you are :3"></textarea></div>
+          <div id="profile-save-msg" class="msg-ok"></div>
+          <button class="btn btn-mint" onclick="saveProfile()">Save Profile</button>
+        </div>
+
+        <!-- Mod panel — only visible to MintoFox -->
+        <div class="mod-panel hidden" id="mod-panel">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem;">
+            <div class="mod-title" style="margin-bottom:0;">🛡️ Avatar Mod Queue</div>
+            <button class="btn btn-ghost btn-sm" onclick="window.loadModQueue()">↻</button>
+          </div>
+          <div id="mod-list"><div class="forum-empty">no pending avatars :3</div></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:1.2rem;margin-bottom:.8rem;">
+            <div class="mod-title" style="margin-bottom:0;">🚩 Reports</div>
+            <button class="btn btn-ghost btn-sm" onclick="window.loadReports()">↻</button>
+          </div>
+          <div id="report-list"><div class="forum-empty">loading...</div></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:1.2rem;margin-bottom:.8rem;">
+            <div class="mod-title" style="margin-bottom:0;">📋 Active Bans</div>
+            <button class="btn btn-ghost btn-sm" onclick="window.loadBanList()">↻</button>
+          </div>
+          <div id="ban-list"><div class="forum-empty">loading...</div></div>
+        </div>
+
+        <!-- Account settings -->
+        <div class="settings-card">
+          <div class="card-title">⚙️ Account</div>
+          <div class="settings-row">
+            <div><div class="settings-label">Username</div><div class="settings-value" id="settings-username">—</div></div>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-label">Email</div><div class="settings-value" id="settings-email">—</div></div>
+            <button class="btn btn-outline btn-sm" onclick="openModal('modal-change-email')">Change</button>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-label">Password</div><div class="settings-value">••••••••</div></div>
+            <button class="btn btn-outline btn-sm" onclick="openModal('modal-change-password')">Change</button>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-label">Two-Factor Auth</div><div class="settings-value" id="mfa-status">checking...</div></div>
+            <button class="btn btn-outline btn-sm" id="mfa-toggle-btn" onclick="handleMfaToggle()">...</button>
+          </div>
+        </div>
+
+        <!-- Notifications settings -->
+        <div class="settings-card">
+          <div class="card-title">⚙️ Preferences</div>
+          <div class="settings-row">
+            <div><div class="settings-label">Default Forum Sort</div></div>
+            <select id="pref-default-sort" style="padding:.4rem .8rem;background:rgba(0,0,0,.3);border:1.5px solid rgba(79,201,126,.2);border-radius:8px;color:var(--text);font-family:'Rubik',sans-serif;font-weight:700;font-size:.85rem;outline:none;">
+              <option value="activity">Latest Activity</option>
+              <option value="replies">Most Replies</option>
+              <option value="newest">Newest First</option>
+            </select>
+          </div>
+          <div class="settings-row">
+            <div class="settings-label">Replies to my posts</div>
+            <div class="toggle on" id="toggle-notif-replies" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="settings-row">
+            <div class="settings-label">Replies to followed posts</div>
+            <div class="toggle on" id="toggle-notif-follows" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Show profile pictures</div>
+              <div class="settings-value">disable if you feel unsafe loading external images</div>
+            </div>
+            <div class="toggle on" id="toggle-show-avatars" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div id="prefs-save-msg" class="msg-ok" style="margin-top:.5rem;"></div>
+          <button class="btn btn-mint" style="margin-top:.6rem;" onclick="savePrefs()">Save Preferences</button>
+        </div>
+
+        <!-- Danger zone -->
+        <div class="danger-zone">
+          <div class="card-title" style="color:var(--red);">⚠️ Danger Zone</div>
+          <button class="btn btn-red" onclick="openModal('modal-delete-account')">Delete Account</button>
+        </div>
+
+        <button class="btn btn-outline" onclick="doLogout()" style="width:100%;justify-content:center;">🚪 Log Out</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MODALS ══════════ -->
+
+<!-- Report Modal -->
+<div class="modal-overlay" id="modal-report">
+  <div class="modal">
+    <div class="modal-title">🚩 Report</div>
+    <input type="hidden" id="report-post-id">
+    <input type="hidden" id="report-reply-id">
+    <p id="report-label" style="font-size:.88rem;color:rgba(232,254,242,.5);font-weight:700;margin-bottom:.9rem;"></p>
+    <div class="form-group">
+      <label>What's wrong with this?</label>
+      <textarea id="report-reason" placeholder="describe the issue..."></textarea>
+    </div>
+    <div id="report-err" class="msg-err"></div>
+    <div id="report-ok" class="msg-ok"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-report')">Cancel</button>
+      <button class="btn btn-red" onclick="submitReport()">🚩 Report</button>
+    </div>
+  </div>
+</div>
+
+<!-- Ban Modal -->
+<div class="modal-overlay" id="modal-ban">
+  <div class="modal">
+    <div class="modal-title" style="color:var(--red);">🔨 Ban User</div>
+    <input type="hidden" id="ban-target-id">
+    <input type="hidden" id="ban-target-username">
+    <p id="ban-target-label" style="font-size:.9rem;color:rgba(232,254,242,.5);font-weight:700;margin-bottom:1rem;"></p>
+    <div class="form-group">
+      <label>Reason</label>
+      <input type="text" id="ban-reason" placeholder="reason for the ban">
+    </div>
+    <div class="form-group">
+      <label>Ban expires at (leave blank for permanent)</label>
+      <input type="datetime-local" id="ban-expires">
+    </div>
+    <div id="ban-err" class="msg-err"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-ban')">Cancel</button>
+      <button class="btn btn-red" onclick="banUser()">🔨 Ban</button>
+    </div>
+  </div>
+</div>
+
+<!-- New Post -->
+<div class="modal-overlay" id="modal-new-post">
+  <div class="modal">
+    <div class="modal-title">✍️ New Thread</div>
+    <div class="form-group"><label>Category</label>
+      <select id="post-category">
+        <option value="general">📢 General</option>
+        <option value="tech">💻 Tech</option>
+        <option value="gaming">🎮 Gaming</option>
+        <option value="other">✨ Other</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Title</label><input type="text" id="post-title" placeholder="what's on your mind?"></div>
+    <div class="form-group"><label>Content</label><textarea id="post-content" placeholder="go off..."></textarea></div>
+    <div id="post-err" class="msg-err"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-new-post')">Cancel</button>
+      <button class="btn btn-mint" id="post-submit-btn" onclick="submitPost()">Post it 🦊</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Post -->
+<div class="modal-overlay" id="modal-edit-post">
+  <div class="modal">
+    <div class="modal-title">✏️ Edit Thread</div>
+    <input type="hidden" id="edit-post-id">
+    <div class="form-group"><label>Title</label><input type="text" id="edit-post-title"></div>
+    <div class="form-group"><label>Content</label><textarea id="edit-post-content"></textarea></div>
+    <div id="edit-post-err" class="msg-err"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-edit-post')">Cancel</button>
+      <button class="btn btn-mint" onclick="saveEditPost()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Reply -->
+<div class="modal-overlay" id="modal-edit-reply">
+  <div class="modal">
+    <div class="modal-title">✏️ Edit Reply</div>
+    <input type="hidden" id="edit-reply-id">
+    <div class="form-group"><label>Content</label><textarea id="edit-reply-content"></textarea></div>
+    <div id="edit-reply-err" class="msg-err"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-edit-reply')">Cancel</button>
+      <button class="btn btn-mint" onclick="saveEditReply()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Profile Modal -->
+<div class="modal-overlay" id="modal-profile">
+  <div class="modal modal-wide">
+    <div class="profile-modal-body" id="profile-modal-body">
+      <div class="forum-empty">loading profile...</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-profile')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Change Email -->
+<div class="modal-overlay" id="modal-change-email">
+  <div class="modal">
+    <div class="modal-title">📧 Change Email</div>
+    <p style="font-size:.88rem;color:rgba(232,254,242,.5);font-weight:700;margin-bottom:1rem;">verification links will be sent to both your old and new email</p>
+    <div class="form-group"><label>New Email</label><input type="email" id="new-email" placeholder="new@example.com"></div>
+    <div id="ce-err" class="msg-err"></div>
+    <div id="ce-ok" class="msg-ok"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-change-email')">Cancel</button>
+      <button class="btn btn-mint" onclick="changeEmail()">Send Verification</button>
+    </div>
+  </div>
+</div>
+
+<!-- Change Password -->
+<div class="modal-overlay" id="modal-change-password">
+  <div class="modal">
+    <div class="modal-title">🔑 Change Password</div>
+    <div class="form-group"><label>Current Password</label><input type="password" id="cp-current" placeholder="••••••••"></div>
+    <div class="form-group"><label>New Password</label><input type="password" id="cp-new" placeholder="8+ characters"></div>
+    <div class="form-group"><label>Confirm New Password</label><input type="password" id="cp-confirm" placeholder="••••••••"></div>
+    <div id="mfa-cp-section" class="hidden"><div class="form-group"><label>Authenticator Code</label><input type="text" id="cp-mfa" placeholder="6-digit code" maxlength="6" inputmode="numeric"></div></div>
+    <div id="cp-err" class="msg-err"></div>
+    <div id="cp-ok" class="msg-ok"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-change-password')">Cancel</button>
+      <button class="btn btn-mint" onclick="changePassword()">Change Password</button>
+    </div>
+  </div>
+</div>
+
+<!-- Setup 2FA -->
+<div class="modal-overlay" id="modal-setup-mfa">
+  <div class="modal">
+    <div class="modal-title">🔐 Set Up 2FA</div>
+    <p style="font-size:.88rem;color:rgba(232,254,242,.5);font-weight:700;margin-bottom:1rem;">scan the QR code with your authenticator app (Google Authenticator, Authy, etc.)</p>
+    <div style="text-align:center;margin-bottom:1rem;"><img id="mfa-qr" src="" alt="QR Code" style="border-radius:10px;max-width:180px;background:#fff;padding:8px;"></div>
+    <p style="font-size:.78rem;color:rgba(232,254,242,.35);font-weight:700;margin-bottom:1rem;text-align:center;" id="mfa-secret-text"></p>
+    <div class="form-group"><label>Enter code to confirm</label><input type="text" id="mfa-verify-code" placeholder="6-digit code" maxlength="6" inputmode="numeric"></div>
+    <div id="mfa-setup-err" class="msg-err"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-setup-mfa')">Cancel</button>
+      <button class="btn btn-mint" onclick="verifyMfaSetup()">Verify &amp; Enable</button>
+    </div>
+  </div>
+</div>
+
+<!-- Disable 2FA -->
+<div class="modal-overlay" id="modal-disable-mfa">
+  <div class="modal">
+    <div class="modal-title">🔓 Disable 2FA</div>
+    <div class="form-group"><label>Authenticator Code</label><input type="text" id="disable-mfa-code" placeholder="6-digit code" maxlength="6" inputmode="numeric"></div>
+    <div id="disable-mfa-err" class="msg-err"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-disable-mfa')">Cancel</button>
+      <button class="btn btn-red" onclick="disableMfa()">Disable 2FA</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Account -->
+<div class="modal-overlay" id="modal-delete-account">
+  <div class="modal">
+    <div class="modal-title" style="color:var(--red);">⚠️ Delete Account</div>
+    <p style="font-size:.9rem;color:rgba(232,254,242,.6);font-weight:700;margin-bottom:1rem;">this will permanently delete your account, all your posts, and all your replies. this cannot be undone.</p>
+    <div class="form-group"><label>Type DELETE to confirm</label><input type="text" id="delete-confirm-text" placeholder="DELETE"></div>
+    <div class="form-group"><label>Current Password</label><input type="password" id="delete-password" placeholder="••••••••"></div>
+    <div id="mfa-del-section" class="hidden"><div class="form-group"><label>Authenticator Code</label><input type="text" id="delete-mfa" placeholder="6-digit code" maxlength="6" inputmode="numeric"></div></div>
+    <div id="delete-err" class="msg-err"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-delete-account')">Cancel</button>
+      <button class="btn btn-red" onclick="deleteAccount()">Delete Forever</button>
+    </div>
+  </div>
+</div>
+
+<!-- User Popover -->
+<div class="user-popover" id="user-popover">
+  <div class="pop-name" id="pop-name">...</div>
+  <div class="pop-stat">posts: <span id="pop-posts" onclick="searchByAuthorFromPop()">...</span></div>
+  <div class="pop-stat">joined: <span id="pop-joined">...</span></div>
+  <div class="pop-view"><button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center;margin-top:.2rem;" onclick="openProfileModal(currentPopId,currentPopName)">View Profile</button></div>
+</div>
+
+<!-- USERS PAGE -->
+<div id="page-users" class="page">
+<main>
+  <div class="page-header">
+    <h2 class="page-title">👥 Users</h2>
+  </div>
+  <div class="user-search-bar">
+    <input type="text" id="user-search-input" placeholder="search by username..." oninput="onUserSearch()">
+  </div>
+  <div class="user-grid" id="user-grid"><div class="forum-empty">loading...</div></div>
+</main>
+</div>
+
+<!-- SUPPORT PAGE -->
+<div id="page-support" class="page">
+<main style="align-items:center;justify-content:center;min-height:60vh;">
+  <div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.5rem;padding:3rem 1rem;">
+    <h1 style="font-family:'Rubik',sans-serif;font-size:3rem;color:var(--text);">Need help?</h1>
+    <a href="mailto:mintofox@proton.me?subject=MintoFox.net%20Support%20Request%20-%20"
+      style="background:var(--mint-dark);color:#fff;font-family:'Rubik',sans-serif;font-size:1.3rem;padding:1rem 2.5rem;border-radius:100px;text-decoration:none;border:2px solid rgba(79,201,126,.4);transition:filter .2s,transform .15s;display:inline-block;"
+      onmouseover="this.style.filter='brightness(1.15)';this.style.transform='translateY(-2px)'"
+      onmouseout="this.style.filter='';this.style.transform=''">
+      Send an email to me for support!
+    </a>
+    <p style="font-size:.85rem;font-weight:700;color:rgba(232,254,242,.4);margin-top:.5rem;">please keep <strong style="color:rgba(232,254,242,.65);">MintoFox.net Support Request -</strong> in the subject line so i know it's a support request!</p>
+  </div>
+</main>
+</div>
+
+<!-- REPORT MODAL -->
+<div class="modal-overlay" id="modal-report">
+  <div class="modal">
+    <div class="modal-title">🚩 Report</div>
+    <input type="hidden" id="report-post-id">
+    <input type="hidden" id="report-reply-id">
+    <input type="hidden" id="report-user-id">
+    <input type="hidden" id="report-user-username">
+    <input type="hidden" id="report-type-hidden">
+    <p id="report-label" style="font-size:.85rem;color:rgba(232,254,242,.45);font-weight:700;margin-bottom:1rem;"></p>
+    <div class="form-group">
+      <label>What's wrong with this?</label>
+      <textarea id="report-reason" placeholder="describe the issue..."></textarea>
+    </div>
+    <div id="report-err" class="msg-err"></div>
+    <div id="report-ok" class="msg-ok"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-report')">Cancel</button>
+      <button class="btn btn-red" onclick="submitReport()">🚩 Report</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<footer>this was made by ai, i do not take any credit of the development of this website.</footer>
+
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+const sb = createClient('https://lmupyrjmsupdvxcewbhy.supabase.co','sb_publishable_Gn_DeJIDXWKnt5-ycuIAEA_afmk25X0');
+
+// ─── utils ────────────────────────────────────────────────────
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function timeAgo(d){const diff=Date.now()-new Date(d);const m=Math.floor(diff/6e4),h=Math.floor(diff/36e5),dy=Math.floor(diff/864e5);if(m<1)return'just now';if(m<60)return`${m}m ago`;if(h<24)return`${h}h ago`;return`${dy}d ago`;}
+function fmtDate(d){return new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'short'});}
+function fmtFull(d){return new Date(d).toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'});}
+
+window.showToast=msg=>{const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);};
+window.openModal=id=>{document.getElementById(id).classList.add('open');};
+window.closeModal=id=>{document.getElementById(id).classList.remove('open');};
+document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
+
+// ─── nav ──────────────────────────────────────────────────────
+window.showPage=name=>{
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  const navEl=document.getElementById('nav-'+name);
+  if(navEl) navEl.classList.add('active');
+  window.scrollTo(0,0);
+  if(name==='forums'){backToForums();loadForums();}
+  if(name==='users'){loadAllUsers();}
+};
+
+// ─── avatar helpers ───────────────────────────────────────────
+const ALLOWED_HOSTS=['https://files.catbox.moe/'];
+const ALLOWED_EXTS=['.gif','.png','.jpg','.jpeg','.webp'];
+
+function validateAvatarUrl(url){
+  if(!url)return false;
+  const lower=url.toLowerCase();
+  const hostOk=ALLOWED_HOSTS.some(h=>lower.startsWith(h));
+  const extOk=ALLOWED_EXTS.some(e=>lower.endsWith(e));
+  return hostOk&&extOk;
+}
+
+function avatarHTML(profile,size='sm'){
+  const showAvs=window.showAvatarsPref!==false;
+  if(showAvs&&profile?.avatar_status==='approved'&&profile?.avatar_url){
+    return`<img src="${esc(profile.avatar_url)}" alt="${esc(profile.username||'')}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" onerror="this.parentElement.innerHTML='${(profile.username||'?')[0].toUpperCase()}'">`;
+  }
+  return(profile?.username||'?')[0].toUpperCase();
+}
+
+window.submitAvatar=async()=>{
+  const url=document.getElementById('edit-avatar-url').value.trim();
+  const statusEl=document.getElementById('avatar-status-msg');
+  if(!url){statusEl.style.color='var(--red)';statusEl.textContent='enter a URL first';return;}
+  if(!validateAvatarUrl(url)){
+    statusEl.style.color='var(--red)';
+    statusEl.textContent='URL must be from files.catbox.moe and end in .gif .png .jpg or .webp';
+    return;
+  }
+  const{error}=await sb.from('profiles').update({avatar_url:url,avatar_status:'pending'}).eq('id',currentUser.id);
+  if(error){statusEl.style.color='var(--red)';statusEl.textContent=error.message;return;}
+  statusEl.style.color='var(--gold)';
+  statusEl.textContent='⏳ submitted for approval!';
+  // invalidate cache so popover refreshes
+  delete profCache[currentUser.id];
+};
+
+// ─── mod queue ────────────────────────────────────────────────
+window.loadModQueue=async()=>{
+  const{data}=await sb.from('profiles').select('id,username,avatar_url,avatar_status').eq('avatar_status','pending');
+  const el=document.getElementById('mod-list');
+  if(!data||!data.length){el.innerHTML='<div class="forum-empty">no pending avatars :3</div>';return;}
+  el.innerHTML=data.map(p=>`
+    <div class="mod-item" id="mod-item-${p.id}">
+      <img class="mod-avatar" src="${esc(p.avatar_url)}" alt="${esc(p.username)}" onerror="this.style.background='rgba(79,201,126,.15)'">
+      <div class="mod-info">
+        <div class="mod-username">${esc(p.username)}</div>
+        <div class="mod-url">${esc(p.avatar_url)}</div>
+      </div>
+      <div class="mod-actions">
+        <button class="btn btn-mint btn-sm" onclick="modAvatar('${p.id}','approved')">✅ Approve</button>
+        <button class="btn btn-red btn-sm" onclick="modAvatar('${p.id}','rejected')">❌ Reject</button>
+      </div>
+    </div>`).join('');
+};
+
+window.modAvatar=async(userId,status)=>{
+  const update={avatar_status:status};
+  if(status==='rejected') update.avatar_url=null;
+  await sb.from('profiles').update(update).eq('id',userId);
+  delete profCache[userId];
+  document.getElementById('mod-item-'+userId)?.remove();
+  showToast(status==='approved'?'avatar approved! ✅':'avatar rejected ❌');
+  const remaining=document.querySelectorAll('[id^="mod-item-"]').length;
+  if(!remaining) document.getElementById('mod-list').innerHTML='<div class="forum-empty">no pending avatars :3</div>';
+};
+
+window.modRemoveAvatar=async(userId)=>{
+  if(!confirm('remove this user\'s profile picture?'))return;
+  await sb.from('profiles').update({avatar_url:null,avatar_status:'none'}).eq('id',userId);
+  delete profCache[userId];
+  closeModal('modal-profile');
+  showToast('profile picture removed!');
+};
+
+window.removeOwnAvatar=async()=>{
+  if(!confirm('remove your profile picture?'))return;
+  await sb.from('profiles').update({avatar_url:null,avatar_status:'none'}).eq('id',currentUser.id);
+  delete profCache[currentUser.id];
+  document.getElementById('edit-avatar-url').value='';
+  document.getElementById('avatar-status-msg').textContent='';
+  document.getElementById('remove-pfp-btn').style.display='none';
+  // reset avatar display in sidebar
+  const uname=currentUser.user_metadata?.username||currentUser.email.split('@')[0];
+  document.getElementById('acct-initial').textContent=uname[0].toUpperCase();
+  showToast('profile picture removed!');
+};
+
+window.modClearAboutMe=async(userId)=>{
+  if(!confirm('clear this user\'s about me?'))return;
+  await sb.from('profiles').update({about_me:null}).eq('id',userId);
+  delete profCache[userId];
+  closeModal('modal-profile');
+  showToast('about me cleared!');
+};
+
+// ─── reports ──────────────────────────────────────────────────
+window.openReport=(postId,replyId,reportedUserId,type,label,targetUserId,targetUsername)=>{
+  if(!currentUser){showToast('log in to report :3');return;}
+  document.getElementById('report-post-id').value=postId||'';
+  document.getElementById('report-reply-id').value=replyId||'';
+  document.getElementById('report-user-id').value=reportedUserId||targetUserId||'';
+  document.getElementById('report-user-username').value=targetUsername||'';
+  document.getElementById('report-type-hidden').value=type||'post';
+  document.getElementById('report-label').textContent=`Reporting: ${label}`;
+  document.getElementById('report-reason').value='';
+  document.getElementById('report-err').style.display='none';
+  document.getElementById('report-ok').style.display='none';
+  openModal('modal-report');
+};
+
+window.submitReport=async()=>{
+  const postId=document.getElementById('report-post-id').value||null;
+  const replyId=document.getElementById('report-reply-id').value||null;
+  const reportedUserId=document.getElementById('report-user-id').value||null;
+  const reportedUsername=document.getElementById('report-user-username').value||null;
+  const type=document.getElementById('report-type-hidden').value||'post';
+  const reason=document.getElementById('report-reason').value.trim();
+  if(!reason)return showErr('report-err','describe the issue first');
+  const uname=currentUser.user_metadata?.username||currentUser.email.split('@')[0];
+  const{error}=await sb.from('reports').insert({
+    reporter_id:currentUser.id,
+    reporter_name:uname,
+    post_id:postId?parseInt(postId):null,
+    reply_id:replyId?parseInt(replyId):null,
+    reported_user_id:reportedUserId||null,
+    reported_username:reportedUsername||null,
+    report_type:type,
+    reason,
+  });
+  if(error)return showErr('report-err',error.message);
+  showOk('report-ok','report submitted! MintoFox will review it. neither you nor the reported user will receive personal updates on this report :3');
+  setTimeout(()=>closeModal('modal-report'),3000);
+};
+
+window.loadReports=async()=>{
+  const el=document.getElementById('report-list');
+  if(!el)return;
+  const{data}=await sb.from('reports').select('*').eq('resolved',false).order('created_at',{ascending:false});
+  if(!data||!data.length){el.innerHTML='<div class="forum-empty">no open reports :3</div>';return;}
+  const threads=data.filter(r=>r.report_type==='post'||(!r.report_type&&r.post_id&&!r.reply_id));
+  const replies=data.filter(r=>r.report_type==='reply'||(!r.report_type&&r.reply_id));
+  const profiles=data.filter(r=>r.report_type==='profile');
+  function reportCard(r){
+    const isThread=r.report_type==='post'||(!r.report_type&&r.post_id&&!r.reply_id);
+    const isReply=r.report_type==='reply'||(!r.report_type&&r.reply_id);
+    const isProfile=r.report_type==='profile';
+    return`<div class="report-item" id="report-item-${r.id}">
+      <div class="report-meta">
+        🚩 <strong style="color:var(--mint-light);">Reporter:</strong> ${esc(r.reporter_name||'?')}
+        ${r.reported_username?` · <strong style="color:var(--red);">Reported:</strong> ${esc(r.reported_username)}`:''}
+        · ${timeAgo(r.created_at)}
+      </div>
+      <div class="report-reason-text">${esc(r.reason)}</div>
+      <div class="report-actions">
+        ${isThread&&r.post_id?`<button class="btn btn-ghost btn-sm" onclick="viewReport(${r.post_id},null)">→ View Thread</button>`:''}
+        ${isReply&&r.post_id?`<button class="btn btn-ghost btn-sm" onclick="viewReport(${r.post_id},${r.reply_id||'null'})">→ View Reply</button>`:''}
+        ${(isThread||isReply)&&r.reported_user_id?`<button class="btn btn-ghost btn-sm" onclick="openProfileModal('${esc(r.reported_user_id)}','${esc(r.reported_username||'')}')">👤 Profile</button>`:''}
+        ${isProfile&&r.reported_user_id?`<button class="btn btn-ghost btn-sm" onclick="openProfileModal('${esc(r.reported_user_id)}','${esc(r.reported_username||'')}')">👤 View Profile</button>`:''}
+        ${isThread&&r.post_id?`<button class="btn btn-red btn-sm" onclick="deletePost(${r.post_id},false)">🗑️ Delete</button>`:''}
+        ${isReply&&r.reply_id?`<button class="btn btn-red btn-sm" onclick="deleteReply(${r.reply_id})">🗑️ Delete</button>`:''}
+        <button class="btn btn-mint btn-sm" onclick="resolveReport(${r.id})">✅ Resolve</button>
+      </div>
+    </div>`;
+  }
+  let html='';
+  if(threads.length) html+=`<div class="mod-title" style="font-size:.9rem;margin:.4rem 0;">📝 Thread Reports (${threads.length})</div>`+threads.map(reportCard).join('');
+  if(replies.length) html+=`<div class="mod-title" style="font-size:.9rem;margin:.8rem 0 .4rem;">💬 Reply Reports (${replies.length})</div>`+replies.map(reportCard).join('');
+  if(profiles.length) html+=`<div class="mod-title" style="font-size:.9rem;margin:.8rem 0 .4rem;">👤 Profile Reports (${profiles.length})</div>`+profiles.map(reportCard).join('');
+  el.innerHTML=html||'<div class="forum-empty">no open reports :3</div>';
+};
+
+window.resolveReport=async(id)=>{
+  await sb.from('reports').update({resolved:true}).eq('id',id);
+  document.getElementById('report-item-'+id)?.remove();
+  showToast('report resolved!');
+};
+
+window.viewReport=async(postId,replyId)=>{
+  showPage('forums');
+  await new Promise(r=>setTimeout(r,300));
+  await openThread(postId);
+  if(replyId&&replyId!=='null'){
+    await new Promise(r=>setTimeout(r,600));
+    const el=document.getElementById('reply-'+replyId);
+    if(el){
+      el.scrollIntoView({behavior:'smooth',block:'center'});
+      el.style.outline='2px solid var(--mint)';
+      el.style.borderRadius='14px';
+      setTimeout(()=>{el.style.outline='';el.style.borderRadius='';},2500);
+    }
+  }
+};
+
+// ─── ban system ───────────────────────────────────────────────
+window.openBanModal=async(userId,username)=>{
+  document.getElementById('ban-target-id').value=userId;
+  document.getElementById('ban-target-username').value=username;
+  document.getElementById('ban-target-label').textContent=`Banning: ${username}`;
+  document.getElementById('ban-reason').value='';
+  document.getElementById('ban-expires').value='';
+  document.getElementById('ban-err').style.display='none';
+  // set default expiry to 24 hours from now as a helpful starting point
+  const def=new Date(Date.now()+86400000);
+  document.getElementById('ban-expires').value=def.toISOString().slice(0,16);
+  closeModal('modal-profile');
+  openModal('modal-ban');
+};
+
+window.banUser=async()=>{
+  const userId=document.getElementById('ban-target-id').value;
+  const username=document.getElementById('ban-target-username').value;
+  const reason=document.getElementById('ban-reason').value.trim();
+  const expiresVal=document.getElementById('ban-expires').value;
+  document.getElementById('ban-err').style.display='none';
+  if(!reason)return showErr('ban-err','enter a reason');
+  if(username.toLowerCase()==='mintofox')return showErr('ban-err','nice try :3');
+  const bannedUntil=expiresVal?new Date(expiresVal).toISOString():new Date('9999-12-31').toISOString();
+  const isPerm=!expiresVal;
+  const{error}=await sb.from('profiles').update({banned_until:bannedUntil,ban_reason:reason}).eq('id',userId);
+  if(error)return showErr('ban-err',error.message);
+  const durationText=isPerm?'This ban is permanent.':`Your ban will expire on ${new Date(bannedUntil).toLocaleString()}.`;
+  await sb.from('notifications').insert({
+    user_id:userId,
+    type:'ban',
+    actor_name:'the moderation team',
+    content:`${reason}\n\n${durationText}`,
+  });
+  delete profCache[userId];
+  closeModal('modal-ban');
+  showToast(`${username} has been banned!`);
+  loadBanList();
+};
+
+function formatBanDuration(hours){
+  if(hours>=999999)return'permanent';
+  if(hours>=720)return`${Math.round(hours/720)} month(s)`;
+  if(hours>=168)return`${Math.round(hours/168)} week(s)`;
+  if(hours>=24)return`${Math.round(hours/24)} day(s)`;
+  return`${hours} hour(s)`;
+}
+
+function formatCountdown(until){
+  const diff=new Date(until)-Date.now();
+  if(diff<=0)return'expired';
+  const d=Math.floor(diff/86400000);
+  const h=Math.floor((diff%86400000)/3600000);
+  const m=Math.floor((diff%3600000)/60000);
+  if(d>0)return`${d}d ${h}h`;
+  if(h>0)return`${h}h ${m}m`;
+  return`${m}m`;
+}
+
+async function loadBanList(){
+  const el=document.getElementById('ban-list');
+  if(!el)return;
+  const{data}=await sb.from('profiles').select('id,username,banned_until,ban_reason').not('banned_until','is',null).gt('banned_until',new Date().toISOString());
+  if(!data||!data.length){el.innerHTML='<div class="forum-empty">no active bans :3</div>';return;}
+  el.innerHTML=data.map(p=>`
+    <div class="mod-item" id="ban-item-${p.id}">
+      <div class="mod-info">
+        <div class="mod-username">${esc(p.username)}</div>
+        <div class="mod-url">${esc(p.ban_reason||'')} · expires in ${formatCountdown(p.banned_until)}</div>
+      </div>
+      <div class="mod-actions">
+        <button class="btn btn-mint btn-sm" onclick="unbanUser('${p.id}','${esc(p.username)}')">✅ Unban</button>
+      </div>
+    </div>`).join('');
+}
+
+window.unbanUser=async(userId,username)=>{
+  await sb.from('profiles').update({banned_until:null,ban_reason:null}).eq('id',userId);
+  delete profCache[userId];
+  document.getElementById('ban-item-'+userId)?.remove();
+  showToast(`${username} unbanned!`);
+  // send unban notification — shows as overlay on their end
+  await sb.from('notifications').insert({
+    user_id:userId,
+    type:'unban',
+    actor_name:'the moderation team',
+    content:'Your ban has been lifted. Welcome back :3',
+  });
+  loadBanList();
+};
+
+// ─── reports ──────────────────────────────────────────────────
+// ─── user search page ─────────────────────────────────────────
+let userSearchTimer=null;
+window.onUserSearch=()=>{clearTimeout(userSearchTimer);userSearchTimer=setTimeout(runUserSearch,350);};
+
+async function loadAllUsers(){
+  const{data}=await sb.from('profiles').select('id,username,created_at,avatar_url,avatar_status,banned_until').order('created_at',{ascending:false}).limit(50);
+  renderUserGrid(data||[]);
+}
+
+async function runUserSearch(){
+  const q=document.getElementById('user-search-input').value.trim();
+  if(!q){loadAllUsers();return;}
+  const{data}=await sb.from('profiles').select('id,username,created_at,avatar_url,avatar_status,banned_until').ilike('username','%'+q+'%').limit(30);
+  renderUserGrid(data||[]);
+}
+
+function renderUserGrid(users){
+  const grid=document.getElementById('user-grid');
+  if(!users.length){grid.innerHTML='<div class="forum-empty">no users found</div>';return;}
+  grid.innerHTML=users.map(u=>{
+    const isBanned=u.banned_until&&new Date(u.banned_until)>new Date();
+    const showAvs=window.showAvatarsPref!==false;
+    const avatarContent=showAvs&&u.avatar_status==='approved'&&u.avatar_url
+      ?`<img src="${esc(u.avatar_url)}" alt="${esc(u.username)}" style="width:100%;height:100%;object-fit:cover;">`
+      :(u.username||'?')[0].toUpperCase();
+    return`<div class="user-card" onclick="openProfileModal('${esc(u.id)}','${esc(u.username)}')">
+      <div class="user-card-initial">${avatarContent}</div>
+      <div class="user-card-info">
+        <div class="user-card-name">${esc(u.username)}${isBanned?` <span style="color:var(--red);font-size:.72rem;">● banned</span>`:''}</div>
+        <div class="user-card-meta">joined ${u.created_at?fmtDate(u.created_at):'?'}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+window.switchTab=tab=>{
+  ['login','register','reset'].forEach(t=>{
+    document.getElementById('tab-'+t).classList.toggle('active',t===tab);
+    document.getElementById('form-'+t).classList.toggle('hidden',t!==tab);
+  });clearMsgs();
+};
+function clearMsgs(){['auth-err','auth-ok'].forEach(id=>{const e=document.getElementById(id);if(e){e.style.display='none';e.textContent='';}});}
+function showErr(id,m){const e=document.getElementById(id);if(e){e.textContent=m;e.style.display='block';}}
+function showOk(id,m){const e=document.getElementById(id);if(e){e.textContent=m;e.style.display='block';}}
+
+// ─── session ──────────────────────────────────────────────────
+let currentUser=null;
+let mfaFactorId=null;
+
+async function applyLoggedIn(user){
+  currentUser=user;
+  const uname=user.user_metadata?.username||user.email.split('@')[0];
+  document.getElementById('nav-username').textContent='@'+uname;
+  document.getElementById('notif-btn').classList.remove('hidden');
+
+  // load profile
+  const{data:prof}=await sb.from('profiles').select('*').eq('id',user.id).single();
+  document.getElementById('acct-initial').textContent=uname[0].toUpperCase();
+  document.getElementById('acct-display-name').textContent='';
+  document.getElementById('acct-username').textContent=uname;
+  document.getElementById('settings-username').textContent=uname;
+  document.getElementById('settings-email').textContent=user.email;
+  document.getElementById('edit-about-me').value=prof?.about_me||'';
+
+  // load preferences into toggles
+  const notifReplies=prof?.notif_replies!==false;
+  const notifFollows=prof?.notif_follows!==false;
+  const showAvatars=prof?.show_avatars!==false;
+  const defaultSort=prof?.default_sort||'activity';
+  document.getElementById('toggle-notif-replies').classList.toggle('on',notifReplies);
+  document.getElementById('toggle-notif-follows').classList.toggle('on',notifFollows);
+  document.getElementById('toggle-show-avatars').classList.toggle('on',showAvatars);
+  document.getElementById('pref-default-sort').value=defaultSort;
+  document.getElementById('sort-select').value=defaultSort;
+  window.showAvatarsPref=showAvatars;
+
+  // show avatar status in instructions panel
+  const statusEl=document.getElementById('avatar-status-msg');
+  if(prof?.avatar_status==='pending'){statusEl.style.color='var(--gold)';statusEl.textContent='⏳ pending approval';}
+  else if(prof?.avatar_status==='approved'){statusEl.style.color='var(--mint-light)';statusEl.textContent='✅ approved';}
+  else if(prof?.avatar_status==='rejected'){statusEl.style.color='var(--red)';statusEl.textContent='❌ rejected — try a different image';}
+  if(prof?.avatar_url) document.getElementById('edit-avatar-url').value=prof.avatar_url;
+  // show remove button only if they have an avatar
+  const removePfpBtn=document.getElementById('remove-pfp-btn');
+  if(removePfpBtn) removePfpBtn.style.display=(prof?.avatar_url&&prof?.avatar_status==='approved')?'inline-flex':'none';
+
+  // show avatar in account sidebar
+  const acctInitial=document.getElementById('acct-initial');
+  if(showAvatars&&prof?.avatar_status==='approved'&&prof?.avatar_url){
+    acctInitial.innerHTML=`<img src="${esc(prof.avatar_url)}" alt="${esc(uname)}" style="width:100%;height:100%;object-fit:cover;">`;
+  } else {
+    acctInitial.textContent=uname[0].toUpperCase();
+  }
+
+  // store profile in cache immediately so avatars show on forum without needing popover click
+  profCache[user.id]={id:user.id,username:uname,about_me:prof?.about_me||'',joined:prof?.created_at?fmtDate(prof.created_at):'?',posts:0,avatar_url:prof?.avatar_url||null,avatar_status:prof?.avatar_status||'none',_counted:false};
+
+  // check if user is banned
+  window.currentUserBan=null;
+  if(prof?.banned_until&&new Date(prof.banned_until)>new Date()){
+    window.currentUserBan={until:prof.banned_until,reason:prof.ban_reason||'no reason given'};
+  }
+  updateBanBanner();
+
+  // show mod panel if MintoFox
+  if(uname.toLowerCase()==='mintofox'){
+    document.getElementById('mod-panel').classList.remove('hidden');
+    loadModQueue();
+    loadBanList();
+    loadReports();
+  }
+  if(prof?.created_at) document.getElementById('acct-joined').textContent=fmtDate(prof.created_at);
+
+  // post count
+  const[{count:pc}]=await Promise.all([
+    sb.from('posts').select('*',{count:'exact',head:true}).eq('author_id',user.id),
+  ]);
+  document.getElementById('acct-posts').textContent=pc||0;
+  if(profCache[user.id]){profCache[user.id].posts=pc||0;profCache[user.id]._counted=true;}
+
+  document.getElementById('view-loggedout').classList.add('hidden');
+  document.getElementById('view-loggedin').classList.remove('hidden');
+
+  checkMfaStatus();
+  loadNotifications();
+  subscribeNotifications();
+  subscribeProfileChanges();
+}
+
+function applyLoggedOut(){
+  currentUser=null;
+  document.getElementById('nav-username').textContent='@guest';
+  document.getElementById('notif-btn').classList.add('hidden');
+  document.getElementById('view-loggedout').classList.remove('hidden');
+  document.getElementById('view-loggedin').classList.add('hidden');
+}
+
+let justSignedIn=false;
+
+sb.auth.getSession().then(({data:{session}})=>{
+  if(session?.user) applyLoggedIn(session.user);
+});
+
+sb.auth.onAuthStateChange(async(event,session)=>{
+  if(session?.user){
+    if(event==='SIGNED_IN'&&justSignedIn){
+      justSignedIn=false;
+      const{data:aalData}=await sb.auth.mfa.getAuthenticatorAssuranceLevel();
+      if(aalData?.nextLevel==='aal2'&&aalData?.currentLevel==='aal1'){
+        document.getElementById('mfa-section').classList.remove('hidden');
+        const btn=document.getElementById('login-btn');
+        if(btn){btn.disabled=false;btn.textContent='Verify';btn.onclick=()=>doMfaVerify();}
+        showErr('auth-err','enter your authenticator code to continue');
+        return;
+      }
+    }
+    applyLoggedIn(session.user);
+  } else {
+    applyLoggedOut();
+  }
+});
+
+// ─── login ────────────────────────────────────────────────────
+window.doLogin=async()=>{
+  clearMsgs();
+  const email=document.getElementById('login-email').value.trim();
+  const pw=document.getElementById('login-password').value;
+  if(!email||!pw)return showErr('auth-err','fill everything in :3');
+  const btn=document.getElementById('login-btn');btn.disabled=true;btn.textContent='logging in...';
+  justSignedIn=true;
+  const{error}=await sb.auth.signInWithPassword({email,password:pw});
+  btn.disabled=false;btn.textContent='Log In';
+  if(error){justSignedIn=false;return showErr('auth-err',error.message);}
+};
+
+window.doMfaVerify=async()=>{
+  const code=document.getElementById('login-mfa').value.trim();
+  if(!code||code.length!==6)return showErr('auth-err','enter the 6-digit code');
+  const btn=document.getElementById('login-btn');btn.disabled=true;btn.textContent='verifying...';
+  const{data:factors}=await sb.auth.mfa.listFactors();
+  const totp=factors?.totp?.find(f=>f.status==='verified');
+  if(!totp){btn.disabled=false;btn.textContent='Verify';return showErr('auth-err','no 2FA factor found');}
+  const{data:challenge,error:chalErr}=await sb.auth.mfa.challenge({factorId:totp.id});
+  if(chalErr){btn.disabled=false;btn.textContent='Verify';return showErr('auth-err',chalErr.message);}
+  const{error:verErr}=await sb.auth.mfa.verify({factorId:totp.id,challengeId:challenge.id,code});
+  if(verErr){btn.disabled=false;btn.textContent='Verify';return showErr('auth-err','wrong code, try again');}
+  // success — reset button, onAuthStateChange will now call applyLoggedIn
+  btn.onclick=()=>doLogin();
+  btn.textContent='Log In';
+  btn.disabled=false;
+  document.getElementById('mfa-section').classList.add('hidden');
+  showToast('welcome back!! 🦊');
+};
+
+// ─── register ─────────────────────────────────────────────────
+window.doRegister=async()=>{
+  clearMsgs();
+  const uname=document.getElementById('reg-username').value.trim();
+  const email=document.getElementById('reg-email').value.trim();
+  const pw=document.getElementById('reg-password').value;
+  if(!uname||!email||!pw)return showErr('auth-err','fill everything in :3');
+  if(pw.length<8)return showErr('auth-err','password needs 8+ characters');
+  if(!/^[a-zA-Z0-9_\-]+$/.test(uname))return showErr('auth-err','username: letters, numbers, _ and - only');
+  const btn=document.getElementById('register-btn');btn.disabled=true;btn.textContent='creating...';
+  const{error}=await sb.auth.signUp({email,password:pw,options:{data:{username:uname}}});
+  btn.disabled=false;btn.textContent='Create Account';
+  if(error)return showErr('auth-err',error.message);
+  showOk('auth-ok','account created! check your email to confirm — the link expires in 15 minutes :3');
+};
+
+// ─── reset request ────────────────────────────────────────────
+window.doResetRequest=async()=>{
+  clearMsgs();
+  const email=document.getElementById('reset-email').value.trim();
+  if(!email)return showErr('auth-err','enter your email :3');
+  const btn=document.getElementById('reset-btn');btn.disabled=true;btn.textContent='sending...';
+  const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:'https://mintofox.net'});
+  btn.disabled=false;btn.textContent='Send Reset Link';
+  if(error)return showErr('auth-err',error.message);
+  showOk('auth-ok','reset link sent! check your inbox 📬');
+};
+
+// ─── logout ───────────────────────────────────────────────────
+window.doLogout=async()=>{await sb.auth.signOut();showToast('logged out, see ya 👋');};
+
+// ─── save profile ─────────────────────────────────────────────
+window.saveProfile=async()=>{
+  if(!currentUser)return;
+  const about=document.getElementById('edit-about-me').value.trim();
+  const{error}=await sb.from('profiles').update({about_me:about}).eq('id',currentUser.id);
+  if(error)return showErr('profile-save-msg',error.message);
+  if(profCache[currentUser.id]) profCache[currentUser.id].about_me=about;
+  showOk('profile-save-msg','profile saved! 🦊');
+  setTimeout(()=>{const e=document.getElementById('profile-save-msg');if(e)e.style.display='none';},3000);
+};
+
+window.savePrefs=async()=>{
+  if(!currentUser)return;
+  const notifReplies=document.getElementById('toggle-notif-replies').classList.contains('on');
+  const notifFollows=document.getElementById('toggle-notif-follows').classList.contains('on');
+  const showAvatars=document.getElementById('toggle-show-avatars').classList.contains('on');
+  const defaultSort=document.getElementById('pref-default-sort').value;
+  const{error}=await sb.from('profiles').update({notif_replies:notifReplies,notif_follows:notifFollows,show_avatars:showAvatars,default_sort:defaultSort}).eq('id',currentUser.id);
+  if(error)return showErr('prefs-save-msg',error.message);
+  window.showAvatarsPref=showAvatars;
+  // apply sort immediately
+  document.getElementById('sort-select').value=defaultSort;
+  showOk('prefs-save-msg','preferences saved!');
+  setTimeout(()=>{const e=document.getElementById('prefs-save-msg');if(e)e.style.display='none';},3000);
+};
+
+window.toggleAvatarInstructions=()=>{
+  document.getElementById('avatar-instructions').classList.toggle('hidden');
+};
+
+// ─── change username ──────────────────────────────────────────
+// ─── change email ─────────────────────────────────────────────
+window.changeEmail=async()=>{
+  const newEmail=document.getElementById('new-email').value.trim();
+  if(!newEmail)return showErr('ce-err','enter a new email');
+  const{error}=await sb.auth.updateUser({email:newEmail});
+  if(error)return showErr('ce-err',error.message);
+  showOk('ce-ok','verification links sent to both emails! confirm both to complete the change 📬');
+};
+
+// ─── change password (logged in) ─────────────────────────────
+window.changePassword=async()=>{
+  const cur=document.getElementById('cp-current').value;
+  const nw=document.getElementById('cp-new').value;
+  const conf=document.getElementById('cp-confirm').value;
+  if(!cur||!nw||!conf)return showErr('cp-err','fill everything in');
+  if(nw.length<8)return showErr('cp-err','new password needs 8+ characters');
+  if(nw!==conf)return showErr('cp-err','new passwords don\'t match');
+  // re-auth to verify current password
+  const{error:authErr}=await sb.auth.signInWithPassword({email:currentUser.email,password:cur});
+  if(authErr)return showErr('cp-err','current password is wrong');
+  const{error}=await sb.auth.updateUser({password:nw});
+  if(error)return showErr('cp-err',error.message);
+  showOk('cp-ok','password changed! 🔑');
+};
+
+// ─── MFA ──────────────────────────────────────────────────────
+async function checkMfaStatus(){
+  const{data}=await sb.auth.mfa.listFactors();
+  const totp=data?.totp||[];
+  const verified=totp.find(f=>f.status==='verified');
+  if(verified){
+    mfaFactorId=verified.id;
+    document.getElementById('mfa-status').textContent='enabled ✅';
+    document.getElementById('mfa-toggle-btn').textContent='Disable';
+    ['mfa-cp-section','mfa-del-section'].forEach(id=>document.getElementById(id).classList.remove('hidden'));
+  } else {
+    mfaFactorId=null;
+    document.getElementById('mfa-status').textContent='disabled';
+    document.getElementById('mfa-toggle-btn').textContent='Enable';
+    ['mfa-cp-section','mfa-del-section'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+  }
+}
+
+window.handleMfaToggle=()=>{
+  if(mfaFactorId) openModal('modal-disable-mfa');
+  else startMfaSetup();
+};
+
+async function startMfaSetup(){
+  const{data,error}=await sb.auth.mfa.enroll({factorType:'totp'});
+  if(error)return showToast('error starting 2FA setup');
+  document.getElementById('mfa-qr').src=data.totp.qr_code;
+  document.getElementById('mfa-secret-text').textContent='Manual: '+data.totp.secret;
+  window._pendingFactorId=data.id;
+  openModal('modal-setup-mfa');
+}
+
+window.verifyMfaSetup=async()=>{
+  const code=document.getElementById('mfa-verify-code').value.trim();
+  if(!code)return showErr('mfa-setup-err','enter the 6-digit code');
+  const{data,error}=await sb.auth.mfa.challenge({factorId:window._pendingFactorId});
+  if(error)return showErr('mfa-setup-err',error.message);
+  const{error:verErr}=await sb.auth.mfa.verify({factorId:window._pendingFactorId,challengeId:data.id,code});
+  if(verErr)return showErr('mfa-setup-err','wrong code, try again');
+  closeModal('modal-setup-mfa');showToast('2FA enabled! 🔐');checkMfaStatus();
+};
+
+window.disableMfa=async()=>{
+  const code=document.getElementById('disable-mfa-code').value.trim();
+  if(!code)return showErr('disable-mfa-err','enter your code');
+  const{data,error}=await sb.auth.mfa.challenge({factorId:mfaFactorId});
+  if(error)return showErr('disable-mfa-err',error.message);
+  const{error:verErr}=await sb.auth.mfa.verify({factorId:mfaFactorId,challengeId:data.id,code});
+  if(verErr)return showErr('disable-mfa-err','wrong code');
+  const{error:unenrollErr}=await sb.auth.mfa.unenroll({factorId:mfaFactorId});
+  if(unenrollErr)return showErr('disable-mfa-err',unenrollErr.message);
+  closeModal('modal-disable-mfa');showToast('2FA disabled');checkMfaStatus();
+};
+
+// ─── delete account ───────────────────────────────────────────
+window.deleteAccount=async()=>{
+  const confirmText=document.getElementById('delete-confirm-text').value.trim();
+  const pw=document.getElementById('delete-password').value;
+  if(confirmText!=='DELETE')return showErr('delete-err','type DELETE exactly');
+  if(!pw)return showErr('delete-err','enter your password');
+  // verify password
+  const{data:authData,error:authErr}=await sb.auth.signInWithPassword({email:currentUser.email,password:pw});
+  if(authErr)return showErr('delete-err','wrong password');
+  // delete all user data first
+  await sb.from('replies').delete().eq('author_id',currentUser.id);
+  await sb.from('posts').delete().eq('author_id',currentUser.id);
+  await sb.from('profiles').delete().eq('id',currentUser.id);
+  // delete the auth user — this is a built-in Supabase method for the current user
+  const{error:delErr}=await sb.rpc('delete_user');
+  if(delErr){
+    console.error('delete_user rpc error:',delErr);
+    // fall back to just signing out if RPC not set up
+    await sb.auth.signOut();
+    showToast('data deleted. auth account may still exist — contact admin to fully remove.');
+    return;
+  }
+  await sb.auth.signOut();
+  showToast('account fully deleted. take care 🌿');
+};
+
+// ─── notifications ────────────────────────────────────────────
+let notifSubscription=null;
+
+async function loadNotifications(){
+  if(!currentUser)return;
+  const{data}=await sb.from('notifications').select('*').eq('user_id',currentUser.id).order('created_at',{ascending:false}).limit(30);
+  renderNotifications(data||[]);
+}
+
+function renderNotifications(items){
+  const list=document.getElementById('notif-list');
+  const badge=document.getElementById('notif-badge');
+
+  // show overlays for any unread ban/unban notifications on load
+  const unreadSpecial=items.filter(n=>!n.read&&(n.type==='ban'||n.type==='unban'));
+  if(unreadSpecial.length){
+    const n=unreadSpecial[0];
+    if(n.type==='ban') showBanScreen(n.content);
+    else if(n.type==='unban') showUnbanScreen();
+    const ids=unreadSpecial.map(n=>n.id);
+    sb.from('notifications').update({read:true}).in('id',ids);
+  }
+
+  // everything except ban/unban goes in the bell
+  const bellItems=items.filter(n=>n.type!=='ban'&&n.type!=='unban');
+  const unread=bellItems.filter(n=>!n.read).length;
+  if(unread>0){badge.textContent=unread>9?'9+':unread;badge.classList.add('show');}
+  else{badge.classList.remove('show');}
+  if(!bellItems.length){list.innerHTML='<div class="notif-empty">no notifications yet :3</div>';return;}
+  list.innerHTML=bellItems.map(n=>`
+    <div class="notif-item ${n.read?'':'unread'}" onclick="clickNotif(${n.id},${n.post_id||null})">
+      <div class="notif-text">${notifText(n)}</div>
+      <div class="notif-time">${timeAgo(n.created_at)}</div>
+    </div>`).join('');
+}
+
+function notifText(n){
+  if(n.type==='reply_to_post') return `<span>${esc(n.actor_name)}</span> replied to your post`;
+  if(n.type==='reply_to_followed') return `<span>${esc(n.actor_name)}</span> replied to a post you're following`;
+  if(n.type==='mod_delete_post') return `<span>MintoFox</span> has deleted your post.<br><small style="color:rgba(232,254,242,.4);white-space:pre-wrap;">${esc(n.content||'')}</small>`;
+  if(n.type==='mod_delete_reply') return `<span>MintoFox</span> has deleted your reply.<br><small style="color:rgba(232,254,242,.4);white-space:pre-wrap;">${esc(n.content||'')}</small>`;
+  return 'new notification';
+}
+
+window.clickNotif=async(notifId,postId)=>{
+  await sb.from('notifications').update({read:true}).eq('id',notifId);
+  toggleNotifPanel();
+  loadNotifications();
+  if(postId&&postId!=='null'){
+    showPage('forums');
+    setTimeout(()=>openThread(postId),300);
+  }
+};
+
+window.markAllRead=async()=>{
+  if(!currentUser)return;
+  await sb.from('notifications').update({read:true}).eq('user_id',currentUser.id).eq('read',false);
+  loadNotifications();
+};
+
+function subscribeNotifications(){
+  if(notifSubscription)return;
+  // use unique channel name per user to avoid conflicts
+  notifSubscription=sb.channel('notifs-'+currentUser.id+'-'+Date.now())
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'notifications'},
+    payload=>{
+      const n=payload.new;
+      if(n.user_id!==currentUser.id)return;
+      loadNotifications();
+      if(n.type==='ban') showBanScreen(n.content);
+      if(n.type==='unban') showUnbanScreen();
+    })
+    .subscribe((status)=>{
+      console.log('notif subscription status:',status);
+    });
+  // poll every 15s as fallback in case realtime misses inserts
+  if(window._notifPollInterval) clearInterval(window._notifPollInterval);
+  window._notifPollInterval=setInterval(loadNotifications,15000);
+}
+
+// subscribe to profile changes so ban takes effect instantly
+let profileChannel=null;
+function subscribeProfileChanges(){
+  if(profileChannel||!currentUser)return;
+  profileChannel=sb.channel('profiles-global')
+    .on('postgres_changes',{event:'UPDATE',schema:'public',table:'profiles'},
+    payload=>{
+      if(payload.new.id!==currentUser.id)return;
+      const prof=payload.new;
+      const isBanned=prof.banned_until&&new Date(prof.banned_until)>new Date();
+      const wasBanned=!!window.currentUserBan;
+      if(isBanned&&!wasBanned){
+        window.currentUserBan={until:prof.banned_until,reason:prof.ban_reason||'no reason given'};
+        updateBanBanner();
+        if(currentThreadId) refreshComposeArea(currentThreadId);
+      } else if(!isBanned&&wasBanned){
+        window.currentUserBan=null;
+        updateBanBanner();
+        if(currentThreadId) refreshComposeArea(currentThreadId);
+      }
+    })
+    .subscribe();
+}
+
+function refreshComposeArea(postId){
+  const ca=document.getElementById('reply-compose-area')||document.querySelector('.reply-compose')?.parentElement;
+  // find the compose div inside thread-content
+  const tc=document.getElementById('thread-content');
+  if(!tc)return;
+  // re-render just the compose section
+  const composeDiv=tc.querySelector('.reply-compose')?.closest('div[style*="margin-top"]');
+  if(!composeDiv)return;
+  const isBanned=!!window.currentUserBan;
+  if(isBanned){
+    composeDiv.innerHTML=`<div class="reply-compose" style="border-color:rgba(248,113,113,.3);background:rgba(248,113,113,.05);">
+      <div class="reply-compose-title" style="color:var(--red);">🔨 You are banned</div>
+      <p style="font-size:.88rem;font-weight:700;color:rgba(232,254,242,.6);line-height:1.7;">
+        Your account has been banned for: <strong style="color:var(--red);">${esc(window.currentUserBan.reason)}</strong><br>
+        Your ban will expire in <strong style="color:var(--gold);">${formatCountdown(window.currentUserBan.until)}</strong>
+      </p>
+    </div>`;
+  } else {
+    composeDiv.innerHTML=`<div class="reply-compose">
+      <div class="reply-compose-title">💬 Leave a Reply</div>
+      <div class="form-group"><textarea id="reply-input" placeholder="write your reply..."></textarea></div>
+      <div id="reply-err" class="msg-err"></div>
+      <div style="display:flex;justify-content:flex-end;"><button class="btn btn-mint" id="reply-btn" onclick="submitReply(${postId})">Reply 🦊</button></div>
+    </div>`;
+  }
+}
+
+// ─── ban banner ───────────────────────────────────────────────
+function updateBanBanner(){
+  const banner=document.getElementById('ban-banner');
+  if(!banner)return;
+  if(window.currentUserBan){
+    document.getElementById('ban-banner-reason').textContent=window.currentUserBan.reason||'no reason given';
+    const until=window.currentUserBan.until;
+    const isPerm=!until||new Date(until)>new Date('9000-01-01');
+    document.getElementById('ban-banner-countdown').textContent=isPerm?'Permanent':('Expires: '+formatCountdown(until));
+    banner.classList.add('show');
+    // close any open modals that allow posting
+    closeModal('modal-new-post');
+  } else {
+    banner.classList.remove('show');
+  }
+}
+// keep countdown ticking
+setInterval(()=>{if(window.currentUserBan)updateBanBanner();},60000);
+
+function showBanScreen(content){updateBanBanner();}
+function showUnbanScreen(){updateBanBanner();}
+function removeBanScreen(){}
+function showModDeleteScreen(n){}
+
+window.toggleNotifPanel=()=>{
+  const p=document.getElementById('notif-panel');
+  p.classList.toggle('open');
+};
+document.addEventListener('click',e=>{
+  const panel=document.getElementById('notif-panel');
+  const btn=document.getElementById('notif-btn');
+  if(panel.classList.contains('open')&&!panel.contains(e.target)&&!btn.contains(e.target))
+    panel.classList.remove('open');
+});
+
+// ─── search & filters ─────────────────────────────────────────
+window.toggleFilters=()=>document.getElementById('filter-panel').classList.toggle('open');
+window.clearFilters=()=>{
+  ['filter-author','filter-from','filter-to'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('filter-within').value='';
+  document.getElementById('filter-cat').value='';
+  document.getElementById('search-query').value='';
+  document.getElementById('search-results-view').classList.add('hidden');
+  document.getElementById('category-view').classList.remove('hidden');
+  loadForums();
+};
+
+let searchTimer=null;
+window.onSearchInput=()=>{clearTimeout(searchTimer);searchTimer=setTimeout(runSearch,400);};
+
+async function runSearch(){
+  const q=document.getElementById('search-query').value.trim();
+  const author=document.getElementById('filter-author').value.trim();
+  const from=document.getElementById('filter-from').value;
+  const to=document.getElementById('filter-to').value;
+  const within=document.getElementById('filter-within').value;
+  const cat=document.getElementById('filter-cat').value;
+  const isFiltering=q||author||from||to||within||cat;
+  if(!isFiltering){
+    document.getElementById('search-results-view').classList.add('hidden');
+    document.getElementById('category-view').classList.remove('hidden');
+    loadForums();return;
+  }
+  document.getElementById('search-results-view').classList.remove('hidden');
+  document.getElementById('category-view').classList.add('hidden');
+  document.getElementById('search-results-list').innerHTML='<div class="forum-empty">searching...</div>';
+
+  let query=sb.from('posts').select('*, replies(count)');
+  if(q) query=query.ilike('title','%'+q+'%');
+  if(author) query=query.ilike('author_name','%'+author+'%');
+  if(cat) query=query.eq('category',cat);
+  if(from) query=query.gte('created_at',new Date(from).toISOString());
+  if(to) query=query.lte('created_at',new Date(to+'T23:59:59').toISOString());
+  if(within){const d=new Date(Date.now()-parseInt(within)*864e5);query=query.gte('created_at',d.toISOString());}
+
+  const sort=document.getElementById('sort-select').value;
+  query=query.order('created_at',{ascending:false});
+
+  const{data:posts}=await query.limit(50);
+  const list=document.getElementById('search-results-list');
+  if(!posts||!posts.length){list.innerHTML='<div class="forum-empty">no threads found :(</div>';return;}
+  let sorted=posts.map(p=>{p.reply_count=p.replies?.[0]?.count||0;return p;});
+  if(sort==='replies') sorted.sort((a,b)=>b.reply_count-a.reply_count);
+  else if(sort==='activity') sorted.sort((a,b)=>new Date(b.last_reply_at||b.created_at)-new Date(a.last_reply_at||a.created_at));
+  const count=posts.length;
+  document.getElementById('search-results-title').textContent=`${count} result${count===1?'':'s'}`;
+  list.innerHTML=sorted.map(p=>threadRow(p)).join('');
+}
+
+// apply author filter from outside (post count click)
+window.searchByAuthorName=name=>{
+  showPage('forums');
+  setTimeout(()=>{
+    document.getElementById('filter-author').value=name;
+    document.getElementById('filter-panel').classList.add('open');
+    runSearch();
+  },200);
+};
+
+window.searchByCurrentUser=()=>{
+  if(!currentUser)return;
+  const uname=currentUser.user_metadata?.username||currentUser.email.split('@')[0];
+  searchByAuthorName(uname);
+};
+
+// ─── user popover ─────────────────────────────────────────────
+const popEl=document.getElementById('user-popover');
+let popTimer=null;
+const profCache={};
+window.currentPopId=null;
+window.currentPopName=null;
+
+async function fetchProfile(aid,aname){
+  // use cache only if it has a real post count (not from prefetch which stores -1)
+  if(profCache[aid]&&profCache[aid].posts>=0&&profCache[aid]._counted)return profCache[aid];
+  const[{data:prof},{count:pc}]=await Promise.all([
+    sb.from('profiles').select('*').eq('id',aid).single(),
+    sb.from('posts').select('*',{count:'exact',head:true}).eq('author_id',aid),
+  ]);
+  const r={id:aid,username:prof?.username||aname||'unknown',about_me:prof?.about_me||'',joined:prof?.created_at?fmtDate(prof.created_at):'?',posts:pc||0,avatar_url:prof?.avatar_url||null,avatar_status:prof?.avatar_status||'none',_counted:true};
+  profCache[aid]=r;return r;
+}
+
+window.showPopover=async(el,aid,aname)=>{
+  clearTimeout(popTimer);
+  window.currentPopId=aid;window.currentPopName=aname;
+  document.getElementById('pop-name').textContent=aname||'...';
+  document.getElementById('pop-posts').textContent='...';
+  document.getElementById('pop-joined').textContent='...';
+  const rect=el.getBoundingClientRect();
+  popEl.style.top=(rect.bottom+6)+'px';
+  popEl.style.left=Math.min(rect.left,window.innerWidth-210)+'px';
+  popEl.classList.add('visible');
+  const p=await fetchProfile(aid,aname);
+  document.getElementById('pop-name').textContent=p.username;
+  document.getElementById('pop-posts').textContent=p.posts;
+  document.getElementById('pop-joined').textContent=p.joined;
+};
+window.hidePopover=()=>{popTimer=setTimeout(()=>popEl.classList.remove('visible'),200);};
+popEl.addEventListener('mouseenter',()=>clearTimeout(popTimer));
+popEl.addEventListener('mouseleave',()=>popEl.classList.remove('visible'));
+
+window.searchByAuthorFromPop=()=>{
+  popEl.classList.remove('visible');
+  searchByAuthorName(window.currentPopName);
+};
+
+// ─── profile modal ────────────────────────────────────────────
+window.openProfileModal=async(aid,aname)=>{
+  popEl.classList.remove('visible');
+  openModal('modal-profile');
+  document.getElementById('profile-modal-body').innerHTML='<div class="forum-empty">loading profile...</div>';
+  const p=await fetchProfile(aid,aname);
+  const isMod=currentUser&&(currentUser.user_metadata?.username||'').toLowerCase()==='mintofox';
+  const isOwnProfile=currentUser&&currentUser.id===aid;
+  const showAvs=window.showAvatarsPref!==false;
+  const avatarContent=showAvs&&p.avatar_status==='approved'&&p.avatar_url
+    ?`<img src="${esc(p.avatar_url)}" alt="${esc(p.username)}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.textContent='${(p.username||'?')[0].toUpperCase()}'">` 
+    :(p.username||'?')[0].toUpperCase();
+  const{data:targetProf}=await sb.from('profiles').select('banned_until,ban_reason,avatar_url,avatar_status').eq('id',aid).single();
+  const isBanned=targetProf?.banned_until&&new Date(targetProf.banned_until)>new Date();
+  const hasAvatar=targetProf?.avatar_url&&targetProf?.avatar_status==='approved';
+  const modActions=isMod&&!isOwnProfile?`
+    <div style="border-top:1px solid rgba(79,201,126,.1);padding-top:.8rem;margin-top:.5rem;display:flex;gap:.5rem;flex-wrap:wrap;">
+      ${isBanned
+        ?`<button class="btn btn-mint btn-sm" onclick="closeModal('modal-profile');unbanUser('${aid}','${esc(p.username)}')">✅ Unban</button>
+           <div style="font-size:.78rem;color:var(--red);font-weight:700;align-self:center;">Banned · expires ${formatCountdown(targetProf.banned_until)}</div>`
+        :`<button class="btn btn-red btn-sm" onclick="openBanModal('${aid}','${esc(p.username)}')">🔨 Ban</button>`
+      }
+      ${hasAvatar?`<button class="btn btn-outline btn-sm" onclick="modRemoveAvatar('${aid}')">🖼️ Remove PFP</button>`:''}
+      ${p.about_me?`<button class="btn btn-outline btn-sm" onclick="modClearAboutMe('${aid}')">✏️ Clear About Me</button>`:''}
+    </div>`:'';
+  const reportBtn=currentUser&&!isOwnProfile&&!isMod
+    ?`<button class="report-btn" style="margin-top:.6rem;" onclick="openReport(null,null,'${aid}','profile','${esc(p.username)}','${aid}','${esc(p.username)}')">🚩 Report Profile</button>`
+    :'';  document.getElementById('profile-modal-body').innerHTML=`
+    <div class="profile-modal-header">
+      <div class="profile-modal-initial">${avatarContent}</div>
+      <div class="profile-modal-names">
+        <div class="profile-modal-display">${esc(p.username)}</div>
+        <div class="profile-modal-username">joined ${esc(p.joined)}</div>
+      </div>
+    </div>
+    <div class="profile-modal-stats">
+      <div class="profile-modal-stat">
+        <div class="sv" onclick="searchByAuthorName('${esc(p.username)}');closeModal('modal-profile');">${p.posts}</div>
+        <div class="sl">posts</div>
+      </div>
+    </div>
+    ${p.about_me?`<div class="section-divider"></div><div class="card-title" style="margin-bottom:.4rem;">About</div><div class="profile-modal-about">${esc(p.about_me)}</div>`:''}
+    ${modActions}
+    ${reportBtn}`;
+};
+
+// ─── forums list ──────────────────────────────────────────────
+const CATS={general:'cat-general',tech:'cat-tech',gaming:'cat-gaming',other:'cat-other'};
+const LIMIT=3;
+const CAT_EXPANDED=5;
+
+function threadRow(p,inExpandable=false){
+  const aid=esc(p.author_id||'');const an=esc(p.author_name||'anon');
+  const init=(p.author_name||'?')[0].toUpperCase();
+  const isBanned=!!window.currentUserBan;
+  const isMod=currentUser&&(currentUser.user_metadata?.username||'').toLowerCase()==='mintofox';
+  const isOwner=currentUser&&currentUser.id===p.author_id;
+  const canEdit=isOwner&&!isBanned;
+  const canDelete=isOwner||isMod;
+  const canReport=currentUser&&!isOwner&&!isMod;
+  const prof=profCache[p.author_id];
+  const showAvs=window.showAvatarsPref!==false;
+  const avatarInner=showAvs&&prof?.avatar_status==='approved'&&prof?.avatar_url
+    ?`<img src="${esc(prof.avatar_url)}" alt="${an}" style="width:100%;height:100%;object-fit:cover;border-radius:7px;" onerror="this.parentElement.textContent='${init}'">`
+    :init;
+  return`<div class="forum-thread">
+    <div class="thread-clickable" onclick="openThread(${p.id})">
+      <div class="thread-initial" onmouseenter="showPopover(this,'${aid}','${an}')" onmouseleave="hidePopover()" onclick="event.stopPropagation()">${avatarInner}</div>
+      <div class="thread-info">
+        <div class="thread-title-text">${esc(p.title)}</div>
+        <div class="thread-meta">by <span class="author-link" onmouseenter="showPopover(this,'${aid}','${an}')" onmouseleave="hidePopover()" onclick="event.stopPropagation();openProfileModal('${aid}','${an}')">${an}</span> · ${timeAgo(p.created_at)}</div>
+      </div>
+    </div>
+    <div class="thread-right">
+      <div class="thread-stats"><strong>${p.reply_count||0}</strong>replies</div>
+      <div class="thread-actions" style="opacity:1;">
+        ${canEdit?`<button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openThread(${p.id}).then(()=>openEditPost())">✏️</button>`:''}
+        ${canDelete?`<button class="btn btn-red btn-sm" onclick="event.stopPropagation();deletePost(${p.id},false)">🗑️</button>`:''}
+        ${canReport?`<button class="report-btn" onclick="event.stopPropagation();openReport(${p.id},null,null,'post','${esc(p.title).replace(/'/g,"\\'")}','${esc(p.author_id)}','${esc(p.author_name||'')}')">🚩 Report</button>`:''}
+      </div>
+    </div>
+  </div>`;
+}
+
+window.loadForums=async()=>{
+  const q=document.getElementById('search-query').value.trim();
+  const hasFilters=q||document.getElementById('filter-author').value.trim()||document.getElementById('filter-from').value||document.getElementById('filter-to').value||document.getElementById('filter-within').value||document.getElementById('filter-cat').value;
+  if(hasFilters){runSearch();return;}
+
+  Object.values(CATS).forEach(id=>{document.getElementById(id).innerHTML='<div class="forum-empty">loading...</div>';});
+  const sort=document.getElementById('sort-select').value;
+  const{data:posts,error}=await sb.from('posts').select('*, replies(count)').order('created_at',{ascending:false});
+  if(error){Object.values(CATS).forEach(id=>{document.getElementById(id).innerHTML='<div class="forum-empty">couldn\'t load :(</div>';});return;}
+  const grouped={general:[],tech:[],gaming:[],other:[]};
+  posts.forEach(p=>{p.reply_count=p.replies?.[0]?.count||0;const c=grouped[p.category]?p.category:'other';grouped[c].push(p);});
+  if(sort==='replies') Object.values(grouped).forEach(arr=>arr.sort((a,b)=>b.reply_count-a.reply_count));
+  else if(sort==='activity') Object.values(grouped).forEach(arr=>arr.sort((a,b)=>new Date(b.last_reply_at||b.created_at)-new Date(a.last_reply_at||a.created_at)));
+  // newest is already the default from the query
+
+  // prefetch profiles for all unique authors so avatars show immediately
+  const uncachedIds=[...new Set(posts.map(p=>p.author_id).filter(id=>id&&!profCache[id]))];
+  if(uncachedIds.length){
+    const{data:profs}=await sb.from('profiles').select('id,username,about_me,created_at,avatar_url,avatar_status').in('id',uncachedIds);
+    if(profs) profs.forEach(p=>{
+      profCache[p.id]={id:p.id,username:p.username||'unknown',about_me:p.about_me||'',joined:p.created_at?fmtDate(p.created_at):'?',posts:0,avatar_url:p.avatar_url||null,avatar_status:p.avatar_status||'none',_counted:false};
+    });
+  }
+
+  Object.entries(grouped).forEach(([cat,list])=>{
+    const el=document.getElementById(CATS[cat]);
+    if(!list.length){el.innerHTML='<div class="forum-empty">no threads yet — be the first! 🦊</div>';return;}
+    if(list.length<=LIMIT){
+      el.innerHTML=list.map(p=>threadRow(p)).join('');return;
+    }
+    const shownHtml=list.slice(0,LIMIT).map(p=>threadRow(p)).join('');
+    const expandedHtml=list.slice(LIMIT,CAT_EXPANDED).map(p=>threadRow(p,true)).join('');
+    const remaining=list.length-LIMIT;
+    el.innerHTML=shownHtml+
+      `<div class="cat-expanded hidden" id="expanded-${cat}">${expandedHtml}</div>`+
+      `<button class="view-all-btn" id="viewall-${cat}" onclick="toggleExpand('${cat}',${list.length})">show ${remaining} more ↓</button>`;
+  });
+};
+
+window.toggleExpand=async(cat,total)=>{
+  const el=document.getElementById(CATS[cat]);
+  const expanded=document.getElementById('expanded-'+cat);
+  const btn=document.getElementById('viewall-'+cat);
+  if(!expanded)return;
+  if(expanded.classList.contains('hidden')){
+    // load all posts for this cat
+    const{data:posts}=await sb.from('posts').select('*, replies(count)').eq('category',cat).order('created_at',{ascending:false});
+    if(posts){
+      posts.forEach(p=>{p.reply_count=p.replies?.[0]?.count||0;});
+      const sort=document.getElementById('sort-select').value;
+      if(sort==='replies')posts.sort((a,b)=>b.reply_count-a.reply_count);
+      // replace entire cat content with one big scrollable window of all threads
+      el.innerHTML=`<div class="cat-expanded" id="expanded-${cat}">${posts.map(p=>threadRow(p,true)).join('')}</div>`+
+        `<button class="view-all-btn" id="viewall-${cat}" onclick="toggleExpand('${cat}',${total})">show less ↑</button>`;
+    }
+  } else {
+    // collapse back — reload forums to restore normal view
+    loadForums();
+  }
+};
+
+// ─── live updates for forums ──────────────────────────────────
+// forums list updates manually via refresh button — no live reloading of post order
+
+// ─── thread view ──────────────────────────────────────────────
+let threadChannel=null;
+let currentThreadId=null;
+
+// store current post data safely so edit/delete don't break on special chars
+let currentPostData=null;
+
+window.openThread=async(postId)=>{
+  currentThreadId=postId;
+  document.getElementById('forums-list-view').classList.add('hidden');
+  document.getElementById('thread-view').classList.remove('hidden');
+  document.getElementById('thread-content').innerHTML='<div class="forum-empty">loading...</div>';
+  await renderThread(postId);
+  subscribeThread(postId);
+};
+
+async function renderThread(postId){
+  const[{data:post},{data:replies}]=await Promise.all([
+    sb.from('posts').select('*').eq('id',postId).single(),
+    sb.from('replies').select('*').eq('post_id',postId).order('created_at',{ascending:false}),
+  ]);
+  const tc=document.getElementById('thread-content');
+  if(!post){tc.innerHTML='<div class="forum-empty">post not found :(</div>';return;}
+
+  // store safely for edit/delete
+  currentPostData=post;
+
+  const aid=esc(post.author_id||'');const an=esc(post.author_name||'anon');
+  const isMod=currentUser&&(currentUser.user_metadata?.username||'').toLowerCase()==='mintofox';
+  const isBanned=!!window.currentUserBan;
+  const canEditPost=currentUser&&currentUser.id===post.author_id&&!isBanned;
+  const canDeletePost=currentUser&&(currentUser.id===post.author_id||isMod);
+  const canReportPost=currentUser&&currentUser.id!==post.author_id&&!isMod;
+  const isFollowing=currentUser?await checkFollowing(postId):false;
+
+  const composeHTML=currentUser
+    ?window.currentUserBan
+      ?`<div class="reply-compose" style="border-color:rgba(248,113,113,.3);background:rgba(248,113,113,.05);">
+          <div class="reply-compose-title" style="color:var(--red);">🔨 You are banned</div>
+          <p style="font-size:.88rem;font-weight:700;color:rgba(232,254,242,.6);line-height:1.7;">
+            Your account has been banned for: <strong style="color:var(--red);">${esc(window.currentUserBan.reason)}</strong><br>
+            Your ban will expire in <strong style="color:var(--gold);">${formatCountdown(window.currentUserBan.until)}</strong>
+          </p>
+        </div>`
+      :`<div class="reply-compose">
+          <div class="reply-compose-title">💬 Leave a Reply</div>
+          <div class="form-group"><textarea id="reply-input" placeholder="write your reply..."></textarea></div>
+          <div id="reply-err" class="msg-err"></div>
+          <div style="display:flex;justify-content:flex-end;"><button class="btn btn-mint" id="reply-btn" onclick="submitReply(${postId})">Reply 🦊</button></div>
+        </div>`
+    :`<div class="reply-compose"><div class="reply-login-note"><a onclick="showPage('account')">log in</a> to reply :3</div></div>`;
+
+  const repliesHTML=replies&&replies.length
+    ?`<div style="font-size:.78rem;color:rgba(232,254,242,.25);font-weight:700;padding:.2rem 0 .4rem;display:flex;align-items:center;gap:.4rem;"><span class="live-dot"></span>live · ${replies.length} repl${replies.length===1?'y':'ies'}, newest first</div>`+replies.map(replyHTML).join('')
+    :`<div class="forum-empty" style="padding:.8rem 0;">no replies yet — jump in! 🦊</div>`;
+
+  tc.innerHTML=`
+    <div class="thread-post-card">
+      <div class="thread-post-title">${esc(post.title)}</div>
+      <div class="thread-post-meta">
+        by <span class="author-link" onmouseenter="showPopover(this,'${aid}','${an}')" onmouseleave="hidePopover()" onclick="openProfileModal('${aid}','${an}')">${an}</span>
+        · ${fmtFull(post.created_at)}
+        <span class="cat-badge">${esc(post.category)}</span>
+      </div>
+      <div class="thread-post-body">${esc(post.content)}</div>
+      <div class="thread-post-actions">
+        ${currentUser?`<button class="btn btn-ghost btn-sm follow-btn" id="follow-btn" onclick="toggleFollow(${postId})">${isFollowing?'★ Following':'☆ Follow'}</button>`:''}
+        ${canEditPost?`<button class="btn btn-ghost btn-sm" onclick="openEditPost()">✏️ Edit</button>`:''}
+        ${canDeletePost?`<button class="btn btn-red btn-sm" onclick="deletePost(${post.id},true)">🗑️ Delete</button>`:''}
+        ${canReportPost?`<button class="report-btn" onclick="openReport(${post.id},null,null,'post','${esc(post.title).replace(/'/g,"\\'")}','${esc(post.author_id)}','${esc(post.author_name||'')}')">🚩 Report</button>`:''}
+      </div>
+    </div>
+    <div style="margin-top:.6rem;margin-bottom:.6rem;">${composeHTML}</div>
+    <div class="replies-section" id="replies-area">${repliesHTML}</div>`;
+}
+
+function replyHTML(r){
+  const raid=esc(r.author_id||'');const ran=esc(r.author_name||'anon');
+  const init=(r.author_name||'?')[0].toUpperCase();
+  const isBanned=!!window.currentUserBan;
+  const canEdit=currentUser&&currentUser.id===r.author_id&&!isBanned;
+  const isMod=currentUser&&(currentUser.user_metadata?.username||'').toLowerCase()==='mintofox';
+  const canDelete=currentUser&&(currentUser.id===r.author_id||isMod);
+  const canReport=currentUser&&currentUser.id!==r.author_id&&!isMod;
+  const prof=profCache[r.author_id];
+  const showAvs=window.showAvatarsPref!==false;
+  const avatarInner=showAvs&&prof?.avatar_status==='approved'&&prof?.avatar_url
+    ?`<img src="${esc(prof.avatar_url)}" alt="${ran}" style="width:100%;height:100%;object-fit:cover;border-radius:7px;" onerror="this.parentElement.textContent='${init}'">`
+    :init;
+  return`<div class="reply-card" id="reply-${r.id}">
+    <div class="reply-meta" style="display:flex;align-items:center;gap:.5rem;">
+      <div class="thread-initial" style="width:28px;height:28px;border-radius:7px;font-size:.8rem;" onmouseenter="showPopover(this,'${raid}','${ran}')" onmouseleave="hidePopover()" onclick="openProfileModal('${raid}','${ran}')">${avatarInner}</div>
+      <span class="author-link" onmouseenter="showPopover(this,'${raid}','${ran}')" onmouseleave="hidePopover()" onclick="openProfileModal('${raid}','${ran}')">${ran}</span>
+      · ${fmtFull(r.created_at)}
+    </div>
+    <div class="reply-body">${esc(r.content)}</div>
+    ${canEdit||canDelete||canReport?`<div class="reply-actions">
+      ${canEdit?`<button class="btn btn-ghost btn-sm" onclick="openEditReply(${r.id},'${esc(r.content).replace(/'/g,"\\'")}')">✏️</button>`:''}
+      ${canDelete?`<button class="btn btn-red btn-sm" onclick="deleteReply(${r.id})">🗑️</button>`:''}
+      ${canReport?`<button class="report-btn" onclick="openReport(${currentThreadId},${r.id},null,'reply','reply by ${ran}','${raid}','${ran}')">🚩</button>`:''}
+    </div>`:''}
+  </div>`;
+}
+
+async function refreshReplies(postId){
+  const ra=document.getElementById('replies-area');
+  if(!ra)return;
+  const{data:replies}=await sb.from('replies').select('*').eq('post_id',postId).order('created_at',{ascending:false});
+  if(replies&&replies.length){
+    ra.innerHTML=`<div style="font-size:.78rem;color:rgba(232,254,242,.25);font-weight:700;padding:.2rem 0 .4rem;display:flex;align-items:center;gap:.4rem;"><span class="live-dot"></span>live · ${replies.length} repl${replies.length===1?'y':'ies'}, newest first</div>`+
+      replies.map(replyHTML).join('');
+  } else {
+    ra.innerHTML='<div class="forum-empty" style="padding:.8rem 0;">no replies yet — jump in! 🦊</div>';
+  }
+}
+
+function subscribeThread(postId){
+  if(threadChannel){sb.removeChannel(threadChannel);threadChannel=null;}
+  if(window._threadPollInterval) clearInterval(window._threadPollInterval);
+  threadChannel=sb.channel('replies-live')
+    .on('postgres_changes',{event:'*',schema:'public',table:'replies'},
+    payload=>{
+      const pid=payload?.new?.post_id||payload?.old?.post_id;
+      if(String(pid)===String(postId)) refreshReplies(postId);
+    })
+    .subscribe();
+  // poll every 10s as fallback for missed realtime events (especially deletes)
+  window._threadPollInterval=setInterval(()=>{
+    if(currentThreadId===postId) refreshReplies(postId);
+    else clearInterval(window._threadPollInterval);
+  },10000);
+}
+
+window.backToForums=()=>{
+  if(threadChannel){sb.removeChannel(threadChannel);threadChannel=null;}
+  if(window._threadPollInterval){clearInterval(window._threadPollInterval);window._threadPollInterval=null;}
+  currentThreadId=null;
+  document.getElementById('forums-list-view').classList.remove('hidden');
+  document.getElementById('thread-view').classList.add('hidden');
+};
+
+// ─── follow post ──────────────────────────────────────────────
+async function checkFollowing(postId){
+  if(!currentUser)return false;
+  const{data}=await sb.from('post_follows').select('id').eq('user_id',currentUser.id).eq('post_id',postId).single();
+  return!!data;
+}
+
+window.toggleFollow=async(postId)=>{
+  if(!currentUser)return;
+  const btn=document.getElementById('follow-btn');
+  const isFollowing=btn.textContent.includes('Following');
+  if(isFollowing){
+    await sb.from('post_follows').delete().eq('user_id',currentUser.id).eq('post_id',postId);
+    btn.textContent='☆ Follow';
+  } else {
+    await sb.from('post_follows').insert({user_id:currentUser.id,post_id:postId});
+    btn.textContent='★ Following';
+  }
+};
+
+// ─── submit reply ─────────────────────────────────────────────
+window.submitReply=async(postId)=>{
+  const content=document.getElementById('reply-input').value.trim();
+  const errEl=document.getElementById('reply-err');errEl.style.display='none';
+  if(!content){errEl.textContent='write something first :3';errEl.style.display='block';return;}
+  const btn=document.getElementById('reply-btn');btn.disabled=true;btn.textContent='posting...';
+  const uname=currentUser.user_metadata?.username||currentUser.email.split('@')[0];
+  const{error}=await sb.from('replies').insert({post_id:postId,content,author_name:uname,author_id:currentUser.id});
+  btn.disabled=false;btn.textContent='Reply 🦊';
+  if(error){errEl.textContent=error.message;errEl.style.display='block';return;}
+  document.getElementById('reply-input').value='';
+  showToast('replied! 🎉');
+  // immediately refresh — don't wait for realtime
+  refreshReplies(postId);
+};
+
+// ─── edit / delete post ───────────────────────────────────────
+window.openEditPost=()=>{
+  if(!currentPostData)return;
+  document.getElementById('edit-post-id').value=currentPostData.id;
+  document.getElementById('edit-post-title').value=currentPostData.title||'';
+  document.getElementById('edit-post-content').value=currentPostData.content||'';
+  openModal('modal-edit-post');
+};
+
+window.saveEditPost=async()=>{
+  const id=document.getElementById('edit-post-id').value;
+  const title=document.getElementById('edit-post-title').value.trim();
+  const content=document.getElementById('edit-post-content').value.trim();
+  if(!title||!content)return showErr('edit-post-err','fill everything in');
+  const{error}=await sb.from('posts').update({title,content}).eq('id',id).eq('author_id',currentUser.id);
+  if(error)return showErr('edit-post-err',error.message);
+  closeModal('modal-edit-post');showToast('post updated!');
+  if(currentThreadId)renderThread(currentThreadId);else loadForums();
+};
+
+window.deletePost=async(id,inThread=false)=>{
+  if(!confirm('delete this post and all its replies?'))return;
+  const{data:post}=await sb.from('posts').select('*').eq('id',id).single();
+  if(!post)return;
+  const isMod=currentUser&&(currentUser.user_metadata?.username||'').toLowerCase()==='mintofox';
+  const canDelete=currentUser.id===post.author_id||isMod;
+  if(!canDelete)return showToast('you can\'t delete that :3');
+  await sb.from('replies').delete().eq('post_id',id);
+  await sb.from('posts').delete().eq('id',id);
+  // always notify if mod deleting someone else's post
+  if(isMod&&currentUser.id!==post.author_id){
+    await sb.from('notifications').insert({
+      user_id:post.author_id,
+      type:'mod_delete_post',
+      post_id:null,
+      reply_id:null,
+      actor_name:'MintoFox',
+      content:`Title: ${post.title}\n\nContent: ${post.content}`,
+    });
+  }
+  showToast('post deleted');
+  if(inThread)backToForums();
+};
+
+// ─── edit / delete reply ──────────────────────────────────────
+window.openEditReply=(id,content)=>{
+  document.getElementById('edit-reply-id').value=id;
+  document.getElementById('edit-reply-content').value=content;
+  openModal('modal-edit-reply');
+};
+
+window.saveEditReply=async()=>{
+  const id=document.getElementById('edit-reply-id').value;
+  const content=document.getElementById('edit-reply-content').value.trim();
+  if(!content)return showErr('edit-reply-err','write something');
+  const{error}=await sb.from('replies').update({content}).eq('id',id).eq('author_id',currentUser.id);
+  if(error)return showErr('edit-reply-err',error.message);
+  closeModal('modal-edit-reply');showToast('reply updated!');
+  if(currentThreadId)refreshReplies(currentThreadId);
+};
+
+window.deleteReply=async(id)=>{
+  if(!confirm('delete this reply?'))return;
+  const card=document.getElementById('reply-'+id);
+  if(card) card.style.opacity='0.3';
+  const{data:reply}=await sb.from('replies').select('*').eq('id',id).single();
+  if(!reply){if(card)card.style.opacity='1';return;}
+  const isMod=currentUser&&(currentUser.user_metadata?.username||'').toLowerCase()==='mintofox';
+  const canDelete=currentUser.id===reply.author_id||isMod;
+  if(!canDelete){if(card)card.style.opacity='1';showToast('you can\'t delete that :3');return;}
+  const{error}=await sb.from('replies').delete().eq('id',id);
+  if(error){if(card)card.style.opacity='1';showToast('could not delete reply :(');return;}
+  if(card)card.remove();
+  // always notify if mod deleting someone else's reply
+  if(isMod&&currentUser.id!==reply.author_id){
+    await sb.from('notifications').insert({
+      user_id:reply.author_id,
+      type:'mod_delete_reply',
+      post_id:reply.post_id,
+      reply_id:null,
+      actor_name:'MintoFox',
+      content:`Content: ${reply.content}`,
+    });
+  }
+  showToast('reply deleted');
+  if(currentThreadId)refreshReplies(currentThreadId);
+};
+
+// ─── new post modal ───────────────────────────────────────────
+window.openNewPostModal=()=>{
+  if(!currentUser){showToast('log in first to post :P');showPage('account');return;}
+  if(window.currentUserBan){showToast('you are banned and cannot post :<');return;}
+  openModal('modal-new-post');
+};
+
+window.submitPost=async()=>{
+  if(window.currentUserBan){closeModal('modal-new-post');showToast('you are banned :<');return;}
+  const title=document.getElementById('post-title').value.trim();
+  const content=document.getElementById('post-content').value.trim();
+  const category=document.getElementById('post-category').value;
+  const errEl=document.getElementById('post-err');errEl.style.display='none';
+  if(!title){errEl.textContent='give it a title!';errEl.style.display='block';return;}
+  if(!content){errEl.textContent='write something :3';errEl.style.display='block';return;}
+  const btn=document.getElementById('post-submit-btn');btn.disabled=true;btn.textContent='posting...';
+  const uname=currentUser.user_metadata?.username||currentUser.email.split('@')[0];
+  const{error}=await sb.from('posts').insert({title,content,category,author_name:uname,author_id:currentUser.id});
+  btn.disabled=false;btn.textContent='Post it 🦊';
+  if(error){errEl.textContent=error.message;errEl.style.display='block';return;}
+  document.getElementById('post-title').value='';document.getElementById('post-content').value='';
+  closeModal('modal-new-post');showToast('thread posted!! 🎉');
+};
+</script>
+</body>
+</html>
