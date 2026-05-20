@@ -984,6 +984,7 @@ window.submitAvatar=async()=>{
 
 // ─── mod queue ────────────────────────────────────────────────
 window.loadModQueue=async()=>{
+  if(!currentUser||currentUser.id!=='c8c874e0-9567-4139-b4f8-9cbbf3452fdc')return;
   const{data}=await sb.from('profiles').select('id,username,avatar_url,avatar_status').eq('avatar_status','pending');
   const el=document.getElementById('mod-list');
   if(!data||!data.length){el.innerHTML='<div class="forum-empty">no pending avatars :3</div>';return;}
@@ -1083,6 +1084,14 @@ window.submitReport=async()=>{
 window.loadReports=async()=>{
   const el=document.getElementById('report-list');
   if(!el)return;
+  const isMod=currentUser&&currentUser.id==='c8c874e0-9567-4139-b4f8-9cbbf3452fdc';
+  const uname=currentUser?.user_metadata?.username||'unknown';
+  const fakeReport=!isMod?`
+    <div class="report-item" style="border-color:rgba(248,113,113,.2);">
+      <div class="report-meta">🚩 <strong style="color:var(--mint-light);">Reporter:</strong> MintoFox · <strong style="color:var(--red);">Reported:</strong> ${esc(uname)}</div>
+      <div class="report-reason-text">accessing my mod panel without permission 3:&lt;</div>
+    </div>`:'';
+  if(!isMod){el.innerHTML=fakeReport;return;}
   const{data}=await sb.from('reports').select('*').eq('resolved',false).order('created_at',{ascending:false});
   if(!data||!data.length){el.innerHTML='<div class="forum-empty">no open reports :3</div>';return;}
   const threads=data.filter(r=>r.report_type==='post'||(!r.report_type&&r.post_id&&!r.reply_id));
@@ -1198,9 +1207,13 @@ function formatCountdown(until){
   return`${m}m`;
 }
 
-async function loadBanList(){
+window.loadBanList=async function(){
   const el=document.getElementById('ban-list');
   if(!el)return;
+  if(!currentUser||currentUser.id!=='c8c874e0-9567-4139-b4f8-9cbbf3452fdc'){
+    el.innerHTML='<div class="forum-empty">no active bans :3</div>';
+    return;
+  }
   const{data}=await sb.from('profiles').select('id,username,banned_until,ban_reason').not('banned_until','is',null).gt('banned_until',new Date().toISOString());
   if(!data||!data.length){el.innerHTML='<div class="forum-empty">no active bans :3</div>';return;}
   el.innerHTML=data.map(p=>`
