@@ -1370,23 +1370,42 @@ function applyLoggedOut(){
 
 let justSignedIn=false;
 
-sb.auth.getSession().then(({data:{session}})=>{
-  if(session?.user) applyLoggedIn(session.user);
+function hasMfaEnrolled(user){
+  return user?.factors?.some(f=>f.status==='verified'&&f.factor_type==='totp');
+}
+
+function getAal(token){
+  try{return JSON.parse(atob(token.split('.')[1])).aal;}catch(e){return null;}
+}
+
+sb.auth.getSession().then(async({data:{session}})=>{
+  if(session?.user){
+    if(hasMfaEnrolled(session.user)&&getAal(session.access_token)!=='aal2'){
+      await sb.auth.signOut();
+      return;
+    }
+    applyLoggedIn(session.user);
+  }
 });
 
 sb.auth.onAuthStateChange(async(event,session)=>{
   if(session?.user){
-    if(event==='SIGNED_IN'&&justSignedIn){
-      justSignedIn=false;
-      const{data:aalData}=await sb.auth.mfa.getAuthenticatorAssuranceLevel();
-      if(aalData?.nextLevel==='aal2'&&aalData?.currentLevel==='aal1'){
+    // always check AAL regardless of event type
+    if(hasMfaEnrolled(session.user)&&getAal(session.access_token)!=='aal2'){
+      if(event==='SIGNED_IN'&&justSignedIn){
+        justSignedIn=false;
+        // show MFA prompt instead of signing out
         document.getElementById('mfa-section').classList.remove('hidden');
         const btn=document.getElementById('login-btn');
-        if(btn){btn.disabled=false;btn.textContent='Verify';btn.onclick=()=>doMfaVerify();}
+        if(btn){btn.disabled=false;btn.textContent='Verify';btn.onclick=()=>window.doMfaVerify();}
         showErr('auth-err','enter your authenticator code to continue');
-        return;
+      } else {
+        // any other event (tab switch, token refresh etc) — sign out immediately
+        await sb.auth.signOut();
       }
+      return;
     }
+    justSignedIn=false;
     applyLoggedIn(session.user);
   } else {
     applyLoggedOut();
