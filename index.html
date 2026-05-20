@@ -1403,6 +1403,12 @@ sb.auth.getSession().then(async({data:{session}})=>{
 
 sb.auth.onAuthStateChange(async(event,session)=>{
   if(session?.user){
+    // after MFA verification, always allow through
+    if(event==='MFA_CHALLENGE_VERIFIED'){
+      justSignedIn=false;
+      applyLoggedIn(session.user);
+      return;
+    }
     // always check AAL regardless of event type
     if(hasMfaEnrolled(session.user)&&getAal(session.access_token)!=='aal2'){
       if(event==='SIGNED_IN'&&justSignedIn){
