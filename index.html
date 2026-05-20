@@ -2042,7 +2042,9 @@ window.toggleExpand=async(cat,total)=>{
     if(posts){
       posts.forEach(p=>{p.reply_count=p.replies?.[0]?.count||0;});
       const sort=document.getElementById('sort-select').value;
-      if(sort==='replies')posts.sort((a,b)=>b.reply_count-a.reply_count);
+      if(sort==='replies') posts.sort((a,b)=>b.reply_count-a.reply_count);
+      else if(sort==='activity') posts.sort((a,b)=>new Date(b.last_reply_at||b.created_at)-new Date(a.last_reply_at||a.created_at));
+      // newest is already default from the query
       // replace entire cat content with one big scrollable window of all threads
       el.innerHTML=`<div class="cat-expanded" id="expanded-${cat}">${posts.map(p=>threadRow(p,true)).join('')}</div>`+
         `<button class="view-all-btn" id="viewall-${cat}" onclick="toggleExpand('${cat}',${total})">show less ↑</button>`;
