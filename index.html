@@ -427,6 +427,7 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
     <li><a id="nav-forums" onclick="window.showPage('forums')">Forums</a></li>
     <li><a id="nav-users" onclick="window.showPage('users')">Users</a></li>
     <li><a id="nav-account" onclick="window.showPage('account')">Account</a></li>
+    <li><a id="nav-mc" onclick="window.showPage('mc')">Mintcraft</a></li>
     <li><a id="nav-support" onclick="window.showPage('support')">Support</a></li>
   </ul>
   <div class="nav-right">
@@ -448,6 +449,7 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
   <a onclick="window.showPage('forums');window.closeMobileMenu()">Forums</a>
   <a onclick="window.showPage('users');window.closeMobileMenu()">Users</a>
   <a onclick="window.showPage('account');window.closeMobileMenu()">Account</a>
+  <a onclick="window.showPage('mc');window.closeMobileMenu()">Mintcraft</a>
   <a onclick="window.showPage('support');window.closeMobileMenu()">Support</a>
   <div class="mobile-menu-divider"></div>
 </div>
@@ -1049,6 +1051,38 @@ footer{text-align:center;padding:1.5rem;font-size:.8rem;color:rgba(232,254,242,.
     <input type="text" id="user-search-input" placeholder="search by username..." oninput="onUserSearch()">
   </div>
   <div class="user-grid" id="user-grid"><div class="forum-empty">loading...</div></div>
+</main>
+</div>
+
+<!-- MINTCRAFT PAGE -->
+<div id="page-mc" class="page">
+<main>
+  <div class="hero-card" style="text-align:center;grid-template-columns:1fr;">
+    <div>
+      <h1 style="font-family:'Rubik',sans-serif;font-size:2.8rem;color:var(--text);margin-bottom:.5rem;">Welcome to Mintcraft! :3</h1>
+      <p style="font-size:1rem;line-height:1.7;color:rgba(232,254,242,.75);font-weight:700;max-width:600px;margin:0 auto 1rem;">
+        i've started running Mintcraft (my own minecraft server!) on my main pc. it runs on 26.1.2, and has support for newer and older versions of minecraft.
+      </p>
+    </div>
+  </div>
+
+  <div class="card" style="background:linear-gradient(135deg,rgba(248,113,113,.1) 0%,rgba(200,50,50,.08) 100%);border-color:rgba(248,113,113,.4);">
+    <div class="card-title" style="color:var(--red);font-size:1.3rem;">⚠️ BIG WARNING:</div>
+    <p style="font-size:.95rem;line-height:1.75;color:rgba(232,254,242,.85);font-weight:700;">
+      Minecraft: Java Edition will FAIL to ping the server, although joining is still possible. this is NOT something i know how to fix, however you can fix it client-side by using the
+      <a href="https://modrinth.com/mod/fastserverpings" target="_blank" rel="noopener" style="color:var(--mint);">FastServerPings</a> mod,
+      and everything will work just fine. :3
+    </p>
+  </div>
+
+  <div class="card" style="text-align:center;">
+    <div class="card-title" style="font-size:1.2rem;">Connection Info:</div>
+    <div style="background:rgba(0,0,0,.25);border:2px solid rgba(79,201,126,.3);border-radius:14px;padding:1.5rem 2rem;display:inline-block;margin-top:.5rem;">
+      <div style="font-family:'Rubik',sans-serif;font-size:1.5rem;color:var(--text);margin-bottom:.4rem;font-weight:700;">Java &amp; Bedrock:</div>
+      <div style="font-family:'Rubik',sans-serif;font-size:2rem;color:var(--mint-light);font-weight:700;margin-bottom:.8rem;">mc.mintofox.net</div>
+      <div style="font-size:1rem;color:rgba(232,254,242,.6);font-weight:700;">Bedrock Port: <span style="color:var(--gold);">25565</span></div>
+    </div>
+  </div>
 </main>
 </div>
 
