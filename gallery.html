@@ -32,13 +32,23 @@
 			</tr>
 		</table>
 		 <div>
-		{% for file in site.static_files %}
-			 {% if file.path contains "/photos/" %}
-			 	<a href="{{ file.path }}">
-					<img src="{{ file.path }}" alt="MintoFox - {{ file.basename }}" width="300" loading="lazy">
-				</a>
-			 {% endif %}
-		{% endfor %}
+			{% for file in site.static_files %}
+ 			 {% if file.path contains "/photos/" %}
+			    {% unless file.path contains "/photos/thumbs/" %}
+			      {% if file.extname == ".gif" %}
+			        <a href="{{ file.path }}">
+			          <img src="{{ file.path }}" alt="MintoFox - {{ file.basename }}" width="300" loading="lazy">
+      			  </a>
+    			  {% else %}
+      				  {% assign thumb = file.path | replace: "/photos/", "/photos/thumbs/" %}
+      				  {% assign thumb = thumb | replace: ".png", ".jpg" | replace: ".jpeg", ".jpg" | replace: ".webp", ".jpg" %}
+     			   <a href="{{ file.path }}">
+      			    <img src="{{ thumb }}" alt="MintoFox - {{ file.basename }}" width="300" loading="lazy">
+     			   </a>
+    			  {% endif %}
+ 			   {% endunless %}
+			  {% endif %}
+			{% endfor %}
 		 </div>
 		
 		<footer> purr :3 </footer>
