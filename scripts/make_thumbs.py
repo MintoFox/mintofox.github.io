@@ -29,8 +29,7 @@ def main():
         if ext.lower() not in VALID_EXTS:
             continue
 
-        # GIF frames can't be flattened to JPEG sensibly; copy the first frame as PNG
-        thumb_name = stem + (".png" if ext.lower() == ".gif" else ".jpg")
+        thumb_name = stem + ".jpg"
         thumb_path = os.path.join(THUMBS_DIR, thumb_name)
 
         if os.path.exists(thumb_path):
