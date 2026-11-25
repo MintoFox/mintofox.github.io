@@ -28,6 +28,9 @@ def main():
         stem, ext = os.path.splitext(name)
         if ext.lower() not in VALID_EXTS:
             continue
+        if ext.lower() == ".gif":
+            print(f"skip  {name} (gif plays as its own thumb)")
+            continue
 
         thumb_name = stem + ".jpg"
         thumb_path = os.path.join(THUMBS_DIR, thumb_name)
