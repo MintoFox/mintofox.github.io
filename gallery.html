@@ -28,18 +28,19 @@
 *purrrr...* -//w//-</h2>
 			</tr>
 			<tr style="background-color:#42d66a">
-				<td> <p> am fluffy tho hehe :3 </p>
+				<td> <p> mintofox's uploaded photos/images and stuff :3 </p>
 			</tr>
 		</table>
-		 <table border="2" style="border-collapse:collapse">
-			<tr style="background-color:#42d66a">
-				<td width="500">
-					<ul> meow:
-						<li> uhhh
-						<li> now what
-						<li> help :<
-					</ul>
-		</table>
+		 <div>
+		{% for file in site.static_files %}
+			 {% if file.path contains "/photos/" %}
+			 	<a href="{{ file.path }}">
+					<img src="{{ file.path }}" alt="{{ file.basename }}" width="300" loading="lazy">
+				</a>
+			 {% endif %}
+		{% endfor %}
+		 </div>
+		
 		<footer> purr :3 </footer>
 	</body>
 </html>
