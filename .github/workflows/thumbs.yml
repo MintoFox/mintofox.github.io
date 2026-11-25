@@ -1,0 +1,39 @@
+name: Make thumbnails
+
+# Runs whenever something lands in photos/, skips thumb-only changes
+# (belt AND braces: GITHUB_TOKEN pushes don't trigger workflows anyway,
+#  but paths-ignore makes it doubly safe against loops)
+on:
+  push:
+    paths:
+      - "photos/**"
+    paths-ignore:
+      - "photos/thumbs/**"
+
+permissions:
+  contents: write
+
+jobs:
+  thumbs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Pillow
+        run: pip install Pillow
+
+      - name: Generate missing thumbnails
+        run: python scripts/make_thumbs.py
+
+      - name: Commit and push new thumbnails
+        run: |
+          git config user.name "minto-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add photos/thumbs
+          git diff --cached --quiet || (git commit -m "[thumbs] auto-generate thumbnails :3" && git push)
