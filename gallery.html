@@ -35,7 +35,7 @@
 		{% for file in site.static_files %}
 			 {% if file.path contains "/photos/" %}
 			 	<a href="{{ file.path }}">
-					<img src="{{ file.path }}" alt="{{ file.basename }}" width="300" loading="lazy">
+					<img src="{{ file.path }}" alt="MintoFox - {{ file.basename }}" width="300" loading="lazy">
 				</a>
 			 {% endif %}
 		{% endfor %}
